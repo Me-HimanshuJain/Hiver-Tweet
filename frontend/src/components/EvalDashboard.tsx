@@ -39,11 +39,11 @@ export const EvalDashboard = () => {
           agreement: "98.6" // Since we don't have this in eval_report.json, fallback to mock value
         },
         baselineComparison: {
-          v4_2: { intent: (baselineData.full_system.intent_accuracy * 100).toFixed(1), entity: 94.7, policy: 99.4 },
-          v4_1: { intent: (baselineData.baseline1_keyword.accuracy * 100).toFixed(1), entity: 92.9, policy: 98.8 }
+          v4_2: { intent: ((evalData.accuracy || 0) * 100).toFixed(1), entity: 94.7, policy: 99.4 },
+          v4_1: { intent: ((baselineData.baseline_1?.intent_accuracy || 0) * 100).toFixed(1), entity: 92.9, policy: 98.8 }
         },
         crossDomain: [
-          { name: "Fintech", score: (baselineData.full_system.intent_accuracy * 100).toFixed(1), color: "text-primary" },
+          { name: "Fintech", score: ((evalData.accuracy || 0) * 100).toFixed(1), color: "text-primary" },
           { name: "Health", score: 97.8, color: "text-primary" },
           { name: "SaaS", score: 99.5, color: "text-secondary-fixed" },
           { name: "Retail", score: 98.4, color: "text-primary" },

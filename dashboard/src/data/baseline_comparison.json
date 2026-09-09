@@ -65,7 +65,71 @@
       }
     }
   },
-  "baseline_2": null,
+  "baseline_2": {
+    "intent_accuracy": 0.4364,
+    "intent_macro_f1": 0.3787,
+    "intent_weighted_f1": 0.4361,
+    "avg_confidence": 0.521,
+    "reply_mean_chars": 263.5,
+    "judge_overall": null,
+    "per_class": {
+      "account_access": {
+        "precision": 0.5455,
+        "recall": 0.8571,
+        "f1": 0.6667
+      },
+      "delivery_issue": {
+        "precision": 0.1818,
+        "recall": 0.6667,
+        "f1": 0.2857
+      },
+      "device_and_digital_support": {
+        "precision": 0.25,
+        "recall": 0.2,
+        "f1": 0.2222
+      },
+      "general_complaint_or_feedback": {
+        "precision": 0.5,
+        "recall": 0.4407,
+        "f1": 0.4685
+      },
+      "order_cancellation": {
+        "precision": 0.5,
+        "recall": 0.5,
+        "f1": 0.5
+      },
+      "order_status_inquiry": {
+        "precision": 1.0,
+        "recall": 0.2222,
+        "f1": 0.3636
+      },
+      "prime_membership": {
+        "precision": 0.375,
+        "recall": 0.6,
+        "f1": 0.4615
+      },
+      "product_issue": {
+        "precision": 0.2857,
+        "recall": 0.4,
+        "f1": 0.3333
+      },
+      "refund_request": {
+        "precision": 1.0,
+        "recall": 0.3333,
+        "f1": 0.5
+      },
+      "return_or_exchange": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "shipping_delay_complaint": {
+        "precision": 0.2857,
+        "recall": 0.5,
+        "f1": 0.3636
+      }
+    }
+  },
   "full_system": {
     "intent_accuracy": 0.5455,
     "intent_macro_f1": 0.5627,

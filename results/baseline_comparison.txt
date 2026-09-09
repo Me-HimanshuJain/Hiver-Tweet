@@ -7,12 +7,12 @@ Metric                            Baseline 1    Baseline 2   Full System
 ──────────────────────────────  ────────────  ────────────  ────────────
 Method                             KW+Canned      ZeroShot  Few-shot+RAG
 ──────────────────────────────  ────────────  ────────────  ────────────
-  Intent accuracy                      0.527         0.436         0.545
-  Intent macro F1                      0.616         0.371         0.563
-  Intent weighted F1                   0.436         0.430         0.563
+  Intent accuracy                      0.527     N/A         0.545
+  Intent macro F1                      0.616     N/A         0.563
+  Intent weighted F1                   0.436     N/A         0.563
   Retrieval hit@3                        N/A           N/A   see metrics
   Escalation F1                          N/A             —             —
-  Reply: mean chars                  126.400       265.600     N/A
+  Reply: mean chars                  126.400     N/A     N/A
   Reply: judge overall/5           N/A     N/A     N/A
 
 Notes:

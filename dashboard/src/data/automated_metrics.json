@@ -1,0 +1,108 @@
+{
+  "timestamp": "2026-09-10 00:10",
+  "source": "golden_labeled.csv (189 examples)",
+  "intent": {
+    "accuracy": 0.5608,
+    "macro_f1": 0.6334,
+    "weighted_f1": 0.4881,
+    "per_class": {
+      "account_access": {
+        "precision": 0.5556,
+        "recall": 1.0,
+        "f1": 0.7143,
+        "support": 10
+      },
+      "delivery_issue": {
+        "precision": 0.3529,
+        "recall": 1.0,
+        "f1": 0.5217,
+        "support": 6
+      },
+      "device_and_digital_support": {
+        "precision": 0.3684,
+        "recall": 1.0,
+        "f1": 0.5385,
+        "support": 7
+      },
+      "general_complaint_or_feedback": {
+        "precision": 1.0,
+        "recall": 0.1863,
+        "f1": 0.314,
+        "support": 102
+      },
+      "order_cancellation": {
+        "precision": 0.5385,
+        "recall": 1.0,
+        "f1": 0.7,
+        "support": 7
+      },
+      "order_status_inquiry": {
+        "precision": 0.6842,
+        "recall": 1.0,
+        "f1": 0.8125,
+        "support": 13
+      },
+      "prime_membership": {
+        "precision": 0.5294,
+        "recall": 1.0,
+        "f1": 0.6923,
+        "support": 9
+      },
+      "product_issue": {
+        "precision": 0.5263,
+        "recall": 1.0,
+        "f1": 0.6897,
+        "support": 10
+      },
+      "refund_request": {
+        "precision": 0.6842,
+        "recall": 1.0,
+        "f1": 0.8125,
+        "support": 13
+      },
+      "return_or_exchange": {
+        "precision": 0.4118,
+        "recall": 1.0,
+        "f1": 0.5833,
+        "support": 7
+      },
+      "shipping_delay_complaint": {
+        "precision": 0.4167,
+        "recall": 1.0,
+        "f1": 0.5882,
+        "support": 5
+      }
+    },
+    "n_samples": 189
+  },
+  "retrieval": {
+    "hit@1": 0.4286,
+    "hit@3": 0.619,
+    "hit@5": 0.709
+  },
+  "escalation": {
+    "n_evaluated": 189,
+    "precision": 0.5,
+    "recall": 0.0306,
+    "f1": 0.0577,
+    "tp": 3,
+    "fp": 3,
+    "fn": 95,
+    "tn": 88
+  },
+  "banking77_cross_domain": {
+    "description": "Cross-domain generalization: Amazon-Twitter classifier on Banking77 queries. 13 Banking77 intents mapped to 7 Amazon taxonomy labels. 10 queries per Banking77 intent = 130 total queries.",
+    "n_queries": 120,
+    "overall_accuracy": 0.4417,
+    "macro_f1": 0.2285,
+    "weighted_f1": 0.4147,
+    "avg_confidence": 0.849,
+    "hard_pair_accuracy": 0.2,
+    "per_class_f1_gaps": {
+      "account_access": 0.028,
+      "order_status_inquiry": 0.183,
+      "refund_request": -0.083,
+      "shipping_delay_complaint": -0.6
+    }
+  }
+}

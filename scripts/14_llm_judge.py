@@ -108,8 +108,8 @@ def get_judge_client():
         _judge_model_used = model
         return client, model
     except Exception as e:
-        print(f"  ⚠  {model} not available on NIM ({e!s:.60})")
-        print(f"  Falling back to: {JUDGE_FALLBACK}")
+        print(f"  [!]  {model} not available on NIM ({e!s:.60})")
+        print(f"  Fallback: {JUDGE_FALLBACK}")
         _judge_client   = client
         _judge_model_used = JUDGE_FALLBACK
         return client, JUDGE_FALLBACK
@@ -206,13 +206,12 @@ def _parse_judge(raw: str) -> dict:
 def run_pipeline(tweets: list[str], labels: list[str]) -> list[dict]:
     """Run classify→retrieve→draft for each tweet. Returns list of dicts."""
     from classifier import classify
-    from retrieval import RetrievalIndex
+    from retrieval import load_index
     from drafter import draft
-
-    idx = RetrievalIndex()
+    idx = load_index(os.path.join(DATA_DIR, "faiss_index.bin"), os.path.join(DATA_DIR, "faiss_meta.jsonl"))
     results = []
     for i, (tweet, label) in enumerate(zip(tweets, labels)):
-        print(f"  [{i+1}/{len(tweets)}] Drafting…", end="", flush=True)
+        print(f"  [{i+1}/{len(tweets)}] Drafting...", end="", flush=True)
         clf = classify(tweet)
         retrieved = idx.query(tweet, top_k=3)
         dr = draft(tweet, clf, retrieved)
@@ -223,7 +222,7 @@ def run_pipeline(tweets: list[str], labels: list[str]) -> list[dict]:
             "grounding_n": dr.n_grounding_examples,
             "draft_error": dr.error,
         })
-        print(f" {len(dr.reply)} chars  ({'✓' if not dr.error else '⚠'})")
+        print(f" {len(dr.reply)} chars  ({'[OK]' if not dr.error else '!'})")
     return results
 
 
@@ -377,7 +376,7 @@ def main():
     n = min(args.n, 50)
 
     # ── Load eval tweets ──────────────────────────────────────────────────
-    print("Loading evaluation tweets…")
+    print("Loading evaluation tweets...")
     if os.path.exists(GOLDEN_CSV):
         import pandas as pd
         df = pd.read_csv(GOLDEN_CSV)
@@ -397,7 +396,7 @@ def main():
     # ── Draft replies ──────────────────────────────────────────────────────
     drafts: list[dict] = []
     if args.skip_draft and os.path.exists(OUT_JSON):
-        print("Loading existing drafts from judge_scores.json…")
+        print("Loading existing drafts from judge_scores.json...")
         with open(OUT_JSON, encoding="utf-8") as f:
             existing = json.load(f)
         drafts = existing.get("judge_scores", [])
@@ -405,11 +404,11 @@ def main():
         tweets = [d["tweet"] for d in drafts]
         labels = [d["intent"] for d in drafts]
     else:
-        print(f"\nRunning pipeline (classify→retrieve→draft) for {n} tweets…")
+        print(f"\nRunning pipeline (classify->retrieve->draft) for {n} tweets...")
         drafts = run_pipeline(tweets, labels)
 
     # ── Judge each reply ──────────────────────────────────────────────────
-    print(f"\nJudging {len(drafts)} replies…")
+    print(f"\nJudging {len(drafts)} replies...")
     judge_scores: list[JudgeScore] = []
     _, judge_model = get_judge_client()
 
@@ -423,7 +422,7 @@ def main():
                 judge_error=f"No draft: {d.get('draft_error', 'unknown')}"
             )
         else:
-            print(f"  [{i+1}/{len(drafts)}] Judging…", end="", flush=True)
+            print(f"  [{i+1}/{len(drafts)}] Judging...", end="", flush=True)
             scores = _judge_one(d["tweet"], d["intent"], reply)
             js = JudgeScore(
                 tweet=d["tweet"], intent=d["intent"],
@@ -439,7 +438,7 @@ def main():
                 )
                 print(f" {scores_str}")
             else:
-                print(f" ⚠ {js.judge_error[:50]}")
+                print(f" [!] {js.judge_error[:50]}")
         judge_scores.append(js)
 
     # ── Human agreement ────────────────────────────────────────────────────
@@ -463,7 +462,7 @@ def main():
         tmpl_rows.append(row)
     tmpl_df = pd.DataFrame(tmpl_rows)
     tmpl_df.to_csv(TEMPL_RAT, index=False)
-    print(f"\nHuman ratings template → {TEMPL_RAT}")
+    print(f"\nHuman ratings template -> {TEMPL_RAT}")
 
     # ── Save results ───────────────────────────────────────────────────────
     out = {
@@ -483,8 +482,8 @@ def main():
 
     print()
     print(report_txt)
-    print(f"Saved → {OUT_JSON}")
-    print(f"Saved → {OUT_TXT}")
+    print(f"Saved -> {OUT_JSON}")
+    print(f"Saved -> {OUT_TXT}")
 
 
 if __name__ == "__main__":

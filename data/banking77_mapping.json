@@ -1,5 +1,5 @@
 {
-  "description": "Explicit Banking77 → Amazon-taxonomy mapping. 13 of 77 Banking77 intents have a clear semantic analog in our 11-category Amazon taxonomy. 4 Amazon categories (order_cancellation, return_or_exchange, product_issue, device_and_digital_support) have no banking analog.",
+  "description": "Explicit Banking77 -> Amazon-taxonomy mapping. 13 of 77 Banking77 intents have a clear semantic analog in our 11-category Amazon taxonomy. 4 Amazon categories (order_cancellation, return_or_exchange, product_issue, device_and_digital_support) have no banking analog.",
   "mapping": {
     "card_arrival": {
       "amazon_label": "order_status_inquiry",
@@ -18,8 +18,8 @@
       "rationale": "KEY HARD-PAIR ANALOG: 'Why hasn't my card arrived? I was told it would take 3-5 days.' The card_delivery_estimate Banking77 intent parallels shipping_delay_complaint exactly — a promised ETA that wasn't met. Contrasted with card_arrival (neutral inquiry)."
     },
     "transfer_not_received_by_recipient": {
-      "amazon_label": "shipping_delay_complaint",
-      "rationale": "Sent but not received by the other party — a delivery failure complaint analog."
+      "amazon_label": "delivery_issue",
+      "rationale": "Sent but not received by the other party — a delivery failure complaint analog (package marked delivered but not received)."
     },
     "failed_transfer": {
       "amazon_label": "shipping_delay_complaint",
@@ -50,8 +50,12 @@
       "rationale": "Security breach requiring account control — maps to the 'my account was hacked' variant of account_access."
     },
     "extra_charge_on_statement": {
-      "amazon_label": "general_complaint_or_feedback",
-      "rationale": "Unexplained charge on statement without a specific actionable request — best fit is the general complaint catch-all."
+      "amazon_label": "prime_membership",
+      "rationale": "Unexplained recurring or extra charge — the banking equivalent of a surprise Prime membership renewal or subscription fee."
+    },
+    "direct_debit_payment_not_recognised": {
+      "amazon_label": "prime_membership",
+      "rationale": "Direct debit / subscription charge not recognized — equivalent to a customer complaining about a Prime subscription billing."
     }
   }
 }

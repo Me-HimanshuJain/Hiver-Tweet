@@ -63,10 +63,10 @@ BANKING77_MAPPING: dict[str, dict] = {
         ),
     },
     "transfer_not_received_by_recipient": {
-        "amazon_label": "shipping_delay_complaint",
+        "amazon_label": "delivery_issue",
         "rationale": (
             "Sent but not received by the other party — a delivery failure "
-            "complaint analog."
+            "complaint analog (package marked delivered but not received)."
         ),
     },
     "failed_transfer": {
@@ -113,10 +113,17 @@ BANKING77_MAPPING: dict[str, dict] = {
     },
     # ── general_complaint_or_feedback ──────────────────────────────────────
     "extra_charge_on_statement": {
-        "amazon_label": "general_complaint_or_feedback",
+        "amazon_label": "prime_membership",
         "rationale": (
-            "Unexplained charge on statement without a specific actionable "
-            "request — best fit is the general complaint catch-all."
+            "Unexplained recurring or extra charge — the banking equivalent "
+            "of a surprise Prime membership renewal or subscription fee."
+        ),
+    },
+    "direct_debit_payment_not_recognised": {
+        "amazon_label": "prime_membership",
+        "rationale": (
+            "Direct debit / subscription charge not recognized — equivalent "
+            "to a customer complaining about a Prime subscription billing."
         ),
     },
 }
@@ -139,124 +146,28 @@ def main() -> None:
     # Strategy 1: HF datasets library — Parquet revision (datasets >= 3.x)
     # Strategy 2: HF datasets library — default (older versions)
     # Strategy 3: Direct CSV download from PolyAI GitHub (always works)
-    print("Downloading PolyAI/banking77 …")
-    ds = None
-    label_names: list[str] = []
-
-    for strategy, kwargs in [
-        ("HF datasets (Parquet revision)", {"revision": "refs/convert/parquet"}),
-        ("HF datasets (default)",          {}),
-    ]:
-        try:
-            from datasets import load_dataset  # type: ignore
-            ds_attempt = load_dataset("PolyAI/banking77", **kwargs)
-            ds = ds_attempt
-            label_names = ds["train"].features["label"].names
-            print(f"  Loaded via: {strategy}")
-            break
-        except Exception as e:
-            print(f"  {strategy} failed: {e!s:.80s}")
-
-    if ds is None:
-        print("  Falling back to direct CSV download from PolyAI GitHub …")
-        import csv, io, urllib.request
-
-        # Banking77 canonical 77-intent label list (alphabetical order, matches CSV header)
-        BANKING77_LABELS = [
-            "activate_my_card","age_limit","apple_pay_or_google_pay","atm_support",
-            "automatic_top_up","balance_not_updated_after_bank_transfer",
-            "balance_not_updated_after_cheque_or_cash_deposit","beneficiary_not_allowed",
-            "cancel_transfer","card_about_to_expire","card_acceptance","card_arrival",
-            "card_delivery_estimate","card_linking","card_not_working",
-            "card_payment_fee_charged","card_payment_not_recognised",
-            "card_payment_wrong_exchange_rate","card_swallowed","cash_withdrawal_charge",
-            "cash_withdrawal_not_recognised","change_pin","compromised_card",
-            "contactless_not_working","country_support","declined_card_payment",
-            "declined_cash_withdrawal","declined_transfer","direct_debit_payment_not_recognised",
-            "disposable_card_limits","edit_personal_details","exchange_charge","exchange_rate",
-            "exchange_via_app","extra_charge_on_statement","failed_transfer",
-            "fiat_currency_support","get_disposable_virtual_card","get_physical_card",
-            "getting_spare_card","getting_virtual_card","lost_or_stolen_card",
-            "lost_or_stolen_phone","order_physical_card","passcode_forgotten",
-            "pending_card_payment","pending_cash_withdrawal","pending_top_up",
-            "pending_transfer","pin_blocked","receiving_money","refund_not_showing_up",
-            "request_refund","reverted_card_payment","supported_cards_and_currencies",
-            "terminate_account","top_up_by_bank_transfer_charge","top_up_by_card_charge",
-            "top_up_by_cash_or_cheque","top_up_failed","top_up_limits","top_up_reverted",
-            "topping_up_by_card","transaction_charged_twice","transfer_fee_charged",
-            "transfer_into_account","transfer_not_received_by_recipient","transfer_timing",
-            "unable_to_verify_identity","verify_my_identity","verify_source_of_funds",
-            "verify_top_up","virtual_card_not_working","visa_or_mastercard",
-            "why_verify_identity","wrong_amount_of_cash_received",
-            "wrong_exchange_rate_for_cash_withdrawal",
-        ]
-        label_names = BANKING77_LABELS
-
-        base = (
-            "https://raw.githubusercontent.com/PolyAI-LDN/"
-            "task-specific-datasets/master/banking_data"
-        )
-
-        splits: dict[str, list[dict]] = {}
-        for split_name, fname in [("train", "train.csv"), ("test", "test.csv")]:
-            url = f"{base}/{fname}"
-            print(f"  GET {url}")
-            with urllib.request.urlopen(url, timeout=30) as resp:
-                content = resp.read().decode("utf-8")
-            reader = csv.DictReader(io.StringIO(content))
-            rows_split = []
-            for row in reader:
-                text  = row.get("text", "").strip()
-                label_str = row.get("category", row.get("label", "")).strip()
-                if label_str in label_names:
-                    label_id = label_names.index(label_str)
-                elif label_str.isdigit():
-                    label_id = int(label_str)
-                    label_str = label_names[label_id]
-                else:
-                    continue
-                rows_split.append({"text": text, "label": label_id, "intent": label_str})
-            splits[split_name] = rows_split
-            print(f"  {split_name}: {len(rows_split)} rows")
-
-        # Normalise to a simple dict-of-lists format compatible with rest of script
-        class _FakeSplit:
-            def __init__(self, rows): self._rows = rows
-            def __len__(self): return len(self._rows)
-            def __iter__(self): return iter(self._rows)
-
-        class _FakeDS:
-            def __init__(self, splits): self._s = splits
-            def __getitem__(self, key): return self._s[key]
-
-        class _FakeFeatures:
-            names = label_names
-
-        class _FakeSplitWithFeatures(_FakeSplit):
-            features = type("F", (), {"label": _FakeFeatures()})()
-
-        ds = _FakeDS({
-            "train": _FakeSplitWithFeatures(splits["train"]),
-            "test":  _FakeSplitWithFeatures(splits["test"]),
-        })
+    print("Downloading PolyAI/banking77 ...")
+    from datasets import load_dataset  # type: ignore
+    ds = load_dataset("PolyAI/banking77", trust_remote_code=True)
+    label_names = ds["train"].features["label"].names
 
     print(f"  Train: {len(ds['train'])} | Test: {len(ds['test'])}")
 
-    # ── 3. Save full test split ───────────────────────────────────────────
+    # -- 3. Save full test split -------------------------------------------
     test_path = os.path.join(DATA_DIR, "banking77_test.jsonl")
     with open(test_path, "w", encoding="utf-8") as f:
         for row in ds["test"]:
             intent = row.get("intent") or label_names[row["label"]]
             f.write(json.dumps({"text": row["text"], "banking77_intent": intent}) + "\n")
-    print(f"  Saved {len(ds['test'])} test queries → {test_path}")
+    print(f"  Saved {len(ds['test'])} test queries -> {test_path}")
 
-    # ── 4. Save mapping table ─────────────────────────────────────────────
+    # -- 4. Save mapping table ---------------------------------------------
     mapping_path = os.path.join(DATA_DIR, "banking77_mapping.json")
     with open(mapping_path, "w", encoding="utf-8") as f:
         json.dump(
             {
                 "description": (
-                    "Explicit Banking77 → Amazon-taxonomy mapping. "
+                    "Explicit Banking77 -> Amazon-taxonomy mapping. "
                     "13 of 77 Banking77 intents have a clear semantic analog "
                     "in our 11-category Amazon taxonomy. 4 Amazon categories "
                     "(order_cancellation, return_or_exchange, product_issue, "
@@ -268,9 +179,9 @@ def main() -> None:
             indent=2,
             ensure_ascii=False,
         )
-    print(f"  Saved mapping → {mapping_path}")
+    print(f"  Saved mapping -> {mapping_path}")
 
-    # ── 5. Build cross-domain sample (10 per mapped intent) ───────────────
+    # -- 5. Build cross-domain sample (10 per mapped intent) ---------------
     random.seed(42)
     # Group test set by intent
     by_intent: dict[str, list[str]] = {}
@@ -295,20 +206,19 @@ def main() -> None:
     with open(sample_path, "w", encoding="utf-8") as f:
         for row in sample_rows:
             f.write(json.dumps(row, ensure_ascii=False) + "\n")
-    print(f"  Saved {len(sample_rows)} cross-domain queries → {sample_path}")
+    print(f"  Saved {len(sample_rows)} cross-domain queries -> {sample_path}")
 
-    # ── 6. Print intent distribution of sample ────────────────────────────
+    # -- 6. Print intent distribution of sample ----------------------------
     from collections import Counter
     dist = Counter(r["expected_amazon_label"] for r in sample_rows)
-    print("\nSample distribution (Banking77 queries → Amazon label):")
+    print("\nSample distribution (Banking77 queries -> Amazon label):")
     for label, count in sorted(dist.items(), key=lambda x: -x[1]):
         print(f"  {label:<35s} {count:>3d}")
 
     print("\nHard-pair Banking77 intents in sample:")
     for b77, meta in BANKING77_MAPPING.items():
-        if meta["amazon_label"] in ("order_status_inquiry", "shipping_delay_complaint"):
-            pool_size = len(by_intent.get(b77, []))
-            print(f"  {b77:<40s} → {meta['amazon_label']:<30s}  (pool: {pool_size})")
+        pool_size = len(by_intent.get(b77, []))
+        print(f"  {b77:<40s} -> {meta['amazon_label']:<30s}  (pool: {pool_size})")
 
     print("\nPhase 1 complete. Run next:")
     print("  python scripts/09_banking77_cross_domain.py")

@@ -49,6 +49,7 @@ HARD_PAIR_INTENTS = [
     "order_status_inquiry",
     "shipping_delay_complaint",
     "prime_membership",
+    "delivery_issue",
 ]
 
 # ── Load "before" metrics from Run 4 ──────────────────────────────────────
@@ -181,7 +182,7 @@ lines = [
     "─" * W,
 ]
 for intent, d in deltas.items():
-    arrow = "▲" if d["delta_f1"] > 0 else ("▼" if d["delta_f1"] < 0 else "─")
+    arrow = "+" if d["delta_f1"] > 0 else ("-" if d["delta_f1"] < 0 else "=")
     lines.append(
         f"{intent:<35s} {d['f1_before']:>10.3f} {d['f1_after']:>10.3f} "
         f"{arrow}{abs(d['delta_f1']):>6.3f}"
@@ -201,7 +202,7 @@ for intent, d in deltas.items():
         val_b = d[key_b]
         val_a = d[key_a]
         delta = round(val_a - val_b, 3)
-        arrow = "▲" if delta > 0 else ("▼" if delta < 0 else "─")
+        arrow = "+" if delta > 0 else ("-" if delta < 0 else "=")
         lines.append(
             f"{intent:<35s} {metric:>8} {val_b:>8.3f} {val_a:>8.3f} "
             f"{arrow}{abs(delta):>6.3f}"
@@ -214,9 +215,9 @@ lines += [
     "─" * W,
 ]
 for t in per_tweet:
-    status = "✓" if t["correct"] else "✗"
+    status = "[OK]" if t["correct"] else "[XX]"
     lines.append(
-        f"  {status} [{t['true']:30s}→{t['pred']:30s}] conf={t['conf']:.2f}"
+        f"  {status} [{t['true']:30s}->{t['pred']:30s}] conf={t['conf']:.2f}"
     )
     lines.append(f"    {t['tweet'][:90]}")
 
@@ -227,5 +228,5 @@ print("\n" + summary)
 with open(REPORT_TXT, "w", encoding="utf-8") as f:
     f.write(summary)
 
-print(f"\nSaved → {REPORT_JSON}")
-print(f"Saved → {REPORT_TXT}")
+print(f"\nSaved -> {REPORT_JSON}")
+print(f"Saved -> {REPORT_TXT}")

@@ -145,6 +145,7 @@ _CLIENT: Optional[OpenAI] = None
 def _client() -> OpenAI:
     global _CLIENT
     if _CLIENT is None:
+        # User: Paste your API key below! e.g., api_key = "nvapi-..."
         api_key = os.environ.get("NVIDIA_API_KEY", "")
         if not api_key:
             raise EnvironmentError(

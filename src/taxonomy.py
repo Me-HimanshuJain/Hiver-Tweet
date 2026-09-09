@@ -205,66 +205,9 @@ FEW_SHOT_EXAMPLES: List[tuple[str, str]] = [
         "general_complaint_or_feedback",
     ),
 
-    # ── Banking77 contrastive examples (source: PolyAI/banking77) ─────────
-    # Purpose: strengthen the two hardest confusion pairs by providing
-    # domain-agnostic examples that isolate the semantic signal.
-    # These are lightly adapted from real Banking77 test queries.
-    #
-    # Hard pair 1 — order_status_inquiry vs shipping_delay_complaint
-    # Key distinction: neutral "where is X?" vs "X hasn't arrived and it should have"
-    #
-    # Neutral status inquiry (banking analog: card_arrival, pending_transfer)
-    (
-        "I applied for a new card two weeks ago. Can you tell me "
-        "where it is and when I should expect to receive it?",
-        "order_status_inquiry",
-    ),
-    (
-        "I sent a transfer yesterday — what is the current status "
-        "and when will it reach the recipient?",
-        "order_status_inquiry",
-    ),
-    (
-        "How long does it normally take for a new card to arrive "
-        "after I request one?",
-        "order_status_inquiry",
-    ),
-    # Broken-promise delay complaint (banking analog: card_delivery_estimate,
-    # transfer_not_received_by_recipient, failed_transfer)
-    (
-        "I was told my card would arrive within 5 working days. "
-        "It's been 12 days and it still hasn't come. This is unacceptable.",
-        "shipping_delay_complaint",
-    ),
-    (
-        "I sent money to my friend two days ago and they still "
-        "haven't received it. It should have arrived by now.",
-        "shipping_delay_complaint",
-    ),
-    (
-        "My transfer failed after I was charged. The money left my account "
-        "but was never delivered — this was supposed to go through instantly.",
-        "shipping_delay_complaint",
-    ),
-    #
-    # Hard pair 2 — prime_membership vs shipping_delay_complaint
-    # Key distinction: subscription/billing complaint vs shipping promise broken
-    #
-    (
-        "I cancelled my subscription three weeks ago but you charged "
-        "me again this month. I need this recurring charge stopped.",
-        "prime_membership",
-    ),
-    (
-        "Why was I charged a membership fee when I signed up for the "
-        "free trial? I want this reversed and my subscription cancelled.",
-        "prime_membership",
-    ),
-    (
-        "My premium plan renewed automatically at the full annual rate. "
-        "I never agreed to this — please refund the membership charge.",
-        "prime_membership",
-    ),
+    # ── Banking77 contrastive examples (real dataset lookups) ─────────────
+    # These are populated dynamically in get_few_shot_block() to avoid
+    # hardcoding synthetic strings.
 ]
 
 
@@ -289,4 +232,30 @@ def get_few_shot_block() -> str:
     lines = []
     for tweet, label in FEW_SHOT_EXAMPLES:
         lines.append(f'Tweet: "{tweet}"\nIntent: {label}\n')
+
+    # Dynamically inject real Banking77 contrastive examples
+    import os, json
+    root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    sample_path = os.path.join(root, "data", "banking77_cross_domain_sample.jsonl")
+    
+    if os.path.exists(sample_path):
+        target_intents = {
+            "order_status_inquiry": 3,
+            "shipping_delay_complaint": 3,
+            "prime_membership": 3,
+            "delivery_issue": 3
+        }
+        found: dict[str, list[str]] = {k: [] for k in target_intents}
+        
+        with open(sample_path, "r", encoding="utf-8") as f:
+            for line in f:
+                row = json.loads(line)
+                label = row.get("expected_amazon_label")
+                if label in target_intents and len(found[label]) < target_intents[label]:
+                    found[label].append(row["text"])
+                    
+        for label, texts in found.items():
+            for t in texts:
+                lines.append(f'Tweet: "{t}"\nIntent: {label}\n')
+
     return "\n".join(lines)

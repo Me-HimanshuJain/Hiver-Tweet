@@ -1,0 +1,59 @@
+========================================================================
+LLM-AS-JUDGE EVALUATION REPORT
+========================================================================
+Judge model : meta/llama-3.1-70b-instruct
+Gen model   : nvidia/nemotron-3-super-120b-a12b
+N evaluated : 30
+
+────────────────────────────────────────────────────────────────────────
+AGGREGATE SCORES  (1=very poor … 5=excellent)
+────────────────────────────────────────────────────────────────────────
+  Dimension           Mean  Median     Std  ≥4 (good+)
+  ────────────────  ──────  ──────  ──────  ──────────
+  relevance            N/A
+  empathy              N/A
+  actionability        N/A
+  conciseness          N/A
+  overall              N/A
+
+────────────────────────────────────────────────────────────────────────
+JUDGE vs HUMAN AGREEMENT
+────────────────────────────────────────────────────────────────────────
+  Not yet available.  Fill in data/human_judge_ratings.csv
+  (generated template: data/human_judge_ratings_template.csv)
+  then re-run this script.
+
+────────────────────────────────────────────────────────────────────────
+SAMPLE SCORES (first 10)
+────────────────────────────────────────────────────────────────────────
+  [general_complaint_or_feedback]  '@115821 @AmazonHelp Really bad experience.  Frustrated. Paid'
+    ⚠ Error: Error code: 410 - {'type': 'about:blank', 'title': 'Gone', 'status': 410, 'detail': "The model 'meta/llama-3.1-70b-instr
+
+  [general_complaint_or_feedback]  '@AmazonHelp with an amazon fire tablet, can I tap on a photo'
+    ⚠ Error: Error code: 410 - {'type': 'about:blank', 'title': 'Gone', 'status': 410, 'detail': "The model 'meta/llama-3.1-70b-instr
+
+  [general_complaint_or_feedback]  '@AmazonHelp @115821 4th item in a row that hasn’t arrived ne'
+    ⚠ Error: Error code: 410 - {'type': 'about:blank', 'title': 'Gone', 'status': 410, 'detail': "The model 'meta/llama-3.1-70b-instr
+
+  [order_status_inquiry]  '@115850 @135789 @146956 @2517 @115821 @115858 @AppleSupport '
+    ⚠ Error: Error code: 410 - {'type': 'about:blank', 'title': 'Gone', 'status': 410, 'detail': "The model 'meta/llama-3.1-70b-instr
+
+  [order_cancellation]  "@AmazonHelp At this point, I'm tempted to cancel order and j"
+    ⚠ Error: Error code: 410 - {'type': 'about:blank', 'title': 'Gone', 'status': 410, 'detail': "The model 'meta/llama-3.1-70b-instr
+
+  [general_complaint_or_feedback]  "@115821 I didn't even get the fire stick I got 2 trash cans "
+    ⚠ Error: Error code: 410 - {'type': 'about:blank', 'title': 'Gone', 'status': 410, 'detail': "The model 'meta/llama-3.1-70b-instr
+
+  [general_complaint_or_feedback]  '@AmazonHelp Extremely displeased. I have sat here all day wa'
+    ⚠ Error: Error code: 410 - {'type': 'about:blank', 'title': 'Gone', 'status': 410, 'detail': "The model 'meta/llama-3.1-70b-instr
+
+  [general_complaint_or_feedback]  '@AmazonHelp Found a bug in the Echo software. If you cancel '
+    ⚠ Error: Error code: 410 - {'type': 'about:blank', 'title': 'Gone', 'status': 410, 'detail': "The model 'meta/llama-3.1-70b-instr
+
+  [order_status_inquiry]  '@AmazonHelp I need your help ! My Order tracking ID 22120705'
+    ⚠ Error: Error code: 410 - {'type': 'about:blank', 'title': 'Gone', 'status': 410, 'detail': "The model 'meta/llama-3.1-70b-instr
+
+  [account_access]  'Help @AmazonHelp someone changed my email and password for m'
+    ⚠ Error: Error code: 410 - {'type': 'about:blank', 'title': 'Gone', 'status': 410, 'detail': "The model 'meta/llama-3.1-70b-instr
+
+========================================================================

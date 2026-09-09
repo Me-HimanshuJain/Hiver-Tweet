@@ -93,6 +93,11 @@ def get_judge_client():
         return _judge_client, _judge_model_used
 
     from openai import OpenAI, NotFoundError, BadRequestError
+    try:
+        from dotenv import load_dotenv
+        load_dotenv()
+    except ImportError:
+        pass
     key = os.environ.get("NVIDIA_API_KEY", "")
     if not key:
         raise RuntimeError("NVIDIA_API_KEY not set")

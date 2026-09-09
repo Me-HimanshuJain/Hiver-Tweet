@@ -393,6 +393,11 @@ def main():
     # ── BASELINE 2: zero-shot NIM, no retrieval ───────────────────────────
     b2 = None
     if not args.b1_only:
+        try:
+            from dotenv import load_dotenv
+            load_dotenv()
+        except ImportError:
+            pass
         key = os.environ.get("NVIDIA_API_KEY", "")
         if not key:
             print("\nBaseline 2: NVIDIA_API_KEY not set — skipping")

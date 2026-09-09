@@ -145,6 +145,11 @@ _CLIENT: Optional[OpenAI] = None
 def _client() -> OpenAI:
     global _CLIENT
     if _CLIENT is None:
+        try:
+            from dotenv import load_dotenv
+            load_dotenv()
+        except ImportError:
+            pass
         # User: Paste your API key below! e.g., api_key = "nvapi-..."
         api_key = os.environ.get("NVIDIA_API_KEY", "")
         if not api_key:

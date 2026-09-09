@@ -1,0 +1,98 @@
+========================================================================
+BEFORE / AFTER — HARD-PAIR F1 IMPROVEMENT
+========================================================================
+Model   : nvidia/nemotron-3-super-120b-a12b
+Change  : Banking77 contrastive few-shots injected into taxonomy.py
+Tweets  : 30 (10 per intent × 3 hard-pair intents)
+Errors  : 0
+
+────────────────────────────────────────────────────────────────────────
+Intent                               F1-Before   F1-After      ΔF1
+────────────────────────────────────────────────────────────────────────
+order_status_inquiry                     0.267      0.333 ▲ 0.066
+shipping_delay_complaint                 0.600      0.667 ▲ 0.067
+prime_membership                         0.500      0.706 ▲ 0.206
+
+────────────────────────────────────────────────────────────────────────
+DETAILED BEFORE / AFTER (Precision / Recall / F1)
+────────────────────────────────────────────────────────────────────────
+Intent                                Metric   Before    After    Delta
+order_status_inquiry                Precision    0.400    1.000 ▲ 0.600
+order_status_inquiry                  Recall    0.200    0.200 ─ 0.000
+order_status_inquiry                      F1    0.267    0.333 ▲ 0.066
+
+shipping_delay_complaint            Precision    0.450    0.529 ▲ 0.079
+shipping_delay_complaint              Recall    0.900    0.900 ─ 0.000
+shipping_delay_complaint                  F1    0.600    0.667 ▲ 0.067
+
+prime_membership                    Precision    0.500    0.857 ▲ 0.357
+prime_membership                      Recall    0.500    0.600 ▲ 0.100
+prime_membership                          F1    0.500    0.706 ▲ 0.206
+
+────────────────────────────────────────────────────────────────────────
+PER-TWEET RESULTS (hard-pair tweets)
+────────────────────────────────────────────────────────────────────────
+  ✗ [order_status_inquiry          →delivery_issue                ] conf=0.90
+    @133929 @120169 @115821 @AmazonHelp  My amazon package gone missing Aramex response is poo
+  ✓ [order_status_inquiry          →order_status_inquiry          ] conf=0.96
+    @AmazonHelp Can I get an update on my package: Tracking#: Q13033488773
+  ✗ [order_status_inquiry          →shipping_delay_complaint      ] conf=0.90
+    pretty sure i'm never gonna be receiving my package from amazon (ordered with prime) that 
+  ✗ [order_status_inquiry          →shipping_delay_complaint      ] conf=0.90
+    @115821 @AmazonHelp really disappointed with your delivery in Mexico. Still waiting for th
+  ✗ [order_status_inquiry          →shipping_delay_complaint      ] conf=0.90
+    @AmazonHelp I've been messed around and lied to for nearly 2 weeks. Still waiting for my s
+  ✗ [order_status_inquiry          →shipping_delay_complaint      ] conf=0.94
+    @AmazonHelp hi made an order on Wednesday with my Amazon prime. Was due to arrive yesterda
+  ✗ [order_status_inquiry          →delivery_issue                ] conf=0.88
+    @AmazonHelp And customer service says there is no way to contact. Need the order, not a re
+  ✗ [order_status_inquiry          →delivery_issue                ] conf=0.94
+    @AmazonHelp Apparently, my package was delivered at 5:30 last night, even though I checked
+  ✓ [order_status_inquiry          →order_status_inquiry          ] conf=0.80
+    @AmazonHelp I purchased two PlayStation gift cards earlier and it says pending verificatio
+  ✗ [order_status_inquiry          →shipping_delay_complaint      ] conf=0.94
+    @AmazonHelp funny how my Prume item ordered on Monday never left the seller till Wednesday
+  ✓ [shipping_delay_complaint      →shipping_delay_complaint      ] conf=0.96
+    @AmazonHelp amazon I ordered a package on September 14th and paid extra for shipping to ge
+  ✓ [shipping_delay_complaint      →shipping_delay_complaint      ] conf=0.96
+    @amazonhelp I think you guys need some math tutoring. I ordered a halloween costume item a
+  ✓ [shipping_delay_complaint      →shipping_delay_complaint      ] conf=0.95
+    What is the point of being a Prime member for free 2 day shipping if my stuff does not com
+  ✓ [shipping_delay_complaint      →shipping_delay_complaint      ] conf=0.95
+    @AmazonHelp October 31st? Um that’s not 2 day shipping. That’s 4 day shipping. I bought Pr
+  ✓ [shipping_delay_complaint      →shipping_delay_complaint      ] conf=0.96
+    Prime
+Order 9/15 - Received 9/20
+Order 10/3 - Received 10/6
+Order 10/25 - Still not here??
+  ✓ [shipping_delay_complaint      →shipping_delay_complaint      ] conf=0.94
+    Maybe I'm not the best at math but Amazon Prime 2 day shipping takes 7days? @AmazonHelp ht
+  ✓ [shipping_delay_complaint      →shipping_delay_complaint      ] conf=0.92
+    @118706 @123967 @AmazonHelp This is the type of service your customers are getting from ca
+  ✗ [shipping_delay_complaint      →prime_membership              ] conf=0.92
+    @AmazonHelp doesnt prime mean 2 day shipping ? https://t.co/ljdPgOJFTq
+  ✓ [shipping_delay_complaint      →shipping_delay_complaint      ] conf=0.96
+    @AmazonHelp why do I pay extra for 1-day Prime shipping for a pre-order video game and now
+  ✓ [shipping_delay_complaint      →shipping_delay_complaint      ] conf=0.90
+    @AmazonHelp how is this 2 day shipping? https://t.co/gwCl4oqEKX
+  ✓ [prime_membership              →prime_membership              ] conf=0.92
+    @448964 @AmazonHelp I really think @115821 is really working on new, innovative ways to ma
+  ✗ [prime_membership              →shipping_delay_complaint      ] conf=0.90
+    @115850 @AmazonHelp I don't think then its worth for buying a prime membership and waiting
+  ✓ [prime_membership              →prime_membership              ] conf=0.95
+    @AmazonHelp second time in as many months that Amazon has gone into my account and stolen 
+  ✓ [prime_membership              →prime_membership              ] conf=0.85
+    @169613 @AmazonHelp He he Amazon prime free with this, itself is worth it :)
+  ✓ [prime_membership              →prime_membership              ] conf=0.95
+    @AmazonHelp Hi.. I'm a Prime member in US and am currently traveling in Poland. Can i use 
+  ✗ [prime_membership              →device_and_digital_support    ] conf=0.85
+    @115851 @AmazonHelp Hey, big fan &amp; admirer. Prime member since 2005 but tired  of late
+  ✓ [prime_membership              →prime_membership              ] conf=0.95
+    @AmazonHelp If you continue to use OnTrac I'm cancelling my Prime account. Please forward 
+  ✓ [prime_membership              →prime_membership              ] conf=0.95
+    @AmazonHelp i am a prime member. can i buy second year's prime membership subscription in 
+  ✗ [prime_membership              →shipping_delay_complaint      ] conf=0.70
+    @AmazonHelp being a prime member i am enjoying services like poor delivery. Best no on tim
+  ✗ [prime_membership              →shipping_delay_complaint      ] conf=0.94
+    @237238 @AmazonHelp Check this response from Amazon. I've been a Prime Member for 7 years.
+========================================================================

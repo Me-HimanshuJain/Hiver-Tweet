@@ -1,0 +1,247 @@
+══════════════════════════════════════════════════════════════════════════════
+PIPELINE DEMO — CLASSIFY → RETRIEVE → DRAFT → ESCALATE
+══════════════════════════════════════════════════════════════════════════════
+Model : nvidia/nemotron-3-super-120b-a12b
+Tweets: 8
+Index : 8000 resolved threads
+
+──────────────────────────────────────────────────────────────────────────────
+Tweet #1  │  📦 order_status_inquiry  (90%)  │  ✅ AUTO-HANDLE
+──────────────────────────────────────────────────────────────────────────────
+
+📝 ORIGINAL TWEET
+   "@AmazonHelp Can you check the status of my order? Tracking says 'out for delivery' but it's been that way for 3 days."
+
+🔍 RETRIEVED GROUNDING (3 results, top 3 shown)
+   [1] sim=0.84  intent=order_status_inquiry
+       Customer : @AmazonHelp The package never arrived :( past 8pm, tracking still says "out for delivery"
+       Resolution: @535840 I'm sorry for the frustration! Can you please tell us who the carrier is? Found he
+   [2] sim=0.78  intent=order_status_inquiry
+       Customer : @115830 @AmazonHelp 12 days since placing my order and no delivery, meant to be delivered 
+       Resolution: @220927 I'm sorry about this your parcel hasn't arrived! We want to be sure you are receiv
+   [3] sim=0.76  intent=order_status_inquiry
+       Customer : @AmazonHelp Was just assured it would be delivered today. Tracking shows due for delivery 
+       Resolution: @365811 Please give us a call: https://t.co/JzP7hlA23B in the morning and we'd be happy to
+
+🧠 CLASSIFIER REASONING
+   Customer requests order status check; tracking stale.
+   Alternatives: shipping_delay_complaint (30%)
+
+✉️  DRAFTED REPLY  (tone=empathetic, 248 chars, action=directed to DM for resolution)
+   "@User I’m sorry you’ve been seeing “out for delivery” for three days—that’s definitely frustrating. Could you please share the carrier name and your tracking number (or order ID) so I can investigate further? You can reply here or send us a DM. ^AB"
+
+⚖️  ESCALATION: ✅ AUTO-HANDLE
+   Rule      : none
+   Urgency   : low
+   Reason    : Intent classified as 'order_status_inquiry' with 90% confidence. No high-urgency signals detected. Retrieved grounding examples are available to produce an accurate, on-topic automated reply.
+
+──────────────────────────────────────────────────────────────────────────────
+Tweet #2  │  🚚 shipping_delay_complaint  (95%)  │  ✅ AUTO-HANDLE
+──────────────────────────────────────────────────────────────────────────────
+
+📝 ORIGINAL TWEET
+   "@AmazonHelp I paid for Prime 2-day shipping and my package arrived 6 days late. This is the second time this month."
+
+🔍 RETRIEVED GROUNDING (3 results, top 3 shown)
+   [1] sim=0.86  intent=shipping_delay_complaint
+       Customer : @AmazonHelp October 31st? Um that’s not 2 day shipping. That’s 4 day shipping. I bought Pr
+       Resolution: @356940 Hello! Two days refers to the transit time of the item after it has been shipped, 
+   [2] sim=0.83  intent=shipping_delay_complaint
+       Customer : @AmazonHelp I ordered something through prime and now it’s going to be almost a week. And 
+       Resolution: @182214 Were you given any reason for the delay? ^KM
+   [3] sim=0.83  intent=shipping_delay_complaint
+       Customer : @AmazonHelp Didn’t know I needed to. Is that really a thing?! But still Prime shipping sho
+       Resolution: @118078 Yes, Release-Date Delivery is definitely a thing and the Amazon Prime two day ship
+
+🧠 CLASSIFIER REASONING
+   Customer complains about Prime 2-day shipping delay.
+
+✉️  DRAFTED REPLY  (tone=empathetic, 175 chars, action=offered refund investigation)
+   "@User I’m really sorry your Prime shipment arrived six days late, especially after this happening twice this month. I’ve located your recent order and will issue a full refund"
+
+⚖️  ESCALATION: ✅ AUTO-HANDLE
+   Rule      : none
+   Urgency   : low
+   Reason    : Intent classified as 'shipping_delay_complaint' with 95% confidence. No high-urgency signals detected. Retrieved grounding examples are available to produce an accurate, on-topic automated reply.
+
+──────────────────────────────────────────────────────────────────────────────
+Tweet #3  │  🔑 account_access  (96%)  │  🚨 ESCALATE
+──────────────────────────────────────────────────────────────────────────────
+
+📝 ORIGINAL TWEET
+   "@AmazonHelp someone hacked my account and made purchases I didn't authorise. Please help immediately, this is urgent."
+
+🔍 RETRIEVED GROUNDING (3 results, top 3 shown)
+   [1] sim=0.84  intent=account_access
+       Customer : @115821 someone hacked my account like a month ago I was suppose to get an email to get my
+       Resolution: @419096 I'm sorry you never received an e-mail. We're here to help! Please contact us here
+   [2] sim=0.82  intent=account_access
+       Customer : Hi my account was hacked @115821 @AmazonHelp
+       Resolution: @255132 I'm so sorry for the trouble with your account! Please reach out to us here: https
+   [3] sim=0.81  intent=account_access
+       Customer : @AmazonHelp my account  has been hacked. Was asked to change password to connect and now w
+       Resolution: @199695 Sorry to hear this. What Amazon site is your a/c associated with? For example http
+
+🧠 CLASSIFIER REASONING
+   Customer reports account hacked and unauthorized purchases.
+   Alternatives: refund_request (30%)
+
+✉️  DRAFTED REPLY  (tone=empathetic, 280 chars, action=directed to account recovery)
+   "@User I’m so sorry to hear that your account was compromised and unauthorized purchases were made. Let’s get this sorted right away: please visit https://www.amazon.com/gp/help/contact-us, select ‘Account & Login’ → ‘Account security’, and follow the steps to secure your account…"
+
+⚖️  ESCALATION: 🚨 ESCALATE
+   Rule      : security_breach
+   Urgency   : high
+   Signal    : security keywords: hacked
+   Reason    : Customer reports a potential account security breach (hacked) classified as account_access. This requires immediate action through a secure, authenticated channel — not an automated public reply.
+
+──────────────────────────────────────────────────────────────────────────────
+Tweet #4  │  💰 refund_request  (95%)  │  🚨 ESCALATE
+──────────────────────────────────────────────────────────────────────────────
+
+📝 ORIGINAL TWEET
+   "@AmazonHelp I've been waiting 3 weeks for my refund. If I don't hear back today I'm contacting my attorney and filing a chargeback."
+
+🔍 RETRIEVED GROUNDING (3 results, top 3 shown)
+   [1] sim=0.87  intent=refund_request
+       Customer : @AmazonHelp my refund has not been initiated yet, and the only choice left is an appeal to
+       Resolution: @266372 Sorry to know about your concern with refund, Yash. We never intended this experie
+   [2] sim=0.86  intent=refund_request
+       Customer : @AmazonHelp I received refund. Thanks
+       Resolution: @406983 Happy to help you in resolving your issue. Keep us posted if you need any further 
+   [3] sim=0.85  intent=refund_request
+       Customer : @AmazonHelp initiate refund asap.your customer service is clueless. https://t.co/Abupig3pI
+       Resolution: @370614 We've already responded to this query here : https://t.co/el481aMrQY. Please check
+
+🧠 CLASSIFIER REASONING
+   Customer waiting for refund, threatens chargeback.
+
+✉️  DRAFTED REPLY  (tone=empathetic, 254 chars, action=directed to DM for resolution)
+   "@CustomerHandle I’m truly sorry you’ve been waiting three weeks for your refund and that this has caused you so much stress. Please send us a direct message with your order number so we can look into this immediately and work to resolve it for you today."
+
+⚖️  ESCALATION: 🚨 ESCALATE
+   Rule      : legal_threat
+   Urgency   : high
+   Signal    : legal/media mention: chargeback, attorney
+   Reason    : Customer mentions legal or media action (chargeback, attorney). These cases must be routed to a senior support specialist — automated replies carry reputational and legal risk.
+
+──────────────────────────────────────────────────────────────────────────────
+Tweet #5  │  💰 refund_request  (96%)  │  ✅ AUTO-HANDLE
+──────────────────────────────────────────────────────────────────────────────
+
+📝 ORIGINAL TWEET
+   "@AmazonHelp I returned my item 10 days ago and the refund hasn't appeared yet. Order #302-9384-1234. Can you check?"
+
+🔍 RETRIEVED GROUNDING (3 results, top 3 shown)
+   [1] sim=0.78  intent=refund_request
+       Customer : ORDER # 402-2777505-2228327 11 days over still not recvd my refund of INR 40,000 @AmazonHe
+       Resolution: @493953 it to be personal information. Our Twitter page is visible to the public. 3/3 ^AP
+   [2] sim=0.78  intent=refund_request
+       Customer : @AmazonHelp Refund shows on the order. How and when will I get my refund as seller doesn't
+       Resolution: @491007 Refunds generally take about 5-7 business days from when the refund was initiated.
+   [3] sim=0.77  intent=refund_request
+       Customer : @AmazonHelp order 406-5346056-8286767 I want a refund for the product. https://t.co/CKTsoB
+       Resolution: @121404 Moreover, please don’t provide your order details here. Our Twitter page is visibl
+
+🧠 CLASSIFIER REASONING
+   Customer awaiting refund after return.
+   Alternatives: return_or_exchange (30%)
+
+✉️  DRAFTED REPLY  (tone=empathetic, 280 chars, action=directed to DM for resolution)
+   "Hi there, I’m sorry the refund hasn’t appeared yet. Refunds normally take about 5‑7 business days after we receive the returned item. To check the exact status of order #302-9384-1234, could you please send me a direct message with the order number and the email address linked t…"
+
+⚖️  ESCALATION: ✅ AUTO-HANDLE
+   Rule      : none
+   Urgency   : low
+   Reason    : Intent classified as 'refund_request' with 96% confidence. No high-urgency signals detected. Retrieved grounding examples are available to produce an accurate, on-topic automated reply.
+
+──────────────────────────────────────────────────────────────────────────────
+Tweet #6  │  🔑 account_access  (80%)  │  🚨 ESCALATE
+──────────────────────────────────────────────────────────────────────────────
+
+📝 ORIGINAL TWEET
+   "@AmazonHelp I've called customer service 4 times and still no resolution. Still waiting for someone to actually fix my account issue."
+
+🔍 RETRIEVED GROUNDING (1 results, top 1 shown)
+   [1] sim=0.80  intent=account_access
+       Customer : @AmazonHelp Going to have to call support as it wont let me change my password, same thing
+       Resolution: @127582 Oh no! I'm sorry about this inconvenience, Alex! You can reach out to us here: htt
+
+🧠 CLASSIFIER REASONING
+   Customer reports unresolved account issue needing fix.
+   Alternatives: general_complaint_or_feedback (30%)
+
+✉️  DRAFTED REPLY  (tone=empathetic, 207 chars, action=directed to DM for resolution)
+   "@UserHandle I’m really sorry you’ve had to call multiple times without a fix—let’s get this sorted. Please DM us your account email (no password) so a specialist can investigate and reset access for you. ^JT"
+
+⚖️  ESCALATION: 🚨 ESCALATE
+   Rule      : repeated_contact
+   Urgency   : medium
+   Signal    : repeated-contact language: 'still no resolution'
+   Reason    : Customer indicates repeated unresolved contact ('still no resolution'). Auto-handling a customer who has already tried standard channels risks further erosion of trust.
+
+──────────────────────────────────────────────────────────────────────────────
+Tweet #7  │  💬 general_complaint_or_feedback  (90%)  │  🚨 ESCALATE
+──────────────────────────────────────────────────────────────────────────────
+
+📝 ORIGINAL TWEET
+   "@AmazonHelp This is absolutely disgusting. Worst customer service ever. Incompetent, pathetic, appalling service. I am furious and done with Amazon."
+
+🔍 RETRIEVED GROUNDING (3 results, top 3 shown)
+   [1] sim=0.87  intent=general_complaint_or_feedback
+       Customer : @AmazonHelp I can't believe this crap from you're customer service it's beyond a joke. Thi
+       Resolution: @520597 I'm sorry to hear of this. When you contacted us, were we able to provide any info
+   [2] sim=0.87  intent=general_complaint_or_feedback
+       Customer : @AmazonHelp I apologize for language, but I've never had a bad experience with Amazon befo
+       Resolution: @333862 (1/2) I understand how hurt and frustrating this must feel. At the end of the chat
+   [3] sim=0.87  intent=general_complaint_or_feedback
+       Customer : @AmazonHelp What the devil is going on with your customer service today?! Honestly I am lo
+       Resolution: @147330 Hi, without posting any of your account details here, can you tell us a bit more a
+
+🧠 CLASSIFIER REASONING
+   Customer expresses general dissatisfaction.
+
+✉️  DRAFTED REPLY  (tone=empathetic, 214 chars, action=directed to DM for resolution)
+   "@UserHandle I’m really sorry you’ve had such a frustrating experience. To help fix this, could you please DM us your order number or a brief description of what happened so we can investigate and make things right?"
+
+⚖️  ESCALATION: 🚨 ESCALATE
+   Rule      : high_negativity
+   Urgency   : medium
+   Signal    : high-negativity density: 6 signals
+   Reason    : High-negativity language density detected (6 signals: disgusting, Incompetent, pathetic). An automated reply is unlikely to de-escalate a customer expressing this level of frustration.
+
+──────────────────────────────────────────────────────────────────────────────
+Tweet #8  │  💻 device_and_digital_support  (96%)  │  ✅ AUTO-HANDLE
+──────────────────────────────────────────────────────────────────────────────
+
+📝 ORIGINAL TWEET
+   "@AmazonHelp my Kindle Paperwhite won't turn on after the latest software update. Already tried the restart button for 40 seconds."
+
+🔍 RETRIEVED GROUNDING (3 results, top 3 shown)
+   [1] sim=0.72  intent=device_and_digital_support
+       Customer : @AmazonHelp my kindle paperwhite keeps trying to force update every 5/10 mins repeatedly. 
+       Resolution: @448243 We'd love to help! Updates are sent automatically when your connected to WiFi. Is 
+   [2] sim=0.64  intent=device_and_digital_support
+       Customer : @AmazonHelp Hi guys...still awaiting solution to my kindle issue
+       Resolution: @483576 Could you please confirm if you've received any mail from our Kindle team? ^AU
+   [3] sim=0.59  intent=device_and_digital_support
+       Customer : @AmazonHelp Now I've reset the Kindle twice and it's not allowing me to register it.
+       Resolution: @702708 That is strange. Please, reach us via phone/chat so that we may troubleshoot toget
+
+🧠 CLASSIFIER REASONING
+   Customer reports Kindle device not turning on after software update.
+   Alternatives: product_issue (30%)
+
+✉️  DRAFTED REPLY  (tone=empathetic, 280 chars, action=directed to DM for resolution)
+   "{
+{
+  "reply": "@User I’m sorry your Kindle Paperwhite won’t turn on after the update. Try plugging it into the charger for at least 15 minutes, then hold the power button for 40 seconds while it’s still connected. If it remains unresponsive, please DM us your order details or r…"
+
+⚖️  ESCALATION: ✅ AUTO-HANDLE
+   Rule      : none
+   Urgency   : low
+   Reason    : Intent classified as 'device_and_digital_support' with 96% confidence. No high-urgency signals detected. Retrieved grounding examples are available to produce an accurate, on-topic automated reply.
+
+══════════════════════════════════════════════════════════════════════════════
+END OF DEMO
+══════════════════════════════════════════════════════════════════════════════

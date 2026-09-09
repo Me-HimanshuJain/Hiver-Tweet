@@ -1,0 +1,55 @@
+﻿python : Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate 
+limits and faster downloads.
+At line:1 char:32
++ ... THONIOENCODING='utf-8'; python scripts\04_build_index.py 2>&1 | Out-F ...
++                             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Warning: You ar...ster downloads.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+C:\Users\himan\AppData\Local\Programs\Python\Python311\Lib\site-packages\huggingface_hub\file_download.py:137: 
+UserWarning: `huggingface_hub` cache-system uses symlinks by default to efficiently store duplicated files but your 
+machine does not support them in 
+C:\Users\himan\.cache\huggingface\hub\models--sentence-transformers--all-MiniLM-L6-v2. Caching files will still work 
+but in a degraded version that might require more space on your disk. This warning can be disabled by setting the 
+`HF_HUB_DISABLE_SYMLINKS_WARNING` environment variable. For more details, see 
+https://huggingface.co/docs/huggingface_hub/how-to-cache#limitations.
+To support symlinks on Windows, you either need to activate Developer Mode or to run Python as an administrator. In 
+order to activate developer mode, see this article: 
+https://docs.microsoft.com/en-us/windows/apps/get-started/enable-your-device-for-development
+  warnings.warn(message)
+Loading dataset from Kaggle cache...
+Loaded 2,811,774 rows
+AmazonHelp outbound replies: 169,287
+Resolved thread pairs found: 168,814
+Filtered to @AmazonHelp mentions: 100,015
+Sampled to 8000 for index build
+
+Bootstrap intent distribution:
+  general_complaint_or_feedback            6359
+  shipping_delay_complaint                  356
+  return_or_exchange                        238
+  refund_request                            232
+  order_cancellation                        200
+  order_status_inquiry                      161
+  device_and_digital_support                149
+  product_issue                             113
+  account_access                             96
+  prime_membership                           87
+  delivery_issue                              9
+
+Saved 8000 threads ΓåÆ C:\Users\himan\Downloads\Hiver\data\resolved_threads.jsonl
+
+Building FAISS index...
+  [retrieval] Embedding 8000 threads...
+  [retrieval] Loading embedding model 'all-MiniLM-L6-v2'...
+
+Loading weights:   0%|          | 0/103 [00:00<?, ?it/s]
+Loading weights: 100%|ΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûêΓûê| 103/103 [00:00<00:00, 6669.24it/s]
+  [retrieval] FAISS index built: 8000 vectors, dim=384
+  [retrieval] Saved index ΓåÆ C:\Users\himan\Downloads\Hiver\data\faiss_index.bin
+  [retrieval] Saved meta  ΓåÆ C:\Users\himan\Downloads\Hiver\data\faiss_meta.jsonl
+
+Γ£ô Index build complete.
+  Threads  : C:\Users\himan\Downloads\Hiver\data\resolved_threads.jsonl
+  Index    : C:\Users\himan\Downloads\Hiver\data\faiss_index.bin
+  Metadata : C:\Users\himan\Downloads\Hiver\data\faiss_meta.jsonl

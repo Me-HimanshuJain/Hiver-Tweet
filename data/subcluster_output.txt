@@ -1,0 +1,227 @@
+﻿python : C:\Users\himan\Downloads\Hiver\scripts\03_subcluster_and_inspect.py:84: UserWarning: This pattern is 
+interpreted as a regular expression, and has match groups. To actually get the groups, use str.extract.
+At line:1 char:32
++ ... ING='utf-8'; python scripts\03_subcluster_and_inspect.py 2>&1 | Out-F ...
++                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (C:\Users\himan\...se str.extract.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+  matches = df_en[df_en['text'].str.contains(pattern, case=False, na=False, regex=True)]
+C:\Users\himan\Downloads\Hiver\scripts\03_subcluster_and_inspect.py:84: UserWarning: This pattern is interpreted as a 
+regular expression, and has match groups. To actually get the groups, use str.extract.
+  matches = df_en[df_en['text'].str.contains(pattern, case=False, na=False, regex=True)]
+C:\Users\himan\Downloads\Hiver\scripts\03_subcluster_and_inspect.py:84: UserWarning: This pattern is interpreted as a 
+regular expression, and has match groups. To actually get the groups, use str.extract.
+  matches = df_en[df_en['text'].str.contains(pattern, case=False, na=False, regex=True)]
+C:\Users\himan\Downloads\Hiver\scripts\03_subcluster_and_inspect.py:84: UserWarning: This pattern is interpreted as a 
+regular expression, and has match groups. To actually get the groups, use str.extract.
+  matches = df_en[df_en['text'].str.contains(pattern, case=False, na=False, regex=True)]
+C:\Users\himan\Downloads\Hiver\scripts\03_subcluster_and_inspect.py:84: UserWarning: This pattern is interpreted as a 
+regular expression, and has match groups. To actually get the groups, use str.extract.
+  matches = df_en[df_en['text'].str.contains(pattern, case=False, na=False, regex=True)]
+C:\Users\himan\Downloads\Hiver\scripts\03_subcluster_and_inspect.py:84: UserWarning: This pattern is interpreted as a 
+regular expression, and has match groups. To actually get the groups, use str.extract.
+  matches = df_en[df_en['text'].str.contains(pattern, case=False, na=False, regex=True)]
+C:\Users\himan\Downloads\Hiver\scripts\03_subcluster_and_inspect.py:84: UserWarning: This pattern is interpreted as a 
+regular expression, and has match groups. To actually get the groups, use str.extract.
+  matches = df_en[df_en['text'].str.contains(pattern, case=False, na=False, regex=True)]
+Total: 2892
+English-only: 2527
+
+Sub-clustering C2: 1316 tweets
+
+--- C2-SUB0 --- (43, 3.3%)
+  Keywords: don, know, use, don know, want, try, understand, don understand, people, think
+    - @AmazonHelp why don't you have 'wish upon' the movie on dvd on the UK site?
+    - @AmazonHelp I don't have any of the visa issuer info as the transaction I needed it for was done and it had a zero balance so I threw it away
+    - @AmazonHelp why don't you print, "safe place" on all deliveries?
+    - @AmazonHelp Sort your stuff out. Don't take preorders if you don't have the allocation. It's not rocket science.
+    - @119350 @AmazonHelp I speak point to point. I don't whine
+    - @AmazonHelp Do you use smoke signals ?
+
+--- C2-SUB1 --- (831, 63.1%)
+  Keywords: delivered, product, refund, need, days, item, received, says, help, package
+    - @370182 @AmazonHelp I love reading your tweets in my feed. Always a comedy spin on any situation - well done Sir!
+    - @AmazonHelp I guess being the retail giant you are my complaint will go unresolved?
+    - @AmazonHelp @AmazonHelp and now they drove past my house... https://t.co/tkIFXzGOOk
+    - @AmazonHelp @115821 45 minutes! https://t.co/qiX2PfBkm4
+    - comprei v?rios livros ontem na @AmazonHelp e chegou tudo hoje em menos de 24hrs (sem eu pagar mais), melhor lugar pra compras online sim &lt;3
+    - @AmazonHelp I found an article online stating there were problems on the website. But wanted to confirm.
+
+--- C2-SUB2 --- (53, 4.0%)
+  Keywords: prime, membership, prime membership, pay prime, pay, prime member, member, india, delivered, video
+    - @AmazonHelp hello! my prime membership renewed automatically but it charged the wrong payment method. is it possible to get a refund/do over
+    - Oi @AmazonHelp, when do I get to see a GUI for Prime Music in India?
+    - Since How I met Your Mother is now removed from Netflix, @115850 @AmazonHelp can you get it on Prime Videos, please?
+    - @AmazonHelp @120540 E meno male che ho usato Prime @120540! Ordinato lunedi, avr? il pacco domani! Che delusione la mia prima volta Prime ?
+    - @121286 @AmazonHelp Yep. Bit disappointing. Hopefully those charges are only on Prime Now and not normal Prime orders?
+    - @AmazonHelp if I buy 2nd prime subscription b4 completing my  prime subscription does it give 1 year validity after present validity ends?
+
+--- C2-SUB3 --- (60, 4.6%)
+  Keywords: customer service, service, customer, worst, worst customer, experience, prime, contact, chat, absolutely
+    - @AmazonHelp absolutely disgusted with your service. Customer service takes back seat in India as usual.yall have managed breach of terms
+    - @313188 @AmazonHelp @115850 There is no such thing which called "customer service" from @115850 . #AmazonSucks
+    - @AmazonHelp @115850 
+Talked to a customer service rep
+Nvr facd such bad quality voice call&amp;poor tht person is helpless bz technical prob
+    - @AmazonHelp @115850 (2)  PROUDLY "our Management doesn't speak to customers"
+Wow what level of customer service!!
+#bullshit
+    - @AmazonHelp I look up for a toll free to connect with you. Your customer service experience executive disconnects the call for no reason?? https://t.co/0nhYcoxa
+    - .@AmazonHelp finally ended chat with customer support. Was I supported? No. Am I hopeful? No. Absolute waste of so much time... Await yet another email stating 
+
+--- C2-SUB4 --- (133, 10.1%)
+  Keywords: delivery, day, day delivery, prime, package, attempt, deliver, home, amp, delivery date
+    - @264061 @AmazonHelp @15316 Pakar ke maro delivery kare wala ke aur kya
+    - @AmazonHelp What kind of investigations have you'll done? Us getting some lame call from the delivery boy to ask the state of the packing is
+    - @AmazonHelp no no no! My driver was allegedly on my road for the last half an hour, there was 1 delivery before mine and now this... https://t.co/NwA7x0XVDk
+    - @AmazonHelp Your delivery agent is cancelling the call https://t.co/RvNLs9VL76
+    - @AmazonHelp trying to fob off the customers with potentially misleading information telling them its out for delivery without even checking with the carrier!!! 
+    - @115830 @AmazonHelp Can I ask why my Echo with free delivery adds ?3+ delivery when placed in the cart? https://t.co/N4LFSx4ZWG
+
+--- C2-SUB5 --- (17, 1.3%)
+  Keywords: shipping, day shipping, day, prime, getting, twice, fucking, yo, paid, free
+    - @AmazonHelp October 31st? Um that?s not 2 day shipping. That?s 4 day shipping. I bought Prime to avoid this...what the hell https://t.co/W9ePvhQ6zk
+    - @AmazonHelp I am located in Florida. How on earth is this acceptable for a 1-day shipping order? This has happened TWICE in a row both 1 day shipping. 2 weeks t
+    - @AmazonHelp I'm a prime member and I paid extra for next day shipping
+    - @AmazonHelp Selling a membership with 2 day shipping, then actually providing 3 day shipping is theft of services.
+    - @AmazonHelp Meaning I wasted $6 when I could of just spent $4 on 3 day shipping.. I'm really upset about this.
+    - Bought something on the 18th and paid for next day shipping, but yet I?m not getting it until Monday ?? @AmazonHelp please explain
+
+--- C2-SUB6 --- (85, 6.5%)
+  Keywords: just, want, just want, help, page, ve just, gift, left, packaging, just received
+    - @169613 @AmazonHelp Not any more. 
+When Samsung and Google are kicking them.
+Difference between flagships isn't huge anymore. 
+Apple is just living on the edge
+    - just bought a shirt from @115821  and found these pins as a part of packaging #innovative @AmazonHelp .no wonder my shirt has holes https://t.co/6OHQh9ERuc
+    - @137142 @AmazonHelp "We're sorry! An error occurred when we tried to process your request." on Chrome.
+
+On Android, it just goes back to the cart after processi
+    - @AmazonHelp I am unable to find a will to live on your site it just keeps showing me books. Very dissappointing
+    - @AmazonHelp @121284 the @79582 Skill is not enabled in India. SERIOUSLY? https://t.co/tatgYmH2Xk just English (US) and DE
+    - Having issues with the @116090 price drop filter.  It?s MIA.  Is it just me? @AmazonHelp #techwoes
+
+--- C2-SUB7 --- (26, 2.0%)
+  Keywords: help, need help, need, pls, times, help package, want, rep, wont, mad
+    - @AmazonHelp Gurl, I'm so mad, help me please with this? https://t.co/mrZSIPDkCF
+    - @AmazonHelp @115850 @128875 Still not going to help? You did promise help, right?
+    - @AmazonHelp can someone help me out? I was dm?ing a rep but she disappeared #halp
+    - @AmazonHelp I will proceed with filing the law suit asking for compensation since u cant help.
+    - @AmazonHelp Can U please help me get this book in paperback asap https://t.co/PCLxmpw3o4 @223705
+    - @AmazonHelp need help plz help ne
+
+--- C2-SUB8 --- (29, 2.2%)
+  Keywords: customer, care, customer care, product, policies, help, provide, wasn customer, waste, available
+    - @AmazonHelp do you not respond to messages ? Wasn't customer services supposed to be a strength ?
+    - Selling defective pieces by organising a #SALES. And not responding to customer's call
+@AmazonHelp @115850
+    - @115851 @AmazonHelp @115850 #JeffBezos Have you trained your customer care to behave rudely and disconnect the call? It happened with me but there is no action 
+    - @717284 @AmazonHelp ?Aren?t packing correctly? ?? knowing damn well you didn?t care either ???
+    - @AmazonHelp Now the customer care executive is telling that cashback is applicable for 1st transaction only. This is really shocking that What you speak and wha
+    - @AmazonHelp @118702 Maybe I should return to being a regular customer with you. :) Hope you wont change customer policies on the go. ;)
+
+--- C2-SUB9 --- (39, 3.0%)
+  Keywords: thanks, app, delivery, kindle, help, sorted, guys, help thanks, working, parcel
+    - @341038 @AmazonHelp Thanks for responding. It?s been 24 hrs since I bought ?Baby Driver? on Vudu and it appeared directly in the MA app, but still not in iTunes
+    - 5/8 cans dented. In this case 2/3 is bad. Thanks @115821 @AmazonHelp https://t.co/fVEyrOh9zN
+    - @AmazonHelp Hi, does the possibility exist to substitute the 1st Xbox one gen buying the newest version? Thanks &amp; cheers
+    - This is how its done.
+thanks @115821 @115850 @AmazonHelp 
+appreciate it. ? https://t.co/4c9geJd3Gs
+    - @AmazonHelp @115850 
+Thanks for the memorable experience!! U failed a loyal consumer. #pathetic #badservice
+    - @270744 Really sorry to hear your first experience with us was not up to scratch. Please seek further assistance from @AmazonHelp. Thanks.
+
+================================================================================
+KEYWORD-BASED INTENT SIGNAL ANALYSIS
+================================================================================
+
+refund/money_back: 171 tweets (6.8%)
+    - @AmazonHelp if I cancel an order today before it is dispatched do I still get charged?
+    - @AmazonHelp hey i was order a hair oil on 25 july 2017 and i not recieve any delevery or refund please help
+    - @AmazonHelp can i get a refund for my purchase of #cuphead via @115821? i got scammed and there's nothing i can do about it... smh... https://t.co/MYQLC7443R
+
+delivery_late: 203 tweets (8.0%)
+    - If u decide to cancel ur @115821 order 90 sec. after making it they still decide to ship it. So which of my bills will be late?@AmazonHelp
+    - Amazon @AmazonHelp really don't want me to find my courier details. Package not delivered, I don't care what the online tracking says. I've been here all day. H
+    - @AmazonHelp I have order related issue
+
+delivery_wrong: 61 tweets (2.4%)
+    - @AmazonHelp ok, I need to change the shipping address on some shipments, I just realized they're going to the wrong place.
+    - @AmazonHelp I've now received the wrong product twice in a row. The first time I was told that I had to return the incorrect item and place a brand new order. D
+    - @AmazonHelp Excuse me, where's my order? I expected it between 09/14 and 09/26. It's been a month and it hasn't been delivered to me. https://t.co/LE0gxQFTxM
+
+return/exchange: 125 tweets (4.9%)
+    - Requested replacements for 3 dmg items. Repl 1 of 3 still damaged. But when I try to exchange it, says refund only of $0.00 @AmazonHelp
+    - #sonymobils I prchsd mobile from @115850.After purchased I found some issues on phone.Bocz of wrost return policy in @AmazonHelp nt rtrn https://t.co/aTgPKr5Ufu
+    - @AmazonHelp @115850 Placed return request using Link as suggested. Please make sure its not a replacement. Product doesn't fit the size of display at all. :(
+
+cancel: 109 tweets (4.3%)
+    - @AmazonHelp please help. I need to cancel or re-route an order that was ordered by mistake! It just was ordered yesterday, and just shipped today!!
+    - @AmazonHelp i want to continue my membership but want to change the date. Do i just cancel and reactivate on date? Silly that no option.
+    - @AmazonHelp how is mine delayed, but I can order another for delivery today? Should I cancel and rebuy? https://t.co/6B1eiTpOId
+
+prime_membership: 80 tweets (3.2%)
+    - @AmazonHelp glad I pay for my Prime Membership and don't get my 2 day guaranteed shipping. Doubting if prime is even worth it anymore... https://t.co/7E0nUcAUIl
+    - @448964 @AmazonHelp I really think @115821 is really working on new, innovative ways to make our prime memberships worthless
+    - Absolutely disgusted with @amazonhelp as #Prime member of several years. Customer service substandard with a package they lost. Things happen I get that but to 
+
+account_issue: 43 tweets (1.7%)
+    - @117634 why so easy for kids to buy apps on the kindle? Why can?t we put a password or something. Now I?m out $30. So mad @AmazonHelp
+    - Help @AmazonHelp someone changed my email and password for my account. I can?t login now. https://t.co/EqOSaqluIC
+    - @AmazonHelp Hi, I'm trying to reset my password but my email won't work and I have a new phone number. What do I do?
+
+product_defective: 60 tweets (2.4%)
+    - @AmazonHelp @115850 Tried n tired explaining, IVR still not working, here is the proof 
+Amazon.in IVR Malfunction https://t.co/Rd4XgVRlnt
+    - @AmazonHelp ORDER # 404-7538331-2329962
+i had ordered a 2Tb hard disk and this is what I have got.
+I want immediate resolution of this.
+Highly frustrated, trust
+    - @AmazonHelp Amazon Logistics is not working out for me! Of the last 4 deliveries I believe all 4 were misdelivered to a neighbor! DM with more details to follow
+
+tracking: 65 tweets (2.6%)
+    - @115850 - To get the delivery on priority I opt for prime membership but I am not even getting the delivery post time suggested by app.
+Please suggest fir the b
+    - @AmazonHelp @115850
+TrackingID 216261281465
+Order ID 403-6639348-4487500
+Could this be delivered by Saturday?
+It will be useless after Sat
+    - @AmazonHelp Was for my dad's wedding, now missed. Tracking says out for delivery in Enfield for 4 days. No way to get more more info in 'help' onsite.
+
+kindle/device: 100 tweets (4.0%)
+    - @AmazonHelp @115850 @115851 @115850 @115851 @127187 there is no resolution and update from last 30days. Refurbished device. Dead now. No warranty claim.
+    - @AmazonHelp Hi, got a Fire Stick today but get the following error. I'm in UK and it's set to UK! Help https://t.co/6MLgBWfvQO
+    - Dear @AmazonHelp, please make my Fire Stick work. And send more wine. Sincerely, the girl who just wants to watch GoT. #ugh
+
+prime_video: 98 tweets (3.9%)
+    - @115850 @AmazonHelp didn't receive the products but app shows delivered. Pls help getting my order fulfilled. Tracking id: 216236684499 https://t.co/7nIdNPFn2P
+    - @115850 @AmazonHelp i didnt recvd d parcel but it shows delivered nd i signed d reciept.. i escalated 4 days before still no use.. https://t.co/h0WCmdbZUX
+    - @AmazonHelp one prime member in how many device can log in on prime video
+
+pricing: 100 tweets (4.0%)
+    - @AmazonHelp Why is the customer support line nothing but an endless stream of promotional offers now? At the end of a call it tells me to call a separate number
+    - @AmazonHelp please, can you tell me whether the prime membership offer at reasonable rates has already ended in India?  Kindly revert
+    - @AmazonHelp Always had a great experience dealing with u &amp; got swift response for you. I have recommended all my friends to buy stuff frm Amazon. Thanks
+
+wrong_item: 12 tweets (0.5%)
+    - @115821 @AmazonHelp hey I bought a PR flag on Amazon for an art project and it came to me like this so what should I do, I know it?s just the stick but it?s not
+    - @AmazonHelp And your ppl wanted me to pay full price for a different product? Don't you think you should cover the difference for an item *you* lost?
+    - @AmazonHelp I've now received the wrong product twice in a row. The first time I was told that I had to return the incorrect item and place a brand new order. D
+
+missing_item: 22 tweets (0.9%)
+    - @AmazonHelp it appears we got an entirely wrong bag of items from Order #: 112-0263035-5436217.
+
+Missing 1/2 of our order, got random items!
+    - @117634 @AmazonHelp just updated to the new Kindle app in the UK but I seem to be missing the new GoodReads integration? https://t.co/a1yfgnRFBZ
+    - @AmazonHelp please fix the AZML delivery or stop it.  Poor/incomplete delivery status and sometimes fails to deliver when promised.
+
+customer_service_complaint: 129 tweets (5.1%)
+    - @AmazonHelp But it was a pretty shocking and rude way to start my day!
+    - @115850 @AmazonHelp 
+Pathetic customer care service of Amazon India !!
+One just can't speak to customer care for any issue even if they have Prime membership!
+T
+    - @AmazonHelp So for the 3rd time I ordered something via Prime &amp; never delivered despite assurances from your chat advisor. Awful service https://t.co/27Sp4j

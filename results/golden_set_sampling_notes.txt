@@ -1,0 +1,63 @@
+Golden Set Sampling Notes
+========================
+Generated: 2026-09-09 23:34
+Script   : scripts/12_sample_golden_set.py
+Pool     : data/amazon_help_sample.csv  (2969 tweets before dedup)
+Exclusion: data/labelled_eval.jsonl tweets removed to avoid contamination
+Pool after cleaning & dedup: 2859 tweets
+Target per intent: 19
+Total candidates : 189
+Random seed      : 42
+
+Sampling Method
+---------------
+1. Keyword heuristics (PATTERN_MAP, same as 05_label_sample.py) assign
+   a PREDICTED intent to each tweet.  This is used for stratification only
+   — NOT as a ground-truth label.  The user must assign human_label.
+
+2. Per-intent stratum:
+   a. Embed tweet text using sentence-transformers/all-MiniLM-L6-v2
+      (384-dim, L2-normalised).
+   b. MiniBatchKMeans (k=5) gives 5 diversity buckets.
+   c. Sample ceil(19/5) tweets from each bucket,
+      then trim to 19 if oversampled.
+
+3. All candidates are shuffled (seed=42) before writing so
+   the label sheet has no visible intent ordering.
+
+Diversity rationale
+-------------------
+Without diversity sampling, each stratum would oversample the modal
+cluster (e.g., refund_request tweets tend to cluster around "where is
+my refund" phrasing).  Bucketing ensures the 19 examples per intent
+cover different phrasings, tones, and sub-topics.
+
+Label instructions for the human annotator
+------------------------------------------
+Open data/golden_label_sheet.csv and fill in two columns:
+
+human_label    — one of the 11 taxonomy intents, or SKIP if ambiguous:
+  account_access, delivery_issue, device_and_digital_support,
+  general_complaint_or_feedback, order_cancellation, order_status_inquiry,
+  prime_membership, product_issue, refund_request, return_or_exchange,
+  shipping_delay_complaint
+
+human_escalate — Y if you would escalate to a human agent, N if you
+  would auto-handle.  Use Y for: legal/media threats, security breaches,
+  repeated unresolved contacts (>2), extreme negative language.
+
+notes  — optional free text
+
+Per-intent availability and sample counts
+-----------------------------------------
+  order_status_inquiry                        avail= 119  sampled=19
+  delivery_issue                              avail=  62  sampled=17
+  shipping_delay_complaint                    avail=  26  sampled=12
+  refund_request                              avail= 117  sampled=19
+  order_cancellation                          avail=  16  sampled=13
+  return_or_exchange                          avail=  64  sampled=17
+  product_issue                               avail=  56  sampled=19
+  account_access                              avail=  34  sampled=18
+  prime_membership                            avail=  62  sampled=17
+  device_and_digital_support                  avail=  95  sampled=19
+  general_complaint_or_feedback               avail=2208  sampled=19

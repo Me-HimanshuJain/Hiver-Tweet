@@ -1,0 +1,290 @@
+﻿Loaded 3000 tweets
+After cleaning: 2892 tweets
+TF-IDF matrix: (2892, 2431)
+Explained variance (50 components): 17.81%
+
+--- Evaluating cluster counts ---
+  K= 8  silhouette=0.0304
+  K=10  silhouette=0.0509
+  K=12  silhouette=0.0508
+  K=14  silhouette=0.0744
+  K=16  silhouette=0.0895
+
+================================================================================
+Final clustering with K=12
+================================================================================
+
+--- CLUSTER 0 --- (60 tweets, 2.1%)
+  Top terms: way, contact, work, doesn work, doesn, amazon, way contact, number, try, having, email, shipping
+  Top bigrams: doesn work, way contact
+  Representative tweets:
+    1. @AmazonHelp i'm expecting someone. his voice was threatening and i could hear it two floors up. he tried to force his way into the house on
+    2. @AmazonHelp is there anyway to prevent all deliveries after 7pm? My doorbell being hammered at 8pm, way after my toddlers bedtime with my loud dog IS NOT APPRECIATED.
+    3. @AmazonHelp @115833 @136314 not happy after purchasing the echo I found there is no way of setting parental controls on songs so my kids can hear  songs with explicit lyrics!? Plea
+    4. @AmazonHelp This is not the appropriate way to ship a laptop, there is no padding whatsoever. https://t.co/nllbRzcsX2
+    5. @AmazonHelp Is there a way you can arrange a call for me so that I can discuss and sort my queries out?
+
+--- CLUSTER 1 --- (183 tweets, 6.3%)
+  Top terms: account, email, got, address, help, reply, just, password, ve, send, amazon, did
+  Representative tweets:
+    1. @AmazonHelp My account: Ghost USA has been suspended over 5 weeks. My appeal said it would be looked at by October 4th. Please advise.
+    2. @AmazonHelp Hey, I found what seems to be a pretty serious security flaw in your new sign-in page. If you have two accounts, you can enter the password to either and log in success
+    3. @AmazonHelp So my account has been blocked once again for no reason (or atleast it wasn't told to me) i'm getting a little sick of this. why do my accounts keep getting blocked??
+    4. @223706 @AmazonHelp Instead CS via chat, phone calls (and I forgot email) has been antagonistic. :/
+    5. @AmazonHelp ..whether or not it has worked, as i got no email, no hint of what the code redeemed and also nothing in game to suggest it had worked either. would you be able to supp
+
+--- CLUSTER 2 --- (1316 tweets, 45.5%)
+  Top terms: delivery, help, customer, just, service, prime, day, delivered, need, product, package, refund
+  Top bigrams: customer service
+  Representative tweets:
+    1. @115850 @AmazonHelp @115821 @115821 Can you please stop this type of FRAUD deals??? https://t.co/4KjftgrBno
+    2. @370182 @AmazonHelp I love reading your tweets in my feed. Always a comedy spin on any situation - well done Sir!
+    3. @229999 @AmazonHelp Yeah they have
+    4. @AmazonHelp The situation was frustrating for all parties involved which I aplogize for. But nothing was confirmed leaving me in a state of uncertainty
+    5. @115850 @AmazonHelp where is winners list
+
+--- CLUSTER 3 --- (116 tweets, 4.0%)
+  Top terms: je, pas, le, est, pour, et, la, vous, il, une, en, bonjour
+  Representative tweets:
+    1. Dite @AmazonHelp j'y pense maintenant puisque vous ?tes toujours au top, est-ce que vous savez si on peut faire un stage chez @115821 ?
+    2. @AmazonHelp Mention " achet? pr?c?demment " et aucun objet apparait dans l'onglet " vos commandes " alors que j'ai re?u la coque aujourd'hui 2/2
+    3. @AmazonHelp  Rebonjour , j'avais fait ce que vous m'aviez dit et ils me disent qu'il sont besoin d'un relever bancaire ou confirmation...
+    4. Bonjour @AmazonHelp ! Existe il un moyen de se faire livrer des produits seulement disponible sur https://t.co/cFNVUYnPG4 en France ? (ceci : https://t.co/LfkXHTVPye). Merci :)
+    5. @416797 @AmazonHelp De ce que j'ai lu si tu veux faire le 100%.... va te falloir pas mal de temps ^^
+
+--- CLUSTER 4 --- (123 tweets, 4.3%)
+  Top terms: que, la, el, en, por, para, se, hola, es, una, mi, lo
+  Representative tweets:
+    1. @AmazonHelp Y de verdad, parece que me est?is penalizando. O sales de casa a recogerlo, o un d?a m?s para la entrega. ?
+    2. @AmazonHelp Hola . Hice un pedido el d?a 1 de noviembre y a?n estoy esperando fecha aproximada de entrega. Me gustar?a saber si por este canal pod?is darme alguna informaci?n m?s a
+    3. @AmazonHelp Hola! Sigo teniendo mi cuenta bloqueada, que hago?
+    4. @AmazonHelp hice la compra anticipada de un juego que sale ma?ana y aun me marca como no enviado puedo contar con el ma?ana?
+    5. @137605 @AmazonHelp Cuando llegue a casa os mando las incidencias.Vuestro servicio de atenci?n al cliente mal?simo.Hoy es la 1a vez que recibo respuesta
+
+--- CLUSTER 5 --- (94 tweets, 3.3%)
+  Top terms: ich, ist, nicht, der, die, und, es, das, auch, bei, kann, mir
+  Representative tweets:
+    1. @270753 @AmazonHelp Tja, wenn man nett ist ?? Dann sind die Leute auch super nett zur?ck ^.^
+    2. @AmazonHelp Also eigentlich bestelle ich nicht Sachen vor, damit sie mir erst Tage nach Ver?ffentlichung zugestellt werden. :/ https://t.co/l1CympLFsm
+    3. @788966 @AmazonHelp Auf die Idee kam der Bote einer Arbeitskollegin auch. Bl?derweise war da aber etwas zerbrechliches drin.
+    4. Hallo @AmazonHelp Wie kann ich denn eine angeblich vor 2 Wochen versandte, nicht nachverfolgbare + nicht angekommene Bestellung stornieren?
+    5. @AmazonHelp Bekomme alle f?nf Tage diese Mail. 
+
+?Sehr geehrter Herr ...
+ich schreibe Ihnen kurz ?ber den Zustand Ihre Anfrage.
+
+Leider wird noch an Ihr Fall gearbeitet. Ich habe I
+
+--- CLUSTER 6 --- (32 tweets, 1.1%)
+  Top terms: requesting kind, day requesting, kind response, requesting, kind, response, day, 19th, euch, eu, etwas, eta
+  Top bigrams: requesting kind, day requesting, kind response
+  Representative tweets:
+    1. @AmazonHelp @115830 347th day requesting any kind of response
+    2. @AmazonHelp @115830 310th day requesting any kind of response
+    3. @AmazonHelp @115830 335th day requesting any kind of response
+    4. @AmazonHelp @115830 269th day requesting any kind of response
+    5. @AmazonHelp @115830 155th day requesting any kind of response
+
+--- CLUSTER 7 --- (342 tweets, 11.8%)
+  Top terms: amazon, prime, amazon prime, pay, service, delivery, amazon pay, customer, account, use, don, package
+  Top bigrams: amazon prime, amazon pay
+  Representative tweets:
+    1. @AmazonHelp @115850 @115821 If you have to keep lying and manipulating your policies and harassing the Customers, Answer to these questions!
+#FeelingCheated #Amazon https://t.co/oX
+    2. Amazon agents mobile mostly remain switched off! What is the purpose of sharing their numbers? @AmazonHelp
+    3. @AmazonHelp @4030 @118702 @115937 @4110 @4168 @119356 @115821 @131283 @144775 @2517 @115830 @115850 Dear Amazon,
+When will you publish my review? :)
+#ScamAtAmazon
+#Day54
+    4. @AmazonHelp with an amazon fire tablet, can I tap on a photo and see a map of where a photo was taken?
+    5. @AmazonHelp Oi Amazon, s? pra elogiar o trabalho dos atendentes de voc?s. Amo voc?s. ??
+
+--- CLUSTER 8 --- (104 tweets, 3.6%)
+  Top terms: time, delivery, deliver, prime, day, amazon, second, really, second time, happened, delivered, point
+  Top bigrams: second time
+  Representative tweets:
+    1. 30 minutes, lets go @115821 @AmazonHelp . What ya?ll gonna give me if its not here on time?
+    2. @AmazonHelp why is this advertised at ?13.99 but when I put it in my basket it rockets back up to ?24.99....not the first time ? https://t.co/jzHUuNjfXr
+    3. @AmazonHelp Positive thing is that this time they not requested me t fill form which I still confused
+    4. @AmazonHelp But this is my second bad experience with amazon in a short time. You're accepting that this is your fault and still not providinh alternat.
+    5. @115821 @AmazonHelp Any chance of updated shipping. The local carriers for my area are absolutely horrendous when it comes to delivering on time https://t.co/BuUvESE3VG
+
+--- CLUSTER 9 --- (135 tweets, 4.7%)
+  Top terms: today, arrive, delivery, supposed, arrive today, package, parcel, delivered, delivery today, prime, arriving, delivered today
+  Top bigrams: arrive today, delivery today, delivered today
+  Representative tweets:
+    1. Probably not arriving today then considering I'm in Yorkshire, eh @AmazonHelp? https://t.co/0r2DDnTGqh
+    2. @comcastcares @115821 @AmazonHelp @123644 @127249 I am following you. I?ve been following you since earlier today.
+    3. okay the fact that @AmazonHelp haven't despatched COD yet and it's meant to be coming today is really confusing
+    4. @AmazonHelp Is dispatching/shipping delayed in the UK atm? copy of a game should ship today but as of yet hasn't
+    5. @AmazonHelp you are killing me right now. Mario Odyssey supposed to be here today. Still hasn?t left the amazon facility ?
+
+--- CLUSTER 10 --- (136 tweets, 4.7%)
+  Top terms: ordered, pre, pre ordered, help, prime, ago, received, got, delivered, ordered prime, arrived, item
+  Top bigrams: pre ordered, ordered prime
+  Representative tweets:
+    1. @AmazonHelp I ordered cable modem that costed over $200 and what shows up is butter chips and diapers. https://t.co/srJbAqOjOz
+    2. @AmazonHelp What?s happening to those of us that ordered the dvd with no problems then?! https://t.co/1N2YHAx1yX
+    3. @AmazonHelp Why is my Xbox One Scorpio delayed when I ordered it as soon as it went live?!
+    4. @AmazonHelp @115850 Hello, Good evening. . On October 8th I have ordered "Armado Combo pack of 3 Analogue watches" ..  (1/3)
+    5. @AmazonHelp ordered a fire tablet very slow dark screen lots of issues can I swap with something? Not happy
+
+--- CLUSTER 11 --- (251 tweets, 8.7%)
+  Top terms: order, delivered, cancel, delivery, cancel order, placed, received, days, help, need, prime, cancelled
+  Top bigrams: cancel order
+  Representative tweets:
+    1. @AmazonHelp @115850 status :  Preparing for Dispatch  Order# 171-0833948-8110754 ... #Patheticamazon
+    2. @AmazonHelp I completed this challenge and shared it in 13 groups and users why am I still not allowed to complete order ! Is it a Hoax ? https://t.co/I21GRN7IdQ
+    3. @115850 @AmazonHelp This is the screenshot of my order which has clearly mentioned the amount of ?250 as the amount https://t.co/ouCU4HhlPw
+    4. @AmazonHelp Replacement Order : 408-0458081-5028304
+Replacement requested on: Oct 31, 2017
+    5. @AmazonHelp #amazonhelp #amazonindia checkout order 
+407-1468218-4426738
+
+================================================================================
+Cluster size distribution:
+  Cluster  0:   60 (  2.1%) ####
+  Cluster  1:  183 (  6.3%) ############
+  Cluster  2: 1316 ( 45.5%) ###########################################################################################
+  Cluster  3:  116 (  4.0%) ########
+  Cluster  4:  123 (  4.3%) ########
+  Cluster  5:   94 (  3.3%) ######
+  Cluster  6:   32 (  1.1%) ##
+  Cluster  7:  342 ( 11.8%) #######################
+  Cluster  8:  104 (  3.6%) #######
+  Cluster  9:  135 (  4.7%) #########
+  Cluster 10:  136 (  4.7%) #########
+  Cluster 11:  251 (  8.7%) #################
+
+Saved to data/amazon_help_clustered.csv
+
+================================================================================
+KEYWORD SUMMARY FOR TAXONOMY DESIGN
+================================================================================
+
+C0 (60, 2.1%) keywords: way, contact, work, doesn work, doesn, amazon, way contact, number
+   - @AmazonHelp Was for my dad's wedding, now missed. Tracking says out for delivery in Enfield for 4 days. No way to get more more info in 'help' onsite.
+   - @AmazonHelp hey I'm having problems adding someone to my household... it doesn't seem to work... she can't be added
+   - @AmazonHelp And customer service says there is no way to contact. Need the order, not a refund. You guys can?t track drivers? Never again.
+   - @AmazonHelp is there anyway to prevent all deliveries after 7pm? My doorbell being hammered at 8pm, way after my toddlers bedtime with my loud dog IS NOT APPREC
+   - @AmazonHelp @115851 @127586 @120844 @131283 @1560 @131027 @119351 @26653 @4031 See the way amazon speaks, so rude. Is this the way you deal with your customer?
+
+   - @795703 @AmazonHelp Actually I was being snarky because since everyone knows Twitch is owned by Amazon, the answer was obvious. :P
+
+And my only option was to re
+   - @AmazonHelp Is there some way I can send/report to you what seems to be a fake email that claims to be from you?
+   - @AmazonHelp finding no way to sign up to amazon student again on U.K. site. Takes me to normal every time with no option to change
+
+C1 (183, 6.3%) keywords: account, email, got, address, help, reply, just, password
+   - @AmazonHelp my account has not been hacked yet disabled for 5 hours (got an email from account specialist).
+   - @AmazonHelp can't cancel the membership either as they blocked my account. Unacceptable to block someone yet still charge prime membership!
+   - @AmazonHelp does an item have to be shipped before money is withdrawn from my account
+   - @AmazonHelp I am having problems logging into my account and resetting my password
+   - @AmazonHelp Trying to download some TV to my iPad for travel but got this message a few times? https://t.co/wLcGzMqSB7
+   - @AmazonHelp I cannot access my account - I have 2 accounts w same email from long ago. Can't reset my password for my account that has prime
+   - @AmazonHelp amazon told me a fraudulent purchase on my account had been cancelled but my money has now left my bank account - would like this resolved quickly?
+   - @AmazonHelp hi, I?ve just received an email to say I?ve renewed my prime. Never had it. Is this spam? Please help
+
+C2 (1316, 45.5%) keywords: delivery, help, customer, just, service, prime, day, delivered
+   - @UPSHelp @AmazonHelp which of your groups can help me fix this problem? I received this item, a gift no less, in this form. Seriously? https://t.co/BZfej7DV61
+   - @AmazonHelp I love my Echo and want to use it in the UK. Will it work there?
+   - @AmazonHelp Prime has become more and more unreliable, and ur contempt for Prime customers more and more obvious.
+   - @AmazonHelp Any chance on a gift card for the ?10 difference cosidering it was only yesterday?
+   - @AmazonHelp received duplicate https://t.co/T28G6jbJAT
+   - Hey, @AmazonHelp. I cancelled my Prime. Can you quit charging my card now? Thanks.
+   - @AmazonHelp @115830 #PoorCustomerService
+   - @AmazonHelp helpppp meeee ya people never sent me my sleeping bag and it says it did and I? need it for tomorrow ??
+
+C3 (116, 4.0%) keywords: je, pas, le, est, pour, et, la, vous
+   - Salut @AmazonHelp, j'ai demand? un retour du support de casque Satechi car il fonctionne mal mais j'ai ?t? suffisamment stupide pour monter le support au socle 
+   - @AmazonHelp bonjour j'ai command? 2 paires d'ecouter pour Samsung Galaxy S7, sur les 2, 1 paires ne marches pas #1
+   - @AmazonHelp Et pas de changement de date de livraison ! Sinon j'ai des preuves de la mauvaise foi de vos services avec ce screen bien s?r :)
+   - @AmazonHelp 2/2 si vous vouliez vraiment m'aider, il aurait fallu qu'1 seule des 10 personnes d'amazon sav fasse son travail. Vous avez eu 1mois et 1sem
+   - @AmazonHelp @120533 je suis Facteur et voil? comment votre soci?t? livre les colis. Vous feriez mieux de rester avec LaPoste https://t.co/SUp9RCPdxv
+   - @120533 bonjour pouvez me contacter en dm pour ?changer sur une livraison re?ue hier @AmazonHelp
+   - @AmazonHelp Bonsoir j'ai un petit soucis j'ai envoy? des justificatifs ? plusieurs reprise ? fr-deliveryinvestigation mais toujours rien
+   - @216141 @216142 @AmazonHelp Je garde le Turbo Rabbit 2000 cass? qui ira ? la poubelle et il m'en renvoie un neuf. ??
+
+C4 (123, 4.3%) keywords: que, la, el, en, por, para, se, hola
+   - @AmazonHelp estoy por completar una compra y no me aplica los 100 pesos por ver una serie en Prime video.
+   - @AmazonHelp +c?digo promocional o se me ingresar?an x dinero en la cartera para usarlo con el pedido, pero no ha sido el caso y quisiera saber si es+
+   - @AmazonHelp Mi cuenta fue bloqueada y me pidieron enviar unos fax al 206-266-1838, pero vivo en Colombia y ac? los Fax no existen hace mucho
+   - @AmazonHelp Hola este domingo he comprado en amazon ESP y he escogido el Env?o est?ndar expresamente y vosotros lo envias con env?o express?
+   - @AmazonHelp Hola, como puedo gestionar la devoluci?n de un disco duro defectuoso comprado en junio 17?
+   - @AmazonHelp era un regalo de cumple para hoy. Llevaba mucho tiempo sin hacer un pedido con vosotros xq me pas? lo mismo la ?ltima vez y casualidad pasa lo mismo
+   - @137605 @AmazonHelp Cuando llegue a casa os mando las incidencias.Vuestro servicio de atenci?n al cliente mal?simo.Hoy es la 1a vez que recibo respuesta
+   - @132703 @AmazonHelp Esta es la notificaci?n que tengo https://t.co/3YSr6dS4XT
+
+C5 (94, 3.3%) keywords: ich, ist, nicht, der, die, und, es, das
+   - @AmazonHelp Ich warte seit einigen Tagen auf eine Lieferung. Urspr?ngliche Zustellung war der 23. November. Was kann ich da machen? Transportdienst ist: DEPOST.
+   - @AmazonHelp Jetzt l?uft sie komischer weise. Hab alles versucht gehabt. Batterien gewechselt, Stick neu gestartet und zur?ckgesetzt, in den Einstellungen FB ver
+   - Warum schreibt einem @AmazonHelp per Push, dass die Lieferung zur Abholung in Abholstation bereit ist, die App von @124285 sagt aber, es w?re stattdessen auf de
+   - @AmazonHelp Bin voll im @132976 Hype! Was gibt es sonst noch f?r Serien oder Filme ?ber Autos, am besten in Prime enthalten. Finde n?mlich keine Unterkategorie.
+   - @183854 @183855 @AmazonHelp Gibt?s bei uns wohl nicht...
+   - @AmazonHelp Erwarte eine wichtige Bestellung. Online steht nur Zustellung heute, aber keine Sendungsverfolgung verf?gbar?
+   - @389124 @AmazonHelp fairerweise muss man aber sagen, dass es einen "ich wei? es nicht"-Knopf gibt :D
+   - @AmazonHelp Wann ist die neue Folge Mr Robot online? https://t.co/uTo9qz97Ek
+
+C6 (32, 1.1%) keywords: requesting kind, day requesting, kind response, requesting, kind, response, day, 19th
+   - @AmazonHelp @115830 310th day requesting any kind of response
+   - @AmazonHelp @115830 255th day requesting any kind of response
+   - @AmazonHelp @115830 325th day requesting any kind of response
+   - @AmazonHelp @115830 @115851 418th day requesting any kind of response
+   - @AmazonHelp @115830 19th day requesting any kind of response
+   - @AmazonHelp @115830 @115851 421st day requesting any kind of response
+   - @AmazonHelp @115830 97th day requesting any kind of response
+   - @AmazonHelp @115830 246th day requesting any kind of response
+
+C7 (342, 11.8%) keywords: amazon, prime, amazon prime, pay, service, delivery, amazon pay, customer
+   - @AmazonHelp what is the point of being an Amazon Prime member during the holidays when packages always seem to get delayed?!
+   - @AmazonHelp Amazon promise 1- day delivery if they can't do for any particular category item
+   - @AmazonHelp comment mettre de l'argent de son solde Amazon sur son compte PayPal @AskPayPal svp ?
+   - @115850 tryin to access Amazon prime membership since yesterday shows error Everytime. And ain't getting satisfactory answer from customer care @AmazonHelp
+   - @AmazonHelp I bought a mi smart watch from Amazon and service center mi telling me that it is a duplicate watch.
+   - @AmazonHelp my order is delayed for more than a week, and customer care guy named "varun av" speaks damn rude. disappointed, good bye amazon
+   - @174195 @AmazonHelp Hi, thanks for the reply. The reason we wanted them from Amazon was the drastic reduction in price. We're not exactly flush with cash.
+   - @AmazonHelp Found my package but in someone else?s house. The Amazon delivered it  to some other person and upated as handed over to customer directly.
+
+C8 (104, 3.6%) keywords: time, delivery, deliver, prime, day, amazon, second, really
+   - @AmazonHelp Although I also understand it's a festive time.But if initially only it showed me 23rd, I would have purchased it from a shop or tried prime
+   - @AmazonHelp my order is out for delivery but I need to go out - Any way I can tell a realistic time of delivery?
+   - @115850 @AmazonHelp How much time will it take to get invite for Amazon echo ? I have already requested it.
+   - @AmazonHelp .@AmazonHelp .@115850 .@123288 it is the patience that made me yell at you after lapse of 8 hours from your committed time your highness
+   - I don?t know what?s different about this order @AmazonHelp but @115817 dropping the ball again #fail 
+I get deliveries all the time without fail, in fact out UP
+   - Hmm my last 3 orders with @115821 have either not been delivered or delivered late ... time to cancel my Prime membership?! @AmazonHelp
+   - @AmazonHelp I am think I am waisting my time . It's an advice if you want to keep then good else enjoy.
+   - @213587 [2/2] i follow up with u guys and @AmazonHelp and @119356  from long time now you want me to pay money for repair then what is meant by manufacturing wa
+
+C9 (135, 4.7%) keywords: today, arrive, delivery, supposed, arrive today, package, parcel, delivered
+   - @115830 @AmazonHelp I need this shirt for TODAY and it's still not here.
+   - @AmazonHelp question: won a book via Amazon today. Got sent an order # for it. How can I track it on your site? Isn't listed in my "Orders."
+   - @AmazonHelp  I bought something yesterday with Prime about 1pm. Said it's arriving today and still nothing has arrived. Slow delivery maybe?
+   - @AmazonHelp you claim to be the best in industry and take 15 days to deliver a package! You lost me today and are loosing fast. https://t.co/GXliOFETb8
+   - @AmazonHelp received my parcels today, which is lucky as they left them in a safe place! Perhaps they should be taught what is and isn?t a safe place. #VisibleF
+   - @comcastcares @115821 @AmazonHelp @123644 @127249 I am following you. I?ve been following you since earlier today.
+   - @AmazonHelp How do I organise a replacement advent calendar before next Thursday? Delivered today and a door is missing?! https://t.co/AF8JP34HrC
+   - @AmazonHelp Are you still going to deliver my prime order today? It's still out for delivery, and my wife was stuck at home ALL day!
+
+C10 (136, 4.7%) keywords: ordered, pre, pre ordered, help, prime, ago, received, got
+   - @AmazonHelp Hi, ordered a product to be delivered today.. however I have received an empty box.. please help!
+   - Hey @AmazonHelp i've ordered Mario Odyssey in April but it still says delivery date pending should cancel and order again ? I'm confused the game comes out in 3
+   - @AmazonHelp I?m a little bothered. Ordered #StarWarsBattlefrontII months ago. All my buddies have their copies and mine hasn?t shipped yet. Should I just cancel
+   - @AmazonHelp I ordered cable modem that costed over $200 and what shows up is butter chips and diapers. https://t.co/srJbAqOjOz
+   - @AmazonHelp 
+Got a phone about a month, maybe less ago, ordered for me by my mum (as I couldn't order with broken old phone) 
+The phone worked OK with odd glitc
+   - @AmazonHelp I ordered this yesterday. It was prime. Why is it coming next week and not tomorrow? https://t.co/PtUwV3ZGBb
+   - @AmazonHelp Hi I?ve ordered something and don?t know if payment has been taken or not?  Is payment immediate or does it take a while?
+   - @AmazonHelp it's been longer than 60 days since I've ordered it, yaknow I've been waiting for it for months and all, so I can't even leave feedback
+
+C11 (251, 8.7%) keywords: order, delivered, cancel, delivery, cancel order, placed, received, days
+   - @AmazonHelp if I cancel an order today before it is dispatched do I still get charged?
+   - Thanks @115821 for having a shipping delay on my order and then keeping my money when I cancel the order. Good looking out for a long time prime member.  @Amazo
+   - @AmazonHelp how do I specify that my delivery person needs to have key access to the apartment building when I order?
+   - If I order something from someone's wishlist on Amazon, does it notify them? I would assume not but the info is confusing. @AmazonHelp
+   - @AmazonHelp @115821  Plz mke sure tht  Order# 407-3862363-0944315 wud b delivered to my nxt generation bcz I knw it  wont be delivered to me
+   - @AmazonHelp Order #406-5192140-6921118 arriving late need to escalate this on urgent basis SOS.
+#Highpriority #Prime https://t.co/K4w4fmhZUW
+   - @AmazonHelp where is my order ???.????.?.?...?.???????????????
+   - @AmazonHelp I just placed an order on three items using a gift card and I recently moved but forgot to change the shipping address. Now I can't find I way to ed

@@ -1,0 +1,62 @@
+========================================================================
+AUTOMATED EVALUATION METRICS
+========================================================================
+Eval set : golden_labeled.csv (189 examples)
+Run time : 2026-09-10 00:10
+
+────────────────────────────────────────────────────────────────────────
+INTENT CLASSIFICATION (keyword baseline — see also results/eval_report.json)
+────────────────────────────────────────────────────────────────────────
+  Accuracy      : 0.561
+  Macro F1      : 0.633
+  Weighted F1   : 0.488
+
+  Intent                                           P       R      F1      N
+  ──────────────────────────────────────────  ──────  ──────  ──────  ─────
+  account_access                               0.556   1.000   0.714     10
+  delivery_issue                               0.353   1.000   0.522      6
+  device_and_digital_support                   0.368   1.000   0.538      7
+  general_complaint_or_feedback                1.000   0.186   0.314    102
+  order_cancellation                           0.538   1.000   0.700      7
+  order_status_inquiry                         0.684   1.000   0.812     13
+  prime_membership                             0.529   1.000   0.692      9
+  product_issue                                0.526   1.000   0.690     10
+  refund_request                               0.684   1.000   0.812     13
+  return_or_exchange                           0.412   1.000   0.583      7
+  shipping_delay_complaint                     0.417   1.000   0.588      5
+
+────────────────────────────────────────────────────────────────────────
+RETRIEVAL HIT-RATE  (same-intent match in top-K results)
+────────────────────────────────────────────────────────────────────────
+  hit@1     : 0.429
+  hit@3     : 0.619
+  hit@5     : 0.709
+
+────────────────────────────────────────────────────────────────────────
+ESCALATION PRECISION / RECALL / F1
+────────────────────────────────────────────────────────────────────────
+  Evaluated on   : 189 examples
+  Precision      : 0.500
+  Recall         : 0.031
+  F1             : 0.058
+  TP/FP/FN/TN    : 3/3/95/88
+
+────────────────────────────────────────────────────────────────────────
+BANKING77 CROSS-DOMAIN GENERALIZATION  (supplementary)
+────────────────────────────────────────────────────────────────────────
+  Queries        : 120
+  Accuracy       : 0.442  (vs 0.561 in-domain)
+  Macro F1       : 0.229
+  Avg confidence : 0.849
+  Hard-pair acc  : 0.200
+
+  Per-class F1 gap (in-domain minus cross-domain):
+    account_access                              Δ=+0.028  
+    order_status_inquiry                        Δ=+0.183  ███
+    refund_request                              Δ=-0.083  █
+    shipping_delay_complaint                    Δ=-0.600  ████████████
+
+  Interpretation: shipping_delay_complaint collapses cross-domain
+  (keyword reliance), while account_access is genuinely semantic.
+
+========================================================================

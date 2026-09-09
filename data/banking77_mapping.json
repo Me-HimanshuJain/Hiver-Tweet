@@ -1,0 +1,57 @@
+{
+  "description": "Explicit Banking77 → Amazon-taxonomy mapping. 13 of 77 Banking77 intents have a clear semantic analog in our 11-category Amazon taxonomy. 4 Amazon categories (order_cancellation, return_or_exchange, product_issue, device_and_digital_support) have no banking analog.",
+  "mapping": {
+    "card_arrival": {
+      "amazon_label": "order_status_inquiry",
+      "rationale": "'When will my card arrive?' is the banking analog of 'Where is my order?' — neutral status inquiry without complaint."
+    },
+    "pending_transfer": {
+      "amazon_label": "order_status_inquiry",
+      "rationale": "Asking about a pending transaction status is information-seeking, not yet a complaint — maps to order_status_inquiry."
+    },
+    "transfer_timing": {
+      "amazon_label": "order_status_inquiry",
+      "rationale": "'How long does a transfer take?' is a timing/ETA inquiry, equivalent to asking for an estimated delivery window."
+    },
+    "card_delivery_estimate": {
+      "amazon_label": "shipping_delay_complaint",
+      "rationale": "KEY HARD-PAIR ANALOG: 'Why hasn't my card arrived? I was told it would take 3-5 days.' The card_delivery_estimate Banking77 intent parallels shipping_delay_complaint exactly — a promised ETA that wasn't met. Contrasted with card_arrival (neutral inquiry)."
+    },
+    "transfer_not_received_by_recipient": {
+      "amazon_label": "shipping_delay_complaint",
+      "rationale": "Sent but not received by the other party — a delivery failure complaint analog."
+    },
+    "failed_transfer": {
+      "amazon_label": "shipping_delay_complaint",
+      "rationale": "Transfer initiated but not completed — the banking equivalent of a shipment that never left the warehouse."
+    },
+    "request_refund": {
+      "amazon_label": "refund_request",
+      "rationale": "Direct semantic analog — customer wants money returned."
+    },
+    "refund_not_showing_up": {
+      "amazon_label": "refund_request",
+      "rationale": "'My refund was processed but hasn't appeared in my account' — the banking equivalent of 'where's my refund?' follow-ups."
+    },
+    "transaction_charged_twice": {
+      "amazon_label": "refund_request",
+      "rationale": "Duplicate charge complaint — customer expects one of the charges to be reversed, equivalent to an unauthorised-charge refund request."
+    },
+    "passcode_forgotten": {
+      "amazon_label": "account_access",
+      "rationale": "Exact analog — locked out of account due to forgotten credential."
+    },
+    "pin_blocked": {
+      "amazon_label": "account_access",
+      "rationale": "Card/account access blocked — equivalent to suspended/locked account."
+    },
+    "compromised_card": {
+      "amazon_label": "account_access",
+      "rationale": "Security breach requiring account control — maps to the 'my account was hacked' variant of account_access."
+    },
+    "extra_charge_on_statement": {
+      "amazon_label": "general_complaint_or_feedback",
+      "rationale": "Unexplained charge on statement without a specific actionable request — best fit is the general complaint catch-all."
+    }
+  }
+}

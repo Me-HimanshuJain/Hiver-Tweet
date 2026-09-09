@@ -1,0 +1,65 @@
+========================================================================
+INTENT CLASSIFIER — CORRECTED EVALUATION REPORT
+========================================================================
+Mode             : nvidia/nemotron-3-super-120b-a12b
+Eval set size    : 110  (10 per intent × 11 intents)
+Retries          : 5 attempts, 503-specific backoff
+
+Accuracy (full)      : 61.8%
+Accuracy (excl err)  : 61.8%
+Majority baseline    : 9.1%
+Macro F1             : 0.612
+Weighted F1          : 0.612
+Avg confidence       : 0.901
+Uncertain preds      : 2 / 110
+API errors           : 0
+Wall time            : 521.0s
+
+────────────────────────────────────────────────────────────────────────
+PER-CLASS METRICS
+────────────────────────────────────────────────────────────────────────
+                               precision    recall  f1-score   support
+
+               account_access       0.89      0.80      0.84        10
+               delivery_issue       0.56      1.00      0.71        10
+   device_and_digital_support       0.80      0.80      0.80        10
+general_complaint_or_feedback       0.40      0.40      0.40        10
+           order_cancellation       1.00      0.50      0.67        10
+         order_status_inquiry       0.40      0.20      0.27        10
+             prime_membership       0.50      0.50      0.50        10
+                product_issue       0.56      0.50      0.53        10
+               refund_request       0.71      0.50      0.59        10
+           return_or_exchange       1.00      0.70      0.82        10
+     shipping_delay_complaint       0.45      0.90      0.60        10
+
+                     accuracy                           0.62       110
+                    macro avg       0.66      0.62      0.61       110
+                 weighted avg       0.66      0.62      0.61       110
+
+────────────────────────────────────────────────────────────────────────
+CONFIDENCE CALIBRATION
+────────────────────────────────────────────────────────────────────────
+Quartile   Conf range            N  Mean conf   Accuracy
+Q1         [0.30, 0.90]      33      0.800      33.3%
+Q2         [0.90, 0.94]      39      0.922      59.0%
+Q3         [0.94, 0.95]      45      0.948      71.1%
+Q4         [0.95, 0.96]      49      0.953      81.6%
+
+────────────────────────────────────────────────────────────────────────
+WORST CONFUSIONS (true → predicted, count)
+────────────────────────────────────────────────────────────────────────
+  order_status_inquiry                → shipping_delay_complaint            (5×)
+  prime_membership                    → shipping_delay_complaint            (4×)
+  order_status_inquiry                → delivery_issue                      (3×)
+  product_issue                       → general_complaint_or_feedback       (3×)
+  refund_request                      → delivery_issue                      (3×)
+  general_complaint_or_feedback       → delivery_issue                      (2×)
+
+────────────────────────────────────────────────────────────────────────
+UNCERTAIN PREDICTIONS (sample)
+────────────────────────────────────────────────────────────────────────
+  [conf=0.30] true=refund_request
+  @649907 @AmazonHelp Bank can’t do anything I used my bank card they said all they could do was stop 
+  [conf=0.30] true=general_complaint_or_feedback
+  @AmazonHelp .......?
+========================================================================

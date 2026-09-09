@@ -1,0 +1,104 @@
+@import "tailwindcss";
+
+@theme {
+  --color-on-secondary-fixed-variant: #633f00;
+  --color-surface-container: #122131;
+  --color-primary-container: #00e5ff;
+  --color-on-primary-container: #00626e;
+  --color-error-container: #93000a;
+  --color-tertiary-fixed: #e0e2ee;
+  --color-surface-bright: #2c3a4c;
+  --color-surface-tint: #00daf3;
+  --color-glass-fill: rgba(10, 14, 23, 0.6);
+  --color-on-secondary-fixed: #291800;
+  --color-starlight-white: #F8FAFC;
+  --color-outline: #849396;
+  --color-secondary-container: #ffaa00;
+  --color-inverse-surface: #d4e4fa;
+  --color-surface-container-lowest: #010f1f;
+  --color-surface-container-high: #1c2b3c;
+  --color-on-surface: #d4e4fa;
+  --color-surface: #051424;
+  --color-primary-fixed: #9cf0ff;
+  --color-secondary-fixed: #ffddb4;
+  --color-on-primary-fixed-variant: #004f58;
+  --color-on-tertiary-fixed-variant: #434751;
+  --color-surface-container-low: #0d1c2d;
+  --color-outline-variant: #3b494c;
+  --color-surface-container-highest: #273647;
+  --color-inverse-on-surface: #233143;
+  --color-surface-dim: #051424;
+  --color-on-tertiary-fixed: #181c24;
+  --color-tertiary-fixed-dim: #c3c6d2;
+  --color-on-tertiary: #2d303a;
+  --color-inverse-primary: #006875;
+  --color-on-primary-fixed: #001f24;
+  --color-error: #ffb4ab;
+  --color-secondary-fixed-dim: #ffb952;
+  --color-on-secondary: #452b00;
+  --color-on-primary: #00363d;
+  --color-primary: #c3f5ff;
+  --color-on-error-container: #ffdad6;
+  --color-background: #051424;
+  --color-secondary: #ffcf90;
+  --color-on-surface-variant: #bac9cc;
+  --color-on-background: #d4e4fa;
+  --color-border-cyan: rgba(0, 229, 255, 0.2);
+  --color-surface-variant: #273647;
+  --color-primary-fixed-dim: #00daf3;
+  --color-on-error: #690005;
+  --color-on-secondary-container: #694300;
+  --color-tertiary-container: #cdd0dc;
+  --color-tertiary: #eaecf9;
+  --color-on-tertiary-container: #555963;
+
+  --radius-DEFAULT: 0.25rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
+  --radius-full: 9999px;
+
+  --spacing-grid-gutter: 1.5rem;
+  --spacing-panel-padding: 2rem;
+  --spacing-stack-gap: 1rem;
+  --spacing-max-container: 1400px;
+  --spacing-section-gap: 4rem;
+
+  --font-headline-md: Outfit;
+  --font-body-md: Geist;
+  --font-display-xl: Outfit;
+  --font-headline-lg-mobile: Outfit;
+  --font-meta-lg: "JetBrains Mono";
+  --font-headline-lg: Outfit;
+  --font-body-lg: Geist;
+  --font-meta-sm: "JetBrains Mono";
+  --font-display-lg: Outfit;
+}
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-on-surface);
+  font-family: 'Geist', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 20;
+  display: inline-block;
+  vertical-align: middle;
+  line-height: 1;
+}
+/* Custom thin HUD scrollbars */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(5, 20, 36, 0.7);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 229, 255, 0.25);
+  border-radius: 2px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 229, 255, 0.5);
+}

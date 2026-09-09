@@ -1,0 +1,180 @@
+========================================================================
+HIVER SDE INTERN TAKE-HOME — EVALUATION SUMMARY
+========================================================================
+Generated: 2026-09-10 00:44
+
+Task  : Intent classifier + retrieval + reply drafter + escalation
+Data  : AmazonHelp Twitter (3,000 tweets, 8,000 resolved threads)
+Models: nvidia/nemotron-3-super-120b-a12b (NVIDIA NIM, free tier)
+
+EXECUTIVE SUMMARY TABLE
+────────────────────────────────────────────────────────────────────────
+  Metric                                  B1 Keyword  B2 ZeroShot   Full Sys
+  ──────────────────────────────────────  ──────────  ───────────  ─────────
+  Intent accuracy                              0.527       0.436       0.545
+  Intent macro F1                              0.616       0.371       0.563
+  Retrieval hit@3                                   —            —       0.619
+  Escalation F1                                     —            —       0.058
+  Reply judge score (1-5)                           —            —            —
+
+  Intent eval on 110 examples (10 per intent × 11 intents).
+
+────────────────────────────────────────────────────────────────────────
+1. INTENT CLASSIFIER (few-shot Nemotron, 11 intents)
+────────────────────────────────────────────────────────────────────────
+  Model          : nvidia/nemotron-3-super-120b-a12b
+  Eval samples   : 110
+  Accuracy       : 0.545
+  Majority base  : 0.091
+  Macro F1       : 0.563
+  API errors     : 27
+  Uncertain preds: 28
+
+  Intent                                           P       R      F1     N
+  ──────────────────────────────────────────  ──────  ──────  ──────  ────
+  account_access                               0.889   0.800   0.842    10
+  delivery_issue                               0.714   1.000   0.833    10
+  device_and_digital_support                   0.875   0.700   0.778    10
+  general_complaint_or_feedback                0.152   0.500   0.233    10
+  order_cancellation                           1.000   0.600   0.750    10
+  order_status_inquiry                         0.500   0.200   0.286    10
+  prime_membership                             0.500   0.300   0.375    10
+  product_issue                                0.714   0.500   0.588    10
+  refund_request                               0.750   0.300   0.429    10
+  return_or_exchange                           1.000   0.300   0.462    10
+  shipping_delay_complaint                     0.500   0.800   0.615    10
+
+  Worst confusion pairs:
+    refund_request → general_complaint_or_feedback  (n=7)
+    product_issue → general_complaint_or_feedback  (n=5)
+    return_or_exchange → general_complaint_or_feedback  (n=5)
+    order_status_inquiry → shipping_delay_complaint  (n=4)
+    prime_membership → general_complaint_or_feedback  (n=4)
+
+────────────────────────────────────────────────────────────────────────
+2. RETRIEVAL QUALITY  (FAISS, all-MiniLM-L6-v2, intent-filtered)
+────────────────────────────────────────────────────────────────────────
+  Same-intent match in top-K retrieved results:
+    hit@1   : 0.429  ████████
+    hit@3   : 0.619  ████████████
+    hit@5   : 0.709  ██████████████
+
+  Interpretation: hit@3 is the primary signal — the drafter sees
+  up to 3 grounding examples. A hit means ≥1 example is on-intent.
+
+────────────────────────────────────────────────────────────────────────
+3. ESCALATION QUALITY  (8-rule deterministic engine)
+────────────────────────────────────────────────────────────────────────
+  N evaluated : 189
+  Precision   : 0.500
+  Recall      : 0.031
+  F1          : 0.058
+  TP/FP/FN/TN : 3/3/95/88
+
+  [Judge section — run 14_llm_judge.py first]
+
+────────────────────────────────────────────────────────────────────────
+5. BASELINE COMPARISON
+────────────────────────────────────────────────────────────────────────
+  Metric                          B1 Keyword  B2 ZS-NIM  Full Sys
+  ──────────────────────────────  ───────  ─────────  ────────
+  Intent accuracy                   0.527    0.436    0.545
+  Intent macro F1                   0.616    0.371    0.563
+  Reply mean chars                126.400  265.600     —   
+
+  Δ (full − keyword): intent accuracy gain from few-shot + retrieval
+  Δ (full − zeroshot): gain from adding few-shot examples
+
+────────────────────────────────────────────────────────────────────────
+6. CROSS-DOMAIN GENERALIZATION  (Banking77 supplementary)
+────────────────────────────────────────────────────────────────────────
+  Queries evaluated  : 120
+  Cross-domain acc   : 0.442  (vs N/A in-domain)
+  Cross-domain macro F1 : 0.229
+  Hard-pair accuracy    : 0.200
+  Avg confidence        : 0.849
+
+  Per-class F1 gap (in-domain − cross-domain, positive = degradation):
+    account_access                              ↓0.028  
+    order_status_inquiry                        ↓0.183  ███
+    refund_request                              ↑0.083  █
+    shipping_delay_complaint                    ↑0.600  ████████████
+
+────────────────────────────────────────────────────────────────────────
+7. WHAT'S MISLEADING ABOUT MY HEADLINE NUMBER
+────────────────────────────────────────────────────────────────────────
+Headline: 54.5% accuracy / 0.563 macro F1 on the intent classifier.
+  Here is why those numbers require careful interpretation:
+
+  1. AUTO-LABELED EVAL SET — The 110-example eval set was created by the
+     same keyword heuristic that drives Baseline 1.  If the classifier learned
+     the same surface patterns, it has an inflated score: it is being tested on
+     labels it helped generate, not against independent human judgment.
+     → The golden set (data/golden_label_sheet.csv) fixes this.
+
+  2. 27/110 API ERRORS (25%) — The initial eval run had 27 NIM timeouts,
+     filled with the model's default ("uncertain") label.  Those 27 examples
+     artificially depress accuracy.  The corrected run on the 83 successful
+     predictions showed higher accuracy.  The headline mixes both.
+     → See results/eval_report_corrected.json for the denoised number.
+
+  3. MACRO F1 HIDES CLASS IMBALANCE — In production, general_complaint and
+     shipping_delay dominate (>50% combined).  Macro F1 gives equal weight
+     to all 11 classes, so the 0.233 F1 on general_complaint (the biggest
+     class) has only 1/11 impact on the headline.  In terms of customer
+     volume, that single class matters 5× more than most others.
+     → Weighted F1 is a better production proxy: 0.563.
+
+  4. CROSS-DOMAIN COLLAPSE — On Banking77, accuracy drops from 54.5% to
+     0.442 — a significant gap.
+     This reveals keyword reliance: intents whose keywords appear consistently
+     in Twitter language (account_access) generalise well; intents with
+     Twitter-specific phrasing (shipping_delay_complaint) collapse.
+     → Hard-pair accuracy: 0.200.
+     This is the most honest signal of true semantic generalisation.
+
+  5. CONFIDENCE MISCALIBRATION — The model reports 0.9+ confidence on many
+     incorrect predictions (Q3: mean conf = 0.926, accuracy = 0.667).
+     Downstream systems that trust raw confidence scores will make poor
+     escalation decisions.  The 8-rule escalation engine avoids this by using
+     text signals rather than model confidence for escalation triggers.
+
+  6. RETRIEVAL IS EVALUATED ON PREDICTED LABELS — hit-rate uses predicted
+     intent (not ground truth) as the filter.  If the intent prediction is
+     wrong, the retrieved examples are wrong-intent regardless of hit-rate.
+     → True retrieval quality is contingent on classifier quality.
+
+─────────────────────────────────────────────────────────────────────────────
+8. METHODOLOGY NOTES
+─────────────────────────────────────────────────────────────────────────────
+  Dataset    : AmazonHelp tweets from "Customer Support on Twitter" (Kaggle).
+               3,000 inbound tweets sampled (full dataset ~3M).
+
+  Taxonomy   : 11 intents derived from k-means (k=12) on tweet embeddings,
+               then manually collapsed + labelled.  See intent_taxonomy.md.
+
+  Classifier : nvidia/nemotron-3-super-120b-a12b via NVIDIA NIM free tier.
+               Few-shot: 2 examples per intent inline in the system prompt.
+               Temperature=0, JSON schema output (no manual parsing).
+
+  Retrieval  : FAISS IndexFlatIP, 8,000 resolved threads, all-MiniLM-L6-v2
+               embeddings (384-dim), intent-filtered top-K.
+
+  Drafter    : Same NIM model.  Up to 3 retrieved grounding examples.
+               Parser: 4-level fallback for Nemotron preamble noise.
+               grounding_examples field logged per draft (auditable).
+
+  Escalation : 8-rule deterministic engine.  Zero API calls.  Every decision
+               includes triggered_rule + human-readable reason string.
+
+  Baselines  : Keyword (PATTERN_MAP) + canned reply.
+               Zero-shot NIM (no few-shot, no retrieval).
+
+  Judge      : openai/gpt-oss-20b (or meta/llama-3.1-70b-instruct fallback).
+               Different model family from generator.
+               4 dimensions (relevance, empathy, actionability, conciseness).
+
+  Reproducibility: < 15 minutes from clean clone with NVIDIA_API_KEY set.
+                   See README.md quickstart.
+
+========================================================================

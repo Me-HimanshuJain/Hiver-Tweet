@@ -1,0 +1,14 @@
+# Core ML / data
+pandas>=2.0
+numpy>=1.26
+scikit-learn>=1.4
+kagglehub>=0.3
+
+# LLM — NVIDIA NIM via OpenAI-compatible SDK
+# Set env var before running:  $env:NVIDIA_API_KEY = 'nvapi-...'
+# Free key: https://build.nvidia.com
+openai>=1.40
+
+# Retrieval — local, no API key required
+sentence-transformers>=3.0
+faiss-cpu>=1.8

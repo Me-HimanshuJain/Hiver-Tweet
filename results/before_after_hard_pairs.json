@@ -1,0 +1,319 @@
+{
+  "model": "nvidia/nemotron-3-super-120b-a12b",
+  "n_hard_pair_tweets": 30,
+  "n_errors": 0,
+  "elapsed_seconds": 176.69,
+  "note": "Banking77 contrastive few-shots added to taxonomy.py before this run.",
+  "before_metrics": {
+    "order_status_inquiry": {
+      "precision": 0.4,
+      "recall": 0.2,
+      "f1": 0.267,
+      "support": 10
+    },
+    "shipping_delay_complaint": {
+      "precision": 0.45,
+      "recall": 0.9,
+      "f1": 0.6,
+      "support": 10
+    },
+    "prime_membership": {
+      "precision": 0.5,
+      "recall": 0.5,
+      "f1": 0.5,
+      "support": 10
+    }
+  },
+  "after_metrics": {
+    "order_status_inquiry": {
+      "precision": 1.0,
+      "recall": 0.2,
+      "f1": 0.333,
+      "support": 10
+    },
+    "shipping_delay_complaint": {
+      "precision": 0.529,
+      "recall": 0.9,
+      "f1": 0.667,
+      "support": 10
+    },
+    "prime_membership": {
+      "precision": 0.857,
+      "recall": 0.6,
+      "f1": 0.706,
+      "support": 10
+    }
+  },
+  "deltas": {
+    "order_status_inquiry": {
+      "f1_before": 0.267,
+      "f1_after": 0.333,
+      "delta_f1": 0.066,
+      "p_before": 0.4,
+      "p_after": 1.0,
+      "r_before": 0.2,
+      "r_after": 0.2
+    },
+    "shipping_delay_complaint": {
+      "f1_before": 0.6,
+      "f1_after": 0.667,
+      "delta_f1": 0.067,
+      "p_before": 0.45,
+      "p_after": 0.529,
+      "r_before": 0.9,
+      "r_after": 0.9
+    },
+    "prime_membership": {
+      "f1_before": 0.5,
+      "f1_after": 0.706,
+      "delta_f1": 0.206,
+      "p_before": 0.5,
+      "p_after": 0.857,
+      "r_before": 0.5,
+      "r_after": 0.6
+    }
+  },
+  "per_tweet": [
+    {
+      "tweet": "@133929 @120169 @115821 @AmazonHelp  My amazon package gone missing Aramex response is poor. What are my options? Tracki",
+      "true": "order_status_inquiry",
+      "pred": "delivery_issue",
+      "conf": 0.9,
+      "correct": false,
+      "error": null
+    },
+    {
+      "tweet": "@AmazonHelp Can I get an update on my package: Tracking#: Q13033488773",
+      "true": "order_status_inquiry",
+      "pred": "order_status_inquiry",
+      "conf": 0.96,
+      "correct": true,
+      "error": null
+    },
+    {
+      "tweet": "pretty sure i'm never gonna be receiving my package from amazon (ordered with prime) that was shipped through @3375. the",
+      "true": "order_status_inquiry",
+      "pred": "shipping_delay_complaint",
+      "conf": 0.9,
+      "correct": false,
+      "error": null
+    },
+    {
+      "tweet": "@115821 @AmazonHelp really disappointed with your delivery in Mexico. Still waiting for the @23822 that should’ve been h",
+      "true": "order_status_inquiry",
+      "pred": "shipping_delay_complaint",
+      "conf": 0.9,
+      "correct": false,
+      "error": null
+    },
+    {
+      "tweet": "@AmazonHelp I've been messed around and lied to for nearly 2 weeks. Still waiting for my son's birthday present. Please ",
+      "true": "order_status_inquiry",
+      "pred": "shipping_delay_complaint",
+      "conf": 0.9,
+      "correct": false,
+      "error": null
+    },
+    {
+      "tweet": "@AmazonHelp hi made an order on Wednesday with my Amazon prime. Was due to arrive yesterday but it still hasn't arrived ",
+      "true": "order_status_inquiry",
+      "pred": "shipping_delay_complaint",
+      "conf": 0.94,
+      "correct": false,
+      "error": null
+    },
+    {
+      "tweet": "@AmazonHelp And customer service says there is no way to contact. Need the order, not a refund. You guys can’t track dri",
+      "true": "order_status_inquiry",
+      "pred": "delivery_issue",
+      "conf": 0.88,
+      "correct": false,
+      "error": null
+    },
+    {
+      "tweet": "@AmazonHelp Apparently, my package was delivered at 5:30 last night, even though I checked and there was nothing and ori",
+      "true": "order_status_inquiry",
+      "pred": "delivery_issue",
+      "conf": 0.94,
+      "correct": false,
+      "error": null
+    },
+    {
+      "tweet": "@AmazonHelp I purchased two PlayStation gift cards earlier and it says pending verification. How long does this usually ",
+      "true": "order_status_inquiry",
+      "pred": "order_status_inquiry",
+      "conf": 0.8,
+      "correct": true,
+      "error": null
+    },
+    {
+      "tweet": "@AmazonHelp funny how my Prume item ordered on Monday never left the seller till Wednesday and still hasn’t arrived. Why",
+      "true": "order_status_inquiry",
+      "pred": "shipping_delay_complaint",
+      "conf": 0.94,
+      "correct": false,
+      "error": null
+    },
+    {
+      "tweet": "@AmazonHelp amazon I ordered a package on September 14th and paid extra for shipping to get by the 18th. I still don't h",
+      "true": "shipping_delay_complaint",
+      "pred": "shipping_delay_complaint",
+      "conf": 0.96,
+      "correct": true,
+      "error": null
+    },
+    {
+      "tweet": "@amazonhelp I think you guys need some math tutoring. I ordered a halloween costume item and selected Prime 2-day shippi",
+      "true": "shipping_delay_complaint",
+      "pred": "shipping_delay_complaint",
+      "conf": 0.96,
+      "correct": true,
+      "error": null
+    },
+    {
+      "tweet": "What is the point of being a Prime member for free 2 day shipping if my stuff does not come in on time? Very unhappy @Am",
+      "true": "shipping_delay_complaint",
+      "pred": "shipping_delay_complaint",
+      "conf": 0.95,
+      "correct": true,
+      "error": null
+    },
+    {
+      "tweet": "@AmazonHelp October 31st? Um that’s not 2 day shipping. That’s 4 day shipping. I bought Prime to avoid this...what the h",
+      "true": "shipping_delay_complaint",
+      "pred": "shipping_delay_complaint",
+      "conf": 0.95,
+      "correct": true,
+      "error": null
+    },
+    {
+      "tweet": "Prime\nOrder 9/15 - Received 9/20\nOrder 10/3 - Received 10/6\nOrder 10/25 - Still not here??\nWTF are we paying for 2 day s",
+      "true": "shipping_delay_complaint",
+      "pred": "shipping_delay_complaint",
+      "conf": 0.96,
+      "correct": true,
+      "error": null
+    },
+    {
+      "tweet": "Maybe I'm not the best at math but Amazon Prime 2 day shipping takes 7days? @AmazonHelp https://t.co/XAkKzLLGz1",
+      "true": "shipping_delay_complaint",
+      "pred": "shipping_delay_complaint",
+      "conf": 0.94,
+      "correct": true,
+      "error": null
+    },
+    {
+      "tweet": "@118706 @123967 @AmazonHelp This is the type of service your customers are getting from carriers. I was already given a ",
+      "true": "shipping_delay_complaint",
+      "pred": "shipping_delay_complaint",
+      "conf": 0.92,
+      "correct": true,
+      "error": null
+    },
+    {
+      "tweet": "@AmazonHelp doesnt prime mean 2 day shipping ? https://t.co/ljdPgOJFTq",
+      "true": "shipping_delay_complaint",
+      "pred": "prime_membership",
+      "conf": 0.92,
+      "correct": false,
+      "error": null
+    },
+    {
+      "tweet": "@AmazonHelp why do I pay extra for 1-day Prime shipping for a pre-order video game and now it's not coming until 3 days ",
+      "true": "shipping_delay_complaint",
+      "pred": "shipping_delay_complaint",
+      "conf": 0.96,
+      "correct": true,
+      "error": null
+    },
+    {
+      "tweet": "@AmazonHelp how is this 2 day shipping? https://t.co/gwCl4oqEKX",
+      "true": "shipping_delay_complaint",
+      "pred": "shipping_delay_complaint",
+      "conf": 0.9,
+      "correct": true,
+      "error": null
+    },
+    {
+      "tweet": "@448964 @AmazonHelp I really think @115821 is really working on new, innovative ways to make our prime memberships worth",
+      "true": "prime_membership",
+      "pred": "prime_membership",
+      "conf": 0.92,
+      "correct": true,
+      "error": null
+    },
+    {
+      "tweet": "@115850 @AmazonHelp I don't think then its worth for buying a prime membership and waiting for 13days....what is use of ",
+      "true": "prime_membership",
+      "pred": "shipping_delay_complaint",
+      "conf": 0.9,
+      "correct": false,
+      "error": null
+    },
+    {
+      "tweet": "@AmazonHelp second time in as many months that Amazon has gone into my account and stolen money for a Prime membership I",
+      "true": "prime_membership",
+      "pred": "prime_membership",
+      "conf": 0.95,
+      "correct": true,
+      "error": null
+    },
+    {
+      "tweet": "@169613 @AmazonHelp He he Amazon prime free with this, itself is worth it :)",
+      "true": "prime_membership",
+      "pred": "prime_membership",
+      "conf": 0.85,
+      "correct": true,
+      "error": null
+    },
+    {
+      "tweet": "@AmazonHelp Hi.. I'm a Prime member in US and am currently traveling in Poland. Can i use my membership and get stuff de",
+      "true": "prime_membership",
+      "pred": "prime_membership",
+      "conf": 0.95,
+      "correct": true,
+      "error": null
+    },
+    {
+      "tweet": "@115851 @AmazonHelp Hey, big fan &amp; admirer. Prime member since 2005 but tired  of late deliveries. Of my last 9 orde",
+      "true": "prime_membership",
+      "pred": "device_and_digital_support",
+      "conf": 0.85,
+      "correct": false,
+      "error": null
+    },
+    {
+      "tweet": "@AmazonHelp If you continue to use OnTrac I'm cancelling my Prime account. Please forward this to a 2nd tier customer sa",
+      "true": "prime_membership",
+      "pred": "prime_membership",
+      "conf": 0.95,
+      "correct": true,
+      "error": null
+    },
+    {
+      "tweet": "@AmazonHelp i am a prime member. can i buy second year's prime membership subscription in advance?",
+      "true": "prime_membership",
+      "pred": "prime_membership",
+      "conf": 0.95,
+      "correct": true,
+      "error": null
+    },
+    {
+      "tweet": "@AmazonHelp being a prime member i am enjoying services like poor delivery. Best no on time delivery. Best poor product ",
+      "true": "prime_membership",
+      "pred": "shipping_delay_complaint",
+      "conf": 0.7,
+      "correct": false,
+      "error": null
+    },
+    {
+      "tweet": "@237238 @AmazonHelp Check this response from Amazon. I've been a Prime Member for 7 years.  2 days used to mean 2 days. ",
+      "true": "prime_membership",
+      "pred": "shipping_delay_complaint",
+      "conf": 0.94,
+      "correct": false,
+      "error": null
+    }
+  ],
+  "full_classification_report": "                          precision    recall  f1-score   support\n\n    order_status_inquiry       1.00      0.20      0.33        10\nshipping_delay_complaint       0.53      0.90      0.67        10\n        prime_membership       0.86      0.60      0.71        10\n\n               micro avg       0.65      0.57      0.61        30\n               macro avg       0.80      0.57      0.57        30\n            weighted avg       0.80      0.57      0.57        30\n"
+}

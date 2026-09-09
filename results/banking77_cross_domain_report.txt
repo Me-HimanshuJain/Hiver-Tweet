@@ -1,0 +1,77 @@
+========================================================================
+BANKING77 CROSS-DOMAIN GENERALIZATION REPORT
+========================================================================
+Model           : nvidia/nemotron-3-super-120b-a12b
+Queries         : 120  (10 per Banking77 intent × 13 mapped intents)
+API errors      : 0
+
+Overall Accuracy: 44.2%
+Macro F1        : 0.229
+Avg Confidence  : 0.849
+Hard-pair Acc   : 20.0%  (order_status_inquiry + shipping_delay_complaint queries)
+
+────────────────────────────────────────────────────────────────────────
+PER-CLASS — cross-domain vs in-domain (Amazon Twitter) F1
+────────────────────────────────────────────────────────────────────────
+Amazon Label                         XD-F1  ID-F1    Gap  Support
+account_access                        0.87   0.84  +0.03       30
+delivery_issue                        0.00    n/a    n/a        0
+device_and_digital_support            0.00    n/a    n/a        0
+general_complaint_or_feedback         0.00    n/a    n/a       10
+order_cancellation                    0.00    n/a    n/a        0
+order_status_inquiry                  0.45   0.27  +0.18       30
+refund_request                        0.51   0.59  -0.08       20
+shipping_delay_complaint              0.00   0.60  -0.60       30
+
+────────────────────────────────────────────────────────────────────────
+HARD-PAIR SPOTLIGHT  (order_status_inquiry vs shipping_delay_complaint)
+────────────────────────────────────────────────────────────────────────
+Banking77 hard-pair analogs:
+  card_arrival / pending_transfer / transfer_timing
+    → expected: order_status_inquiry
+  card_delivery_estimate / transfer_not_received_by_recipient / failed_transfer
+    → expected: shipping_delay_complaint
+
+Hard-pair accuracy: 12/60 = 20.0%
+Misclassified     : 48
+
+Sample misclassifications:
+  [card_arrival]
+  Text     : i have not received my card
+  Expected : order_status_inquiry
+  Got      : delivery_issue  (conf=0.88)
+
+  [card_arrival]
+  Text     : Why hasn't my card been delivered?
+  Expected : order_status_inquiry
+  Got      : delivery_issue  (conf=0.92)
+
+  [card_arrival]
+  Text     : I'm still waiting for delivery of my new card, why is it taking so long?
+  Expected : order_status_inquiry
+  Got      : shipping_delay_complaint  (conf=0.88)
+
+  [pending_transfer]
+  Text     : How long for money transfer to show?
+  Expected : order_status_inquiry
+  Got      : refund_request  (conf=0.85)
+
+────────────────────────────────────────────────────────────────────────
+WORST CONFUSIONS (true → predicted, count)
+────────────────────────────────────────────────────────────────────────
+  shipping_delay_complaint            → order_status_inquiry                (11×)
+  general_complaint_or_feedback       → refund_request                      (10×)
+  order_status_inquiry                → refund_request                      (10×)
+  shipping_delay_complaint            → general_complaint_or_feedback       (8×)
+  shipping_delay_complaint            → refund_request                      (8×)
+  account_access                      → refund_request                      (5×)
+
+────────────────────────────────────────────────────────────────────────
+INTERPRETATION
+────────────────────────────────────────────────────────────────────────
+Cross-domain accuracy measures how well a Twitter-trained Amazon taxonomy
+generalises to Banking77's clean, differently-worded queries.
+Expected gap: 10-20pp below in-domain (different register + domain).
+The hard pair (order_status vs shipping_delay) is the most informative
+sub-test: Banking77 provides domain-agnostic evidence for this confusion.
+========================================================================

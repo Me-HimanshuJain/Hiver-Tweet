@@ -1,0 +1,227 @@
+{
+  "mode": "nvidia/nemotron-3-super-120b-a12b",
+  "n_samples": 110,
+  "elapsed_seconds": 415.95,
+  "accuracy": 0.5455,
+  "majority_baseline_accuracy": 0.0909,
+  "macro_f1": 0.5627,
+  "weighted_f1": 0.5627,
+  "n_uncertain": 28,
+  "n_errors": 27,
+  "avg_confidence": 0.683,
+  "median_confidence": 0.9,
+  "per_class_metrics": {
+    "account_access": {
+      "precision": 0.889,
+      "recall": 0.8,
+      "f1": 0.842,
+      "support": 10
+    },
+    "delivery_issue": {
+      "precision": 0.714,
+      "recall": 1.0,
+      "f1": 0.833,
+      "support": 10
+    },
+    "device_and_digital_support": {
+      "precision": 0.875,
+      "recall": 0.7,
+      "f1": 0.778,
+      "support": 10
+    },
+    "general_complaint_or_feedback": {
+      "precision": 0.152,
+      "recall": 0.5,
+      "f1": 0.233,
+      "support": 10
+    },
+    "order_cancellation": {
+      "precision": 1.0,
+      "recall": 0.6,
+      "f1": 0.75,
+      "support": 10
+    },
+    "order_status_inquiry": {
+      "precision": 0.5,
+      "recall": 0.2,
+      "f1": 0.286,
+      "support": 10
+    },
+    "prime_membership": {
+      "precision": 0.5,
+      "recall": 0.3,
+      "f1": 0.375,
+      "support": 10
+    },
+    "product_issue": {
+      "precision": 0.714,
+      "recall": 0.5,
+      "f1": 0.588,
+      "support": 10
+    },
+    "refund_request": {
+      "precision": 0.75,
+      "recall": 0.3,
+      "f1": 0.429,
+      "support": 10
+    },
+    "return_or_exchange": {
+      "precision": 1.0,
+      "recall": 0.3,
+      "f1": 0.462,
+      "support": 10
+    },
+    "shipping_delay_complaint": {
+      "precision": 0.5,
+      "recall": 0.8,
+      "f1": 0.615,
+      "support": 10
+    }
+  },
+  "confidence_calibration": [
+    {
+      "quartile": 1,
+      "conf_range": [
+        0.0,
+        0.362
+      ],
+      "n": 28,
+      "mean_confidence": 0.011,
+      "accuracy": 0.107
+    },
+    {
+      "quartile": 2,
+      "conf_range": [
+        0.362,
+        0.9
+      ],
+      "n": 28,
+      "mean_confidence": 0.848,
+      "accuracy": 0.643
+    },
+    {
+      "quartile": 3,
+      "conf_range": [
+        0.9,
+        0.95
+      ],
+      "n": 45,
+      "mean_confidence": 0.926,
+      "accuracy": 0.667
+    },
+    {
+      "quartile": 4,
+      "conf_range": [
+        0.95,
+        0.96
+      ],
+      "n": 37,
+      "mean_confidence": 0.956,
+      "accuracy": 0.811
+    }
+  ],
+  "worst_confusions": [
+    {
+      "true": "refund_request",
+      "predicted": "general_complaint_or_feedback",
+      "count": 7
+    },
+    {
+      "true": "product_issue",
+      "predicted": "general_complaint_or_feedback",
+      "count": 5
+    },
+    {
+      "true": "return_or_exchange",
+      "predicted": "general_complaint_or_feedback",
+      "count": 5
+    },
+    {
+      "true": "order_status_inquiry",
+      "predicted": "shipping_delay_complaint",
+      "count": 4
+    },
+    {
+      "true": "prime_membership",
+      "predicted": "general_complaint_or_feedback",
+      "count": 4
+    },
+    {
+      "true": "device_and_digital_support",
+      "predicted": "general_complaint_or_feedback",
+      "count": 2
+    },
+    {
+      "true": "general_complaint_or_feedback",
+      "predicted": "delivery_issue",
+      "count": 2
+    },
+    {
+      "true": "order_cancellation",
+      "predicted": "prime_membership",
+      "count": 2
+    },
+    {
+      "true": "order_status_inquiry",
+      "predicted": "delivery_issue",
+      "count": 2
+    },
+    {
+      "true": "order_status_inquiry",
+      "predicted": "general_complaint_or_feedback",
+      "count": 2
+    }
+  ],
+  "uncertain_examples": [
+    {
+      "tweet": "@AmazonHelp I've been messed around and lied to for nearly 2 weeks. Still waiting for my son's birthday present. Please ",
+      "confidence": 0.0,
+      "true_label": "order_status_inquiry"
+    },
+    {
+      "tweet": "@AmazonHelp And customer service says there is no way to contact. Need the order, not a refund. You guys can’t track dri",
+      "confidence": 0.0,
+      "true_label": "order_status_inquiry"
+    },
+    {
+      "tweet": "@AmazonHelp amazon I ordered a package on September 14th and paid extra for shipping to get by the 18th. I still don't h",
+      "confidence": 0.0,
+      "true_label": "shipping_delay_complaint"
+    },
+    {
+      "tweet": "@AmazonHelp @115850 @115851 completed 60 days since ordered, no refund still. Asked for cancellation, plz do refund.#Ral",
+      "confidence": 0.0,
+      "true_label": "refund_request"
+    },
+    {
+      "tweet": "@AmazonHelp @119351 @18220 Worst Shopping Experience ever. No refund , no token of Apology or Goodwill gesture against f",
+      "confidence": 0.0,
+      "true_label": "refund_request"
+    },
+    {
+      "tweet": "@AmazonHelp my package has been lost and i want a refund but im not getting a confirmation email after i click on the re",
+      "confidence": 0.0,
+      "true_label": "refund_request"
+    },
+    {
+      "tweet": "@115851 @115850 duping me by sending a damaged product after asking me to wait for an inordinate 45 days. Now refusing t",
+      "confidence": 0.0,
+      "true_label": "refund_request"
+    },
+    {
+      "tweet": "@AmazonHelp  item not delivered,customer service said to return item for a refund, ummm how? when it was never delivered",
+      "confidence": 0.0,
+      "true_label": "refund_request"
+    },
+    {
+      "tweet": "@AmazonHelp hey i was order a hair oil on 25 july 2017 and i not recieve any delevery or refund please help",
+      "confidence": 0.0,
+      "true_label": "refund_request"
+    },
+    {
+      "tweet": "@649907 @AmazonHelp Bank can’t do anything I used my bank card they said all they could do was stop it from happing agai",
+      "confidence": 0.0,
+      "true_label": "refund_request"
+    }
+  ]
+}

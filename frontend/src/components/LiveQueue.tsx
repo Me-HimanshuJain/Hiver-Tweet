@@ -1,6 +1,4 @@
-import { messages } from '../data/mockData';
-
-export const LiveQueue = ({ activeId, onSelect }: { activeId: string, onSelect: (id: string) => void }) => {
+export const LiveQueue = ({ messages, activeId, onSelect }: { messages: any[], activeId: string, onSelect: (id: string) => void }) => {
   return (
     <section className="lg:col-span-3 xl:col-span-3 rounded-2xl bg-glass-fill/60 backdrop-blur-xl border border-cyan/20 p-5 flex flex-col h-[820px]">
       {/* Queue Header */}
@@ -86,7 +84,7 @@ export const LiveQueue = ({ activeId, onSelect }: { activeId: string, onSelect: 
               
               <div className="flex items-center justify-between pt-2 border-t border-cyan/10 font-meta-sm text-[11px]">
                 <span className="text-on-surface-variant bg-surface-container-lowest px-1.5 py-0.5 rounded border border-cyan/10">
-                  {msg.intent.split('_').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')}
+                  {msg.intent.split('_').map((w: string) => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')}
                 </span>
                 <div className={`flex items-center space-x-1 ${isEscalate ? 'text-error' : 'text-primary-fixed-dim'}`}>
                   <span className="material-symbols-outlined text-[13px]">{isEscalate ? 'warning' : 'check_circle'}</span>

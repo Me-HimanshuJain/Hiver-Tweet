@@ -33,7 +33,7 @@ function App() {
               similarity: 0.85,
               snippet: ex
             })) : [],
-            draft: t.drafted_reply || t.generated_reply,
+            draft: t.draft_reply || t.drafted_reply || t.generated_reply || "",
             meta: { tier: "Standard", seats: "N/A", mrr: "N/A" }
           }));
           setMessages(formattedMessages.slice(0, 50)); // Load top 50 for performance

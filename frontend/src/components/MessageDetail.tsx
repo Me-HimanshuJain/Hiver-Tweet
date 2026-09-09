@@ -94,7 +94,7 @@ export const MessageDetail = ({ message }: { message: any }) => {
             readOnly
           />
           <div className="flex items-center justify-between pt-2 border-t border-cyan/10 font-meta-sm text-[11px] text-on-surface-variant">
-            <span>Token Count: {Math.floor(message.draft.length / 4)} tokens</span>
+            <span>Token Count: {Math.floor((message.draft?.length || 0) / 4)} tokens</span>
             <span className="text-primary-fixed-dim">Tone: Empathetic</span>
           </div>
         </div>

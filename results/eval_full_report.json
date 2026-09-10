@@ -1,9 +1,9 @@
 {
-  "generated": "2026-09-10T00:44:43.318691",
+  "generated": "2026-09-10T15:21:24.395021",
   "sources_loaded": {
     "eval_report": true,
     "automated_metrics": true,
-    "judge_scores": false,
+    "judge_scores": true,
     "baseline_comparison": true,
     "banking77_cross_domain": true
   }

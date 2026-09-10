@@ -1,7 +1,7 @@
 ========================================================================
 LLM-AS-JUDGE EVALUATION REPORT
 ========================================================================
-Judge model : meta/llama-3.1-70b-instruct
+Judge model : openai/gpt-oss-20b
 Gen model   : nvidia/nemotron-3-super-120b-a12b
 N evaluated : 30
 
@@ -10,50 +10,72 @@ AGGREGATE SCORES  (1=very poor … 5=excellent)
 ────────────────────────────────────────────────────────────────────────
   Dimension           Mean  Median     Std  ≥4 (good+)
   ────────────────  ──────  ──────  ──────  ──────────
-  relevance            N/A
-  empathy              N/A
-  actionability        N/A
-  conciseness          N/A
-  overall              N/A
+  relevance           4.78    5.00    0.42     100.0%
+  empathy             4.59    5.00    0.68      96.3%
+  actionability       4.26    4.00    0.70      85.2%
+  conciseness         4.56    5.00    0.57      96.3%
+  overall             4.41    4.00    0.62      92.6%
 
 ────────────────────────────────────────────────────────────────────────
 JUDGE vs HUMAN AGREEMENT
 ────────────────────────────────────────────────────────────────────────
-  Not yet available.  Fill in data/human_judge_ratings.csv
-  (generated template: data/human_judge_ratings_template.csv)
-  then re-run this script.
+  Dimension            N  Pearson r     MAE   ±1 agree
+  ────────────────  ────  ─────────  ──────  ─────────
+  relevance           27      -0.22   1.444      0.556
+  empathy             27     -0.264   1.704      0.481
+  actionability       27      0.358   0.963      0.778
+  conciseness         27      0.028   1.481      0.593
+  overall             27      0.217   1.074      0.741
 
 ────────────────────────────────────────────────────────────────────────
 SAMPLE SCORES (first 10)
 ────────────────────────────────────────────────────────────────────────
   [general_complaint_or_feedback]  '@115821 @AmazonHelp Really bad experience.  Frustrated. Paid'
-    ⚠ Error: Error code: 410 - {'type': 'about:blank', 'title': 'Gone', 'status': 410, 'detail': "The model 'meta/llama-3.1-70b-instr
+    Scores: R:4  E:5  A:4  C:4  O:4
+    Reply : '@User I’m really sorry you’ve had to deal with this delay and the extr'
+    Note  : The reply acknowledges the delay and frustration, offers a clear next step, and 
 
   [general_complaint_or_feedback]  '@AmazonHelp with an amazon fire tablet, can I tap on a photo'
-    ⚠ Error: Error code: 410 - {'type': 'about:blank', 'title': 'Gone', 'status': 410, 'detail': "The model 'meta/llama-3.1-70b-instr
+    Scores: R:5  E:2  A:3  C:4  O:3
+    Reply : '{\n  "reply": "@User Currently the Fire tablet’s built‑in Gallery app d'
+    Note  : The reply addresses the issue but lacks empathy and a complete actionable step.
 
   [general_complaint_or_feedback]  '@AmazonHelp @115821 4th item in a row that hasn’t arrived ne'
-    ⚠ Error: Error code: 410 - {'type': 'about:blank', 'title': 'Gone', 'status': 410, 'detail': "The model 'meta/llama-3.1-70b-instr
+    Scores: R:5  E:5  A:4  C:4  O:4
+    Reply : 'I’m really sorry you’ve had multiple Prime orders delayed – that’s def'
+    Note  : The reply directly addresses the delay issue, shows genuine regret, and clearly 
 
   [order_status_inquiry]  '@115850 @135789 @146956 @2517 @115821 @115858 @AppleSupport '
-    ⚠ Error: Error code: 410 - {'type': 'about:blank', 'title': 'Gone', 'status': 410, 'detail': "The model 'meta/llama-3.1-70b-instr
+    Scores: R:5  E:5  A:5  C:5  O:5
+    Reply : '@user I’m sorry you’re waiting for your Apple Watch. To give you an ac'
+    Note  : The reply directly addresses the delivery question, shows empathy, clearly reque
 
   [order_cancellation]  "@AmazonHelp At this point, I'm tempted to cancel order and j"
-    ⚠ Error: Error code: 410 - {'type': 'about:blank', 'title': 'Gone', 'status': 410, 'detail': "The model 'meta/llama-3.1-70b-instr
+    Scores: R:4  E:4  A:4  C:5  O:4
+    Reply : '@Customer I hear you—getting your items today is important. If you’d l'
+    Note  : The reply acknowledges the urgency and offers a clear cancellation link, but it 
 
   [general_complaint_or_feedback]  "@115821 I didn't even get the fire stick I got 2 trash cans "
-    ⚠ Error: Error code: 410 - {'type': 'about:blank', 'title': 'Gone', 'status': 410, 'detail': "The model 'meta/llama-3.1-70b-instr
+    Scores: R:5  E:5  A:5  C:5  O:5
+    Reply : '@115821 I’m really sorry you received trash cans instead of your Fire '
+    Note  : The reply fully addresses the issue, shows empathy, gives a clear next step, and
 
   [general_complaint_or_feedback]  '@AmazonHelp Extremely displeased. I have sat here all day wa'
-    ⚠ Error: Error code: 410 - {'type': 'about:blank', 'title': 'Gone', 'status': 410, 'detail': "The model 'meta/llama-3.1-70b-instr
+    Scores: R:5  E:5  A:4  C:5  O:4
+    Reply : '@CustomerHandle I’m truly sorry you’ve been left waiting all day with '
+    Note  : The reply is relevant, empathetic, and concise, but could provide a more explici
 
   [general_complaint_or_feedback]  '@AmazonHelp Found a bug in the Echo software. If you cancel '
-    ⚠ Error: Error code: 410 - {'type': 'about:blank', 'title': 'Gone', 'status': 410, 'detail': "The model 'meta/llama-3.1-70b-instr
+    Scores: R:5  E:5  A:4  C:5  O:5
+    Reply : 'Hi there! Thanks for taking the time to report this Echo alarm behavio'
+    Note  : The reply directly addresses the bug report, expresses regret, confirms escalati
 
   [order_status_inquiry]  '@AmazonHelp I need your help ! My Order tracking ID 22120705'
-    ⚠ Error: Error code: 410 - {'type': 'about:blank', 'title': 'Gone', 'status': 410, 'detail': "The model 'meta/llama-3.1-70b-instr
+    Scores: R:4  E:4  A:4  C:4  O:4
+    Reply : '@User I’m sorry you’re having trouble getting the invoice for your ord'
+    Note  : The reply directly addresses the invoice request, shows empathy, gives a clear n
 
   [account_access]  'Help @AmazonHelp someone changed my email and password for m'
-    ⚠ Error: Error code: 410 - {'type': 'about:blank', 'title': 'Gone', 'status': 410, 'detail': "The model 'meta/llama-3.1-70b-instr
+    ⚠ Error: No JSON in response: {"relevance":4,"empathy":4,"actionability":4,"conciseness":4,"
 
 ========================================================================

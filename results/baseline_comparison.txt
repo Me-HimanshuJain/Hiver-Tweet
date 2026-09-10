@@ -7,19 +7,19 @@ Metric                            Baseline 1    Baseline 2   Full System
 ──────────────────────────────  ────────────  ────────────  ────────────
 Method                             KW+Canned      ZeroShot  Few-shot+RAG
 ──────────────────────────────  ────────────  ────────────  ────────────
-  Intent accuracy                      0.527         0.436         0.545
-  Intent macro F1                      0.616         0.379         0.563
-  Intent weighted F1                   0.436         0.436         0.563
+  Intent accuracy                      0.561         0.460         0.386
+  Intent macro F1                      0.633         0.428         0.446
+  Intent weighted F1                   0.488         0.460         0.357
   Retrieval hit@3                        N/A           N/A   see metrics
   Escalation F1                          N/A             —             —
-  Reply: mean chars                  126.400       263.500     N/A
-  Reply: judge overall/5           N/A     N/A     N/A
+  Reply: mean chars                  125.800       262.100     N/A
+  Reply: judge overall/5           N/A     N/A         4.410
 
 Notes:
   Baseline 1 uses keyword heuristics — no API, deterministic.
   Baseline 2 uses zero-shot NIM (same model, no few-shot examples, no retrieval).
   Full system uses few-shot NIM + FAISS retrieval + 8-rule escalation.
-  Full system numbers: from results/eval_report.json (Phase 2 eval)
+  Full system numbers: results/golden_eval_report.json (golden set, human labels)
 
 Key finding: few-shot + retrieval gap over zero-shot demonstrates
   the contribution of each component independently.

@@ -84,7 +84,7 @@ export const LiveQueue = ({ messages, activeId, onSelect }: { messages: any[], a
               
               <div className="flex items-center justify-between pt-2 border-t border-cyan/10 font-meta-sm text-[11px]">
                 <span className="text-on-surface-variant bg-surface-container-lowest px-1.5 py-0.5 rounded border border-cyan/10">
-                  {msg.intent.split('_').map((w: string) => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')}
+                  {(msg.intent || "Unknown Intent").split('_').map((w: string) => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')}
                 </span>
                 <div className={`flex items-center space-x-1 ${isEscalate ? 'text-error' : 'text-primary-fixed-dim'}`}>
                   <span className="material-symbols-outlined text-[13px]">{isEscalate ? 'warning' : 'check_circle'}</span>

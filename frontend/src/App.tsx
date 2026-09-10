@@ -11,11 +11,11 @@ function App() {
   const [activeMessageId, setActiveMessageId] = useState<string>('');
 
   useEffect(() => {
-    fetch('/data/judge_scores.json')
+    fetch('/data/pipeline_demo.json')
       .then(res => res.json())
       .then(data => {
-        if (data.judge_scores) {
-          const formattedMessages = data.judge_scores.map((t: any, i: number) => ({
+        if (data.results) {
+          const formattedMessages = data.results.map((t: any, i: number) => ({
             index: i,
             id: `TKT-${89400 + i}`,
             user: `@user_${100 + i}`,
@@ -24,19 +24,19 @@ function App() {
             intent: t.intent,
             confidence: Math.floor((t.confidence || 0.95) * 100),
             escalation: {
-              decision: t.needs_escalation ? 'escalate' : 'auto_handle',
-              reason: t.escalation_reason || "Determined by arbitration rules."
+              decision: t.escalation?.decision === 'escalate' ? 'escalate' : 'auto_handle',
+              reason: t.escalation?.reason || "Determined by arbitration rules."
             },
-            retrieval: t.retrieved_examples ? t.retrieved_examples.map((ex: any, j: number) => ({
+            retrieval: t.draft?.grounding_examples ? t.draft.grounding_examples.map((ex: any, j: number) => ({
               id: `KB-${j}`,
               title: "Retrieved Example",
-              similarity: 0.85,
-              snippet: ex
+              similarity: ex.similarity ? Math.floor(ex.similarity * 100) / 100 : 0.85,
+              snippet: `Q: ${ex.customer_tweet}\nA: ${ex.brand_reply}`
             })) : [],
-            draft: t.draft_reply || t.drafted_reply || t.generated_reply || "",
+            draft: t.draft?.reply || t.draft_reply || t.drafted_reply || t.generated_reply || "",
             meta: { tier: "Standard", seats: "N/A", mrr: "N/A" }
           }));
-          setMessages(formattedMessages.slice(0, 50)); // Load top 50 for performance
+          setMessages(formattedMessages.slice(0, 50));
           if (formattedMessages.length > 0) setActiveMessageId(formattedMessages[0].id);
         }
       });

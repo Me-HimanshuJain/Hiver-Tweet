@@ -6,34 +6,23 @@ Tweets: 8
 Index : 8000 resolved threads
 
 ──────────────────────────────────────────────────────────────────────────────
-Tweet #1  │  📦 order_status_inquiry  (90%)  │  ✅ AUTO-HANDLE
+Tweet #1  │  📬 delivery_issue  (93%)  │  ✅ AUTO-HANDLE
 ──────────────────────────────────────────────────────────────────────────────
 
 📝 ORIGINAL TWEET
    "@AmazonHelp Can you check the status of my order? Tracking says 'out for delivery' but it's been that way for 3 days."
 
-🔍 RETRIEVED GROUNDING (3 results, top 3 shown)
-   [1] sim=0.84  intent=order_status_inquiry
-       Customer : @AmazonHelp The package never arrived :( past 8pm, tracking still says "out for delivery"
-       Resolution: @535840 I'm sorry for the frustration! Can you please tell us who the carrier is? Found he
-   [2] sim=0.78  intent=order_status_inquiry
-       Customer : @115830 @AmazonHelp 12 days since placing my order and no delivery, meant to be delivered 
-       Resolution: @220927 I'm sorry about this your parcel hasn't arrived! We want to be sure you are receiv
-   [3] sim=0.76  intent=order_status_inquiry
-       Customer : @AmazonHelp Was just assured it would be delivered today. Tracking shows due for delivery 
-       Resolution: @365811 Please give us a call: https://t.co/JzP7hlA23B in the morning and we'd be happy to
-
 🧠 CLASSIFIER REASONING
-   Customer requests order status check; tracking stale.
-   Alternatives: shipping_delay_complaint (30%)
+   Tracking stuck 'out for delivery' for 3 days indicates delivery issue.
+   Alternatives: order_status_inquiry (40%)
 
-✉️  DRAFTED REPLY  (tone=empathetic, 248 chars, action=directed to DM for resolution)
-   "@User I’m sorry you’ve been seeing “out for delivery” for three days—that’s definitely frustrating. Could you please share the carrier name and your tracking number (or order ID) so I can investigate further? You can reply here or send us a DM. ^AB"
+✉️  DRAFTED REPLY  (tone=empathetic, 280 chars, action=offered to check tracking)
+   "I’m really sorry you’ve been seeing ‘out for delivery’ for three days—that’s definitely not the experience we want for you. I’ve pulled up your order and opened a delivery investigation with our carrier to see what’s happening and will get back to you with an update within the n…"
 
 ⚖️  ESCALATION: ✅ AUTO-HANDLE
    Rule      : none
    Urgency   : low
-   Reason    : Intent classified as 'order_status_inquiry' with 90% confidence. No high-urgency signals detected. Retrieved grounding examples are available to produce an accurate, on-topic automated reply.
+   Reason    : Intent classified as 'delivery_issue' with 93% confidence. No high-urgency signals detected. Retrieved grounding examples are available to produce an accurate, on-topic automated reply.
 
 ──────────────────────────────────────────────────────────────────────────────
 Tweet #2  │  🚚 shipping_delay_complaint  (95%)  │  ✅ AUTO-HANDLE
@@ -56,8 +45,10 @@ Tweet #2  │  🚚 shipping_delay_complaint  (95%)  │  ✅ AUTO-HANDLE
 🧠 CLASSIFIER REASONING
    Customer complains about Prime 2-day shipping delay.
 
-✉️  DRAFTED REPLY  (tone=empathetic, 175 chars, action=offered refund investigation)
-   "@User I’m really sorry your Prime shipment arrived six days late, especially after this happening twice this month. I’ve located your recent order and will issue a full refund"
+✉️  DRAFTED REPLY  (tone=empathetic, 280 chars, action=offered refund investigation)
+   "{
+{
+  "reply": "@CustomerHandle I’m really sorry your Prime 2‑day shipment arrived six days late, especially for the second time this month. I’ve opened an investigation into the delay and will issue a refund for the Prime shipping fee on this order. You should see the credit wi…"
 
 ⚖️  ESCALATION: ✅ AUTO-HANDLE
    Rule      : none
@@ -65,7 +56,7 @@ Tweet #2  │  🚚 shipping_delay_complaint  (95%)  │  ✅ AUTO-HANDLE
    Reason    : Intent classified as 'shipping_delay_complaint' with 95% confidence. No high-urgency signals detected. Retrieved grounding examples are available to produce an accurate, on-topic automated reply.
 
 ──────────────────────────────────────────────────────────────────────────────
-Tweet #3  │  🔑 account_access  (96%)  │  🚨 ESCALATE
+Tweet #3  │  🔑 account_access  (93%)  │  🚨 ESCALATE
 ──────────────────────────────────────────────────────────────────────────────
 
 📝 ORIGINAL TWEET
@@ -84,10 +75,10 @@ Tweet #3  │  🔑 account_access  (96%)  │  🚨 ESCALATE
 
 🧠 CLASSIFIER REASONING
    Customer reports account hacked and unauthorized purchases.
-   Alternatives: refund_request (30%)
+   Alternatives: refund_request (40%)
 
-✉️  DRAFTED REPLY  (tone=empathetic, 280 chars, action=directed to account recovery)
-   "@User I’m so sorry to hear that your account was compromised and unauthorized purchases were made. Let’s get this sorted right away: please visit https://www.amazon.com/gp/help/contact-us, select ‘Account & Login’ → ‘Account security’, and follow the steps to secure your account…"
+✉️  DRAFTED REPLY  (tone=empathetic, 280 chars, action=offered refund investigation)
+   "@User I’m so sorry to hear that your account was compromised and unauthorized purchases were made. Please visit https://www.amazon.com/gp/help/contact-us right away to secure your account, report the fraudulent activity, and start the refund process. We’ll work with you to resol…"
 
 ⚖️  ESCALATION: 🚨 ESCALATE
    Rule      : security_breach
@@ -96,7 +87,7 @@ Tweet #3  │  🔑 account_access  (96%)  │  🚨 ESCALATE
    Reason    : Customer reports a potential account security breach (hacked) classified as account_access. This requires immediate action through a secure, authenticated channel — not an automated public reply.
 
 ──────────────────────────────────────────────────────────────────────────────
-Tweet #4  │  💰 refund_request  (95%)  │  🚨 ESCALATE
+Tweet #4  │  💰 refund_request  (96%)  │  🚨 ESCALATE
 ──────────────────────────────────────────────────────────────────────────────
 
 📝 ORIGINAL TWEET
@@ -116,8 +107,8 @@ Tweet #4  │  💰 refund_request  (95%)  │  🚨 ESCALATE
 🧠 CLASSIFIER REASONING
    Customer waiting for refund, threatens chargeback.
 
-✉️  DRAFTED REPLY  (tone=empathetic, 254 chars, action=directed to DM for resolution)
-   "@CustomerHandle I’m truly sorry you’ve been waiting three weeks for your refund and that this has caused you so much stress. Please send us a direct message with your order number so we can look into this immediately and work to resolve it for you today."
+✉️  DRAFTED REPLY  (tone=empathetic, 280 chars, action=directed to DM for resolution)
+   "@CustomerHandle I’m truly sorry for the three‑week wait and I understand how frustrating this must be. To help you right away, could you please DM me your order number (or the email on your account) so I can pull up the refund details and expedite it? You can also check the curr…"
 
 ⚖️  ESCALATION: 🚨 ESCALATE
    Rule      : legal_threat
@@ -144,11 +135,11 @@ Tweet #5  │  💰 refund_request  (96%)  │  ✅ AUTO-HANDLE
        Resolution: @121404 Moreover, please don’t provide your order details here. Our Twitter page is visibl
 
 🧠 CLASSIFIER REASONING
-   Customer awaiting refund after return.
+   Customer reports missing refund after returning item.
    Alternatives: return_or_exchange (30%)
 
-✉️  DRAFTED REPLY  (tone=empathetic, 280 chars, action=directed to DM for resolution)
-   "Hi there, I’m sorry the refund hasn’t appeared yet. Refunds normally take about 5‑7 business days after we receive the returned item. To check the exact status of order #302-9384-1234, could you please send me a direct message with the order number and the email address linked t…"
+✉️  DRAFTED REPLY  (tone=empathetic, 280 chars, action=offered refund investigation)
+   "@Customer I’m sorry the refund hasn’t appeared yet. I’ve checked order #302-9384-1234 and see the return was received. Refunds usually post within 3‑5 business days after we process the return. I’ve escalated this to our payments team for a status check and will follow up with y…"
 
 ⚖️  ESCALATION: ✅ AUTO-HANDLE
    Rule      : none
@@ -156,7 +147,7 @@ Tweet #5  │  💰 refund_request  (96%)  │  ✅ AUTO-HANDLE
    Reason    : Intent classified as 'refund_request' with 96% confidence. No high-urgency signals detected. Retrieved grounding examples are available to produce an accurate, on-topic automated reply.
 
 ──────────────────────────────────────────────────────────────────────────────
-Tweet #6  │  🔑 account_access  (80%)  │  🚨 ESCALATE
+Tweet #6  │  🔑 account_access  (88%)  │  🚨 ESCALATE
 ──────────────────────────────────────────────────────────────────────────────
 
 📝 ORIGINAL TWEET
@@ -168,11 +159,11 @@ Tweet #6  │  🔑 account_access  (80%)  │  🚨 ESCALATE
        Resolution: @127582 Oh no! I'm sorry about this inconvenience, Alex! You can reach out to us here: htt
 
 🧠 CLASSIFIER REASONING
-   Customer reports unresolved account issue needing fix.
+   Customer reports unresolved account issue after multiple service calls.
    Alternatives: general_complaint_or_feedback (30%)
 
-✉️  DRAFTED REPLY  (tone=empathetic, 207 chars, action=directed to DM for resolution)
-   "@UserHandle I’m really sorry you’ve had to call multiple times without a fix—let’s get this sorted. Please DM us your account email (no password) so a specialist can investigate and reset access for you. ^JT"
+✉️  DRAFTED REPLY  (tone=empathetic, 280 chars, action=directed to DM for resolution)
+   "@UserHandle I’m really sorry you’ve had to contact us multiple times without a resolution. To get this fixed quickly, please send us a DM with the email address linked to your account (no password) so a specialist can investigate and restore your access. You can also start a sec…"
 
 ⚖️  ESCALATION: 🚨 ESCALATE
    Rule      : repeated_contact
@@ -181,7 +172,7 @@ Tweet #6  │  🔑 account_access  (80%)  │  🚨 ESCALATE
    Reason    : Customer indicates repeated unresolved contact ('still no resolution'). Auto-handling a customer who has already tried standard channels risks further erosion of trust.
 
 ──────────────────────────────────────────────────────────────────────────────
-Tweet #7  │  💬 general_complaint_or_feedback  (90%)  │  🚨 ESCALATE
+Tweet #7  │  💬 general_complaint_or_feedback  (92%)  │  🚨 ESCALATE
 ──────────────────────────────────────────────────────────────────────────────
 
 📝 ORIGINAL TWEET
@@ -199,10 +190,10 @@ Tweet #7  │  💬 general_complaint_or_feedback  (90%)  │  🚨 ESCALATE
        Resolution: @147330 Hi, without posting any of your account details here, can you tell us a bit more a
 
 🧠 CLASSIFIER REASONING
-   Customer expresses general dissatisfaction.
+   Customer expresses general dissatisfaction without specific request.
 
-✉️  DRAFTED REPLY  (tone=empathetic, 214 chars, action=directed to DM for resolution)
-   "@UserHandle I’m really sorry you’ve had such a frustrating experience. To help fix this, could you please DM us your order number or a brief description of what happened so we can investigate and make things right?"
+✉️  DRAFTED REPLY  (tone=empathetic, 262 chars, action=directed to DM for resolution)
+   "@UserHandle I’m truly sorry you’ve had such a frustrating experience. To investigate what happened, could you please send us a direct message with your order number or a brief description of the issue? We’ll look into it right away and work to make things right."
 
 ⚖️  ESCALATION: 🚨 ESCALATE
    Rule      : high_negativity
@@ -211,7 +202,7 @@ Tweet #7  │  💬 general_complaint_or_feedback  (90%)  │  🚨 ESCALATE
    Reason    : High-negativity language density detected (6 signals: disgusting, Incompetent, pathetic). An automated reply is unlikely to de-escalate a customer expressing this level of frustration.
 
 ──────────────────────────────────────────────────────────────────────────────
-Tweet #8  │  💻 device_and_digital_support  (96%)  │  ✅ AUTO-HANDLE
+Tweet #8  │  💻 device_and_digital_support  (95%)  │  ✅ AUTO-HANDLE
 ──────────────────────────────────────────────────────────────────────────────
 
 📝 ORIGINAL TWEET
@@ -229,18 +220,15 @@ Tweet #8  │  💻 device_and_digital_support  (96%)  │  ✅ AUTO-HANDLE
        Resolution: @702708 That is strange. Please, reach us via phone/chat so that we may troubleshoot toget
 
 🧠 CLASSIFIER REASONING
-   Customer reports Kindle device not turning on after software update.
-   Alternatives: product_issue (30%)
+   Customer reports device malfunction after software update.
 
-✉️  DRAFTED REPLY  (tone=empathetic, 280 chars, action=directed to DM for resolution)
-   "{
-{
-  "reply": "@User I’m sorry your Kindle Paperwhite won’t turn on after the update. Try plugging it into the charger for at least 15 minutes, then hold the power button for 40 seconds while it’s still connected. If it remains unresponsive, please DM us your order details or r…"
+✉️  DRAFTED REPLY  (tone=empathetic, 280 chars, action=offered device troubleshooting)
+   "@User I’m sorry to hear your Kindle Paperwhite won’t turn on after the update. Let’s try a deeper reset: plug it into the original charger and leave it charging for at least 30 minutes, then hold the power button for 40 seconds again. If it still doesn’t respond, please reach ou…"
 
 ⚖️  ESCALATION: ✅ AUTO-HANDLE
    Rule      : none
    Urgency   : low
-   Reason    : Intent classified as 'device_and_digital_support' with 96% confidence. No high-urgency signals detected. Retrieved grounding examples are available to produce an accurate, on-topic automated reply.
+   Reason    : Intent classified as 'device_and_digital_support' with 95% confidence. No high-urgency signals detected. Retrieved grounding examples are available to produce an accurate, on-topic automated reply.
 
 ══════════════════════════════════════════════════════════════════════════════
 END OF DEMO

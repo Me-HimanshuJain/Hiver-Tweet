@@ -51,6 +51,12 @@ data/*.jsonl
 data/*.bin
 !data/banking77_mapping.json
 !data/golden_label_sheet.csv
+!data/golden_labeled.csv
+!data/human_judge_ratings.csv
+!data/human_judge_ratings_template.csv
+
+# Zips
+*.zip
 
 # Artifacts
 .stitch/
@@ -58,3 +64,7 @@ frontend/node_modules/
 frontend/dist/
 
 data/twcs/
+
+# Legacy / archived code — not in any active import path
+# Only legacy/dashboard/ (Streamlit, superseded by frontend/) is expected here.
+legacy/

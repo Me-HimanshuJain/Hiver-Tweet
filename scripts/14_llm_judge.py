@@ -1,10 +1,14 @@
 """
 14_llm_judge.py — LLM-as-judge evaluation for reply quality.
 
-Judge model : openai/gpt-oss-20b via NVIDIA NIM  (different family from Nemotron
-              generator → no self-preference bias).  Falls back to
-              meta/llama-3.1-70b-instruct if gpt-oss-20b returns a model-not-found
-              error.  Override via JUDGE_MODEL env var.
+Judge model priority (cross-family requirement from Phase 8):
+  1. openai/gpt-oss-20b          — GPT-family; entirely different org and arch (preferred)
+  2. nvidia/llama-3.1-nemotron-70b-instruct — Llama-3.1 base; different architecture from
+                                              the generator's MoE (nvidia/nemotron-3-super)
+  3. nvidia/nemotron-3-super-120b-a12b      — LAST RESORT; SAME FAMILY as generator.
+                                              WARNING printed at runtime; results tagged
+                                              with judge_same_family=True.
+  Override: set JUDGE_MODEL env var to force a specific model.
 
 Generator   : nvidia/nemotron-3-super-120b-a12b  (same pipeline as production)
 
@@ -55,9 +59,17 @@ OUT_JSON    = os.path.join(RESULTS_DIR, "judge_scores.json")
 OUT_TXT     = os.path.join(RESULTS_DIR, "judge_report.txt")
 
 NIM_BASE_URL     = "https://integrate.api.nvidia.com/v1"
-JUDGE_MODEL_PREF = "openai/gpt-oss-20b"        # user-specified
-JUDGE_FALLBACK   = "meta/llama-3.1-70b-instruct"
+# Cross-family judge priority. Each model is probed with a test call before use.
+# Do NOT reorder without updating the docstring above.
+JUDGE_CANDIDATES = [
+    "openai/gpt-oss-20b",                          # GPT-family; cross-family (primary)
+    "nvidia/llama-3.1-nemotron-70b-instruct",       # Llama-3.1 base; cross-arch (secondary)
+    "nvidia/nemotron-3-super-120b-a12b",            # SAME FAMILY as generator — last resort only
+]
 GEN_MODEL        = "nvidia/nemotron-3-super-120b-a12b"
+# For backward compatibility: kept so imports/scripts that reference JUDGE_MODEL_PREF still work
+JUDGE_MODEL_PREF = JUDGE_CANDIDATES[0]
+JUDGE_FALLBACK   = JUDGE_CANDIDATES[1]
 
 DIMENSIONS = ["relevance", "empathy", "actionability", "conciseness", "overall"]
 
@@ -85,14 +97,19 @@ class JudgeScore:
 
 _judge_client = None
 _judge_model_used = None
+_judge_same_family = False  # True when last-resort same-family model is selected
 
 
 def get_judge_client():
-    global _judge_client, _judge_model_used
+    """
+    Probe JUDGE_CANDIDATES in priority order; select the first one that responds.
+    Raises RuntimeError if none are available.
+    """
+    global _judge_client, _judge_model_used, _judge_same_family
     if _judge_client is not None:
         return _judge_client, _judge_model_used
 
-    from openai import OpenAI, NotFoundError, BadRequestError
+    from openai import OpenAI
     try:
         from dotenv import load_dotenv
         load_dotenv()
@@ -103,21 +120,44 @@ def get_judge_client():
         raise RuntimeError("NVIDIA_API_KEY not set")
 
     client = OpenAI(base_url=NIM_BASE_URL, api_key=key)
-    model  = os.environ.get("JUDGE_MODEL", JUDGE_MODEL_PREF)
 
-    # Probe preferred model
-    try:
-        client.models.retrieve(model)
-        print(f"  Judge model: {model}")
-        _judge_client   = client
-        _judge_model_used = model
-        return client, model
-    except Exception as e:
-        print(f"  [!]  {model} not available on NIM ({e!s:.60})")
-        print(f"  Fallback: {JUDGE_FALLBACK}")
-        _judge_client   = client
-        _judge_model_used = JUDGE_FALLBACK
-        return client, JUDGE_FALLBACK
+    # If caller has overridden via env, use that directly (no probe)
+    forced = os.environ.get("JUDGE_MODEL", "")
+    if forced:
+        print(f"  Judge model (env override): {forced}")
+        if forced == GEN_MODEL:
+            print("  WARNING: JUDGE_MODEL matches GEN_MODEL — same-family bias applies.")
+            _judge_same_family = True
+        _judge_client, _judge_model_used = client, forced
+        return client, forced
+
+    # Probe candidates in priority order
+    probe_msg = (
+        "Rate this reply 1-5. Reply ONLY with JSON: "
+        '{"relevance": 4, "empathy": 4, "actionability": 4, "conciseness": 4, "overall": 4, "justification": "test"}'
+    )
+    for candidate in JUDGE_CANDIDATES:
+        try:
+            r = client.chat.completions.create(
+                model=candidate, temperature=0, max_tokens=60,
+                messages=[{"role": "user", "content": probe_msg}],
+                timeout=30,
+            )
+            # If we get here without exception, model is live
+            if candidate == GEN_MODEL:
+                print(f"  WARNING: Selecting same-family judge '{candidate}'.")
+                print("  Cross-family candidates were unavailable. Results will be tagged same_family=True.")
+                _judge_same_family = True
+            else:
+                print(f"  Judge model selected (cross-family): {candidate}")
+            _judge_client, _judge_model_used = client, candidate
+            return client, candidate
+        except Exception as e:
+            print(f"  Probe FAIL for {candidate}: {str(e)[:80]}")
+
+    raise RuntimeError(
+        "All judge candidates failed liveness probe. Check NIM API status or set JUDGE_MODEL env var."
+    )
 
 
 # ── Judge prompt ──────────────────────────────────────────────────────────
@@ -154,8 +194,7 @@ def _judge_one(tweet: str, intent: str, draft: str) -> dict:
             resp = client.chat.completions.create(
                 model=model,
                 temperature=0.0,
-                max_tokens=300,
-                response_format={"type": "json_object"},
+                max_tokens=512,
                 messages=[
                     {"role": "system", "content": _JUDGE_SYSTEM},
                     {"role": "user",   "content": user_msg},

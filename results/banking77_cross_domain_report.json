@@ -1,29 +1,29 @@
 {
   "description": "Cross-domain generalization: Amazon-Twitter classifier on Banking77 queries. 13 Banking77 intents mapped to 7 Amazon taxonomy labels. 10 queries per Banking77 intent = 130 total queries.",
   "model": "nvidia/nemotron-3-super-120b-a12b",
-  "n_queries": 120,
+  "n_queries": 130,
   "n_errors": 0,
-  "n_uncertain": 7,
-  "elapsed_seconds": 529.74,
-  "overall_accuracy": 0.4417,
-  "macro_f1": 0.2285,
-  "weighted_f1": 0.4147,
-  "avg_confidence": 0.849,
-  "hard_pair_accuracy": 0.2,
+  "n_uncertain": 5,
+  "elapsed_seconds": 460.81,
+  "overall_accuracy": 0.4,
+  "macro_f1": 0.1997,
+  "weighted_f1": 0.3735,
+  "avg_confidence": 0.854,
+  "hard_pair_accuracy": 0.24,
   "per_class_metrics": {
     "account_access": {
-      "precision": 1.0,
-      "recall": 0.767,
-      "f1": 0.868,
+      "precision": 0.957,
+      "recall": 0.733,
+      "f1": 0.83,
       "support": 30,
       "in_domain_f1": 0.84,
-      "f1_gap": 0.028
+      "f1_gap": -0.01
     },
     "delivery_issue": {
       "precision": 0.0,
       "recall": 0.0,
       "f1": 0.0,
-      "support": 0,
+      "support": 10,
       "in_domain_f1": null,
       "f1_gap": null
     },
@@ -39,7 +39,7 @@
       "precision": 0.0,
       "recall": 0.0,
       "f1": 0.0,
-      "support": 10,
+      "support": 0,
       "in_domain_f1": null,
       "f1_gap": null
     },
@@ -52,45 +52,53 @@
       "f1_gap": null
     },
     "order_status_inquiry": {
-      "precision": 0.522,
-      "recall": 0.4,
-      "f1": 0.453,
+      "precision": 0.524,
+      "recall": 0.367,
+      "f1": 0.431,
       "support": 30,
       "in_domain_f1": 0.27,
-      "f1_gap": 0.183
+      "f1_gap": 0.161
     },
-    "refund_request": {
-      "precision": 0.353,
-      "recall": 0.9,
-      "f1": 0.507,
-      "support": 20,
-      "in_domain_f1": 0.59,
-      "f1_gap": -0.083
-    },
-    "shipping_delay_complaint": {
+    "prime_membership": {
       "precision": 0.0,
       "recall": 0.0,
       "f1": 0.0,
-      "support": 30,
+      "support": 20,
+      "in_domain_f1": null,
+      "f1_gap": null
+    },
+    "refund_request": {
+      "precision": 0.295,
+      "recall": 0.9,
+      "f1": 0.444,
+      "support": 20,
+      "in_domain_f1": 0.59,
+      "f1_gap": -0.146
+    },
+    "shipping_delay_complaint": {
+      "precision": 0.5,
+      "recall": 0.05,
+      "f1": 0.091,
+      "support": 20,
       "in_domain_f1": 0.6,
-      "f1_gap": -0.6
+      "f1_gap": -0.509
     }
   },
   "worst_confusions": [
     {
-      "true": "shipping_delay_complaint",
-      "predicted": "order_status_inquiry",
-      "count": 11
-    },
-    {
-      "true": "general_complaint_or_feedback",
+      "true": "prime_membership",
       "predicted": "refund_request",
-      "count": 10
+      "count": 19
     },
     {
       "true": "order_status_inquiry",
       "predicted": "refund_request",
-      "count": 10
+      "count": 12
+    },
+    {
+      "true": "shipping_delay_complaint",
+      "predicted": "order_status_inquiry",
+      "count": 9
     },
     {
       "true": "shipping_delay_complaint",
@@ -98,9 +106,9 @@
       "count": 8
     },
     {
-      "true": "shipping_delay_complaint",
+      "true": "delivery_issue",
       "predicted": "refund_request",
-      "count": 8
+      "count": 6
     },
     {
       "true": "account_access",
@@ -108,13 +116,13 @@
       "count": 5
     },
     {
-      "true": "order_status_inquiry",
+      "true": "account_access",
       "predicted": "general_complaint_or_feedback",
-      "count": 5
+      "count": 3
     },
     {
-      "true": "shipping_delay_complaint",
-      "predicted": "device_and_digital_support",
+      "true": "delivery_issue",
+      "predicted": "general_complaint_or_feedback",
       "count": 3
     }
   ],
@@ -124,19 +132,11 @@
       "banking77_intent": "card_arrival",
       "expected": "order_status_inquiry",
       "predicted": "delivery_issue",
-      "confidence": 0.88,
+      "confidence": 0.95,
       "correct": false
     },
     {
       "text": "I still have not received my new card, I ordered over a week ago.",
-      "banking77_intent": "card_arrival",
-      "expected": "order_status_inquiry",
-      "predicted": "order_status_inquiry",
-      "confidence": 0.9,
-      "correct": true
-    },
-    {
-      "text": "Why hasn't my card been delivered?",
       "banking77_intent": "card_arrival",
       "expected": "order_status_inquiry",
       "predicted": "delivery_issue",
@@ -144,11 +144,19 @@
       "correct": false
     },
     {
+      "text": "Why hasn't my card been delivered?",
+      "banking77_intent": "card_arrival",
+      "expected": "order_status_inquiry",
+      "predicted": "delivery_issue",
+      "confidence": 0.94,
+      "correct": false
+    },
+    {
       "text": "I have been waiting longer than expected for my bank card, could you provide information on when it will arrive?",
       "banking77_intent": "card_arrival",
       "expected": "order_status_inquiry",
       "predicted": "order_status_inquiry",
-      "confidence": 0.9,
+      "confidence": 0.94,
       "correct": true
     },
     {
@@ -156,7 +164,7 @@
       "banking77_intent": "card_arrival",
       "expected": "order_status_inquiry",
       "predicted": "order_status_inquiry",
-      "confidence": 0.86,
+      "confidence": 0.92,
       "correct": true
     },
     {
@@ -164,7 +172,7 @@
       "banking77_intent": "card_arrival",
       "expected": "order_status_inquiry",
       "predicted": "order_status_inquiry",
-      "confidence": 0.7,
+      "confidence": 0.85,
       "correct": true
     },
     {
@@ -172,7 +180,7 @@
       "banking77_intent": "card_arrival",
       "expected": "order_status_inquiry",
       "predicted": "order_status_inquiry",
-      "confidence": 0.9,
+      "confidence": 0.95,
       "correct": true
     },
     {
@@ -188,7 +196,7 @@
       "banking77_intent": "card_arrival",
       "expected": "order_status_inquiry",
       "predicted": "shipping_delay_complaint",
-      "confidence": 0.88,
+      "confidence": 0.93,
       "correct": false
     },
     {
@@ -204,7 +212,7 @@
       "banking77_intent": "pending_transfer",
       "expected": "order_status_inquiry",
       "predicted": "refund_request",
-      "confidence": 0.85,
+      "confidence": 0.88,
       "correct": false
     },
     {
@@ -212,7 +220,7 @@
       "banking77_intent": "pending_transfer",
       "expected": "order_status_inquiry",
       "predicted": "refund_request",
-      "confidence": 0.7,
+      "confidence": 0.8,
       "correct": false
     },
     {
@@ -220,7 +228,7 @@
       "banking77_intent": "pending_transfer",
       "expected": "order_status_inquiry",
       "predicted": "general_complaint_or_feedback",
-      "confidence": 0.6,
+      "confidence": 0.68,
       "correct": false
     },
     {
@@ -228,23 +236,23 @@
       "banking77_intent": "pending_transfer",
       "expected": "order_status_inquiry",
       "predicted": "refund_request",
-      "confidence": 0.85,
+      "confidence": 0.8,
       "correct": false
     },
     {
       "text": "For how long will my transfer be pending?",
       "banking77_intent": "pending_transfer",
       "expected": "order_status_inquiry",
-      "predicted": "order_status_inquiry",
-      "confidence": 0.6,
-      "correct": true
+      "predicted": "refund_request",
+      "confidence": 0.8,
+      "correct": false
     },
     {
       "text": "How long does it take for a money transfer to show?",
       "banking77_intent": "pending_transfer",
       "expected": "order_status_inquiry",
       "predicted": "refund_request",
-      "confidence": 0.85,
+      "confidence": 0.8,
       "correct": false
     },
     {
@@ -268,7 +276,7 @@
       "banking77_intent": "pending_transfer",
       "expected": "order_status_inquiry",
       "predicted": "refund_request",
-      "confidence": 0.88,
+      "confidence": 0.9,
       "correct": false
     },
     {
@@ -284,7 +292,7 @@
       "banking77_intent": "transfer_timing",
       "expected": "order_status_inquiry",
       "predicted": "order_status_inquiry",
-      "confidence": 0.9,
+      "confidence": 0.85,
       "correct": true
     },
     {
@@ -300,7 +308,7 @@
       "banking77_intent": "transfer_timing",
       "expected": "order_status_inquiry",
       "predicted": "order_status_inquiry",
-      "confidence": 0.85,
+      "confidence": 0.8,
       "correct": true
     },
     {
@@ -316,16 +324,16 @@
       "banking77_intent": "transfer_timing",
       "expected": "order_status_inquiry",
       "predicted": "general_complaint_or_feedback",
-      "confidence": 0.8,
+      "confidence": 0.78,
       "correct": false
     },
     {
       "text": "How long is the wait for a US transfer?",
       "banking77_intent": "transfer_timing",
       "expected": "order_status_inquiry",
-      "predicted": "general_complaint_or_feedback",
-      "confidence": 0.45,
-      "correct": false
+      "predicted": "order_status_inquiry",
+      "confidence": 0.7,
+      "correct": true
     },
     {
       "text": "How long does a transfer take from china?",
@@ -339,8 +347,8 @@
       "text": "If I started the Bank transfer from Europe, how long will the process take to complete?",
       "banking77_intent": "transfer_timing",
       "expected": "order_status_inquiry",
-      "predicted": "general_complaint_or_feedback",
-      "confidence": 0.65,
+      "predicted": "refund_request",
+      "confidence": 0.8,
       "correct": false
     },
     {
@@ -356,7 +364,7 @@
       "banking77_intent": "transfer_timing",
       "expected": "order_status_inquiry",
       "predicted": "order_status_inquiry",
-      "confidence": 0.94,
+      "confidence": 0.95,
       "correct": true
     },
     {
@@ -364,7 +372,7 @@
       "banking77_intent": "card_delivery_estimate",
       "expected": "shipping_delay_complaint",
       "predicted": "order_status_inquiry",
-      "confidence": 0.95,
+      "confidence": 0.92,
       "correct": false
     },
     {
@@ -372,15 +380,15 @@
       "banking77_intent": "card_delivery_estimate",
       "expected": "shipping_delay_complaint",
       "predicted": "order_status_inquiry",
-      "confidence": 0.9,
+      "confidence": 0.92,
       "correct": false
     },
     {
       "text": "Can you get me my card fast?",
       "banking77_intent": "card_delivery_estimate",
       "expected": "shipping_delay_complaint",
-      "predicted": "general_complaint_or_feedback",
-      "confidence": 0.45,
+      "predicted": "order_status_inquiry",
+      "confidence": 0.72,
       "correct": false
     },
     {
@@ -404,7 +412,7 @@
       "banking77_intent": "card_delivery_estimate",
       "expected": "shipping_delay_complaint",
       "predicted": "order_status_inquiry",
-      "confidence": 0.94,
+      "confidence": 0.95,
       "correct": false
     },
     {
@@ -412,7 +420,7 @@
       "banking77_intent": "card_delivery_estimate",
       "expected": "shipping_delay_complaint",
       "predicted": "order_status_inquiry",
-      "confidence": 0.9,
+      "confidence": 0.85,
       "correct": false
     },
     {
@@ -427,9 +435,9 @@
       "text": "i need my card quick",
       "banking77_intent": "card_delivery_estimate",
       "expected": "shipping_delay_complaint",
-      "predicted": "order_status_inquiry",
-      "confidence": 0.78,
-      "correct": false
+      "predicted": "shipping_delay_complaint",
+      "confidence": 0.62,
+      "correct": true
     },
     {
       "text": "Whats the delivery time to the United States?",
@@ -440,127 +448,7 @@
       "correct": false
     },
     {
-      "text": "How long will it take for my transaction to be completed?",
-      "banking77_intent": "transfer_not_received_by_recipient",
-      "expected": "shipping_delay_complaint",
-      "predicted": "order_status_inquiry",
-      "confidence": 0.8,
-      "correct": false
-    },
-    {
-      "text": "How long does it take for transfers to finish?  I sent funds to my pal, and she says that she has not gotten anything.",
-      "banking77_intent": "transfer_not_received_by_recipient",
-      "expected": "shipping_delay_complaint",
-      "predicted": "refund_request",
-      "confidence": 0.8,
-      "correct": false
-    },
-    {
-      "text": "I transferred money but the recipient says it has not arrived. Why would this be?",
-      "banking77_intent": "transfer_not_received_by_recipient",
-      "expected": "shipping_delay_complaint",
-      "predicted": "refund_request",
-      "confidence": 0.85,
-      "correct": false
-    },
-    {
-      "text": "Where is the transaction I made to a friend?",
-      "banking77_intent": "transfer_not_received_by_recipient",
-      "expected": "shipping_delay_complaint",
-      "predicted": "order_status_inquiry",
-      "confidence": 0.85,
-      "correct": false
-    },
-    {
-      "text": "How long does it take for a transfer to get to a recipient?",
-      "banking77_intent": "transfer_not_received_by_recipient",
-      "expected": "shipping_delay_complaint",
-      "predicted": "general_complaint_or_feedback",
-      "confidence": 0.7,
-      "correct": false
-    },
-    {
-      "text": "I've just moved address from a place in Durham to a place in Walton-On-The-Naze.  I have a new landlord at my new house ",
-      "banking77_intent": "transfer_not_received_by_recipient",
-      "expected": "shipping_delay_complaint",
-      "predicted": "general_complaint_or_feedback",
-      "confidence": 0.6,
-      "correct": false
-    },
-    {
-      "text": "I transferred some money but the receiver can't pick it up for some reason.",
-      "banking77_intent": "transfer_not_received_by_recipient",
-      "expected": "shipping_delay_complaint",
-      "predicted": "refund_request",
-      "confidence": 0.8,
-      "correct": false
-    },
-    {
-      "text": "transaction failed?",
-      "banking77_intent": "transfer_not_received_by_recipient",
-      "expected": "shipping_delay_complaint",
-      "predicted": "refund_request",
-      "confidence": 0.85,
-      "correct": false
-    },
-    {
-      "text": "I tried to send someone money but they haven't received it.",
-      "banking77_intent": "transfer_not_received_by_recipient",
-      "expected": "shipping_delay_complaint",
-      "predicted": "refund_request",
-      "confidence": 0.8,
-      "correct": false
-    },
-    {
-      "text": "My money transfer has not arrived.",
-      "banking77_intent": "transfer_not_received_by_recipient",
-      "expected": "shipping_delay_complaint",
-      "predicted": "refund_request",
-      "confidence": 0.9,
-      "correct": false
-    },
-    {
       "text": "Why did my transfer fail?",
-      "banking77_intent": "failed_transfer",
-      "expected": "shipping_delay_complaint",
-      "predicted": "general_complaint_or_feedback",
-      "confidence": 0.45,
-      "correct": false
-    },
-    {
-      "text": "The transfer keeps failing , I tried to transfer some money to friends this morning but it keeps getting rejected for so",
-      "banking77_intent": "failed_transfer",
-      "expected": "shipping_delay_complaint",
-      "predicted": "general_complaint_or_feedback",
-      "confidence": 0.85,
-      "correct": false
-    },
-    {
-      "text": "My transfer did not go through.",
-      "banking77_intent": "failed_transfer",
-      "expected": "shipping_delay_complaint",
-      "predicted": "refund_request",
-      "confidence": 0.65,
-      "correct": false
-    },
-    {
-      "text": "I tried to transfer money and it did not work.",
-      "banking77_intent": "failed_transfer",
-      "expected": "shipping_delay_complaint",
-      "predicted": "device_and_digital_support",
-      "confidence": 0.85,
-      "correct": false
-    },
-    {
-      "text": "Why was I not able to complete a transfer?",
-      "banking77_intent": "failed_transfer",
-      "expected": "shipping_delay_complaint",
-      "predicted": "general_complaint_or_feedback",
-      "confidence": 0.6,
-      "correct": false
-    },
-    {
-      "text": "My transfer appeared not to work.",
       "banking77_intent": "failed_transfer",
       "expected": "shipping_delay_complaint",
       "predicted": "general_complaint_or_feedback",
@@ -568,18 +456,58 @@
       "correct": false
     },
     {
+      "text": "The transfer keeps failing , I tried to transfer some money to friends this morning but it keeps getting rejected for so",
+      "banking77_intent": "failed_transfer",
+      "expected": "shipping_delay_complaint",
+      "predicted": "general_complaint_or_feedback",
+      "confidence": 0.65,
+      "correct": false
+    },
+    {
+      "text": "My transfer did not go through.",
+      "banking77_intent": "failed_transfer",
+      "expected": "shipping_delay_complaint",
+      "predicted": "refund_request",
+      "confidence": 0.85,
+      "correct": false
+    },
+    {
+      "text": "I tried to transfer money and it did not work.",
+      "banking77_intent": "failed_transfer",
+      "expected": "shipping_delay_complaint",
+      "predicted": "general_complaint_or_feedback",
+      "confidence": 0.6,
+      "correct": false
+    },
+    {
+      "text": "Why was I not able to complete a transfer?",
+      "banking77_intent": "failed_transfer",
+      "expected": "shipping_delay_complaint",
+      "predicted": "general_complaint_or_feedback",
+      "confidence": 0.55,
+      "correct": false
+    },
+    {
+      "text": "My transfer appeared not to work.",
+      "banking77_intent": "failed_transfer",
+      "expected": "shipping_delay_complaint",
+      "predicted": "general_complaint_or_feedback",
+      "confidence": 0.3,
+      "correct": false
+    },
+    {
       "text": "My transfer keeps failing and I just want to transfer the money can you please make it work?",
       "banking77_intent": "failed_transfer",
       "expected": "shipping_delay_complaint",
-      "predicted": "device_and_digital_support",
-      "confidence": 0.8,
+      "predicted": "general_complaint_or_feedback",
+      "confidence": 0.6,
       "correct": false
     },
     {
       "text": "Please help me as i am continuously facing the issue in transferring money to my friends, as all my transactions are get",
       "banking77_intent": "failed_transfer",
       "expected": "shipping_delay_complaint",
-      "predicted": "refund_request",
+      "predicted": "general_complaint_or_feedback",
       "confidence": 0.8,
       "correct": false
     },
@@ -596,7 +524,7 @@
       "banking77_intent": "failed_transfer",
       "expected": "shipping_delay_complaint",
       "predicted": "device_and_digital_support",
-      "confidence": 0.7,
+      "confidence": 0.8,
       "correct": false
     }
   ]

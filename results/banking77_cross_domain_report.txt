@@ -2,26 +2,27 @@
 BANKING77 CROSS-DOMAIN GENERALIZATION REPORT
 ========================================================================
 Model           : nvidia/nemotron-3-super-120b-a12b
-Queries         : 120  (10 per Banking77 intent × 13 mapped intents)
+Queries         : 130  (10 per Banking77 intent × 13 mapped intents)
 API errors      : 0
 
-Overall Accuracy: 44.2%
-Macro F1        : 0.229
-Avg Confidence  : 0.849
-Hard-pair Acc   : 20.0%  (order_status_inquiry + shipping_delay_complaint queries)
+Overall Accuracy: 40.0%
+Macro F1        : 0.200
+Avg Confidence  : 0.854
+Hard-pair Acc   : 24.0%  (order_status_inquiry + shipping_delay_complaint queries)
 
 ────────────────────────────────────────────────────────────────────────
 PER-CLASS — cross-domain vs in-domain (Amazon Twitter) F1
 ────────────────────────────────────────────────────────────────────────
 Amazon Label                         XD-F1  ID-F1    Gap  Support
-account_access                        0.87   0.84  +0.03       30
-delivery_issue                        0.00    n/a    n/a        0
+account_access                        0.83   0.84  -0.01       30
+delivery_issue                        0.00    n/a    n/a       10
 device_and_digital_support            0.00    n/a    n/a        0
-general_complaint_or_feedback         0.00    n/a    n/a       10
+general_complaint_or_feedback         0.00    n/a    n/a        0
 order_cancellation                    0.00    n/a    n/a        0
-order_status_inquiry                  0.45   0.27  +0.18       30
-refund_request                        0.51   0.59  -0.08       20
-shipping_delay_complaint              0.00   0.60  -0.60       30
+order_status_inquiry                  0.43   0.27  +0.16       30
+prime_membership                      0.00    n/a    n/a       20
+refund_request                        0.44   0.59  -0.15       20
+shipping_delay_complaint              0.09   0.60  -0.51       20
 
 ────────────────────────────────────────────────────────────────────────
 HARD-PAIR SPOTLIGHT  (order_status_inquiry vs shipping_delay_complaint)
@@ -32,38 +33,38 @@ Banking77 hard-pair analogs:
   card_delivery_estimate / transfer_not_received_by_recipient / failed_transfer
     → expected: shipping_delay_complaint
 
-Hard-pair accuracy: 12/60 = 20.0%
-Misclassified     : 48
+Hard-pair accuracy: 12/50 = 24.0%
+Misclassified     : 38
 
 Sample misclassifications:
   [card_arrival]
   Text     : i have not received my card
   Expected : order_status_inquiry
-  Got      : delivery_issue  (conf=0.88)
+  Got      : delivery_issue  (conf=0.95)
 
   [card_arrival]
-  Text     : Why hasn't my card been delivered?
+  Text     : I still have not received my new card, I ordered over a week ago.
   Expected : order_status_inquiry
   Got      : delivery_issue  (conf=0.92)
 
   [card_arrival]
+  Text     : Why hasn't my card been delivered?
+  Expected : order_status_inquiry
+  Got      : delivery_issue  (conf=0.94)
+
+  [card_arrival]
   Text     : I'm still waiting for delivery of my new card, why is it taking so long?
   Expected : order_status_inquiry
-  Got      : shipping_delay_complaint  (conf=0.88)
-
-  [pending_transfer]
-  Text     : How long for money transfer to show?
-  Expected : order_status_inquiry
-  Got      : refund_request  (conf=0.85)
+  Got      : shipping_delay_complaint  (conf=0.93)
 
 ────────────────────────────────────────────────────────────────────────
 WORST CONFUSIONS (true → predicted, count)
 ────────────────────────────────────────────────────────────────────────
-  shipping_delay_complaint            → order_status_inquiry                (11×)
-  general_complaint_or_feedback       → refund_request                      (10×)
-  order_status_inquiry                → refund_request                      (10×)
+  prime_membership                    → refund_request                      (19×)
+  order_status_inquiry                → refund_request                      (12×)
+  shipping_delay_complaint            → order_status_inquiry                (9×)
   shipping_delay_complaint            → general_complaint_or_feedback       (8×)
-  shipping_delay_complaint            → refund_request                      (8×)
+  delivery_issue                      → refund_request                      (6×)
   account_access                      → refund_request                      (5×)
 
 ────────────────────────────────────────────────────────────────────────

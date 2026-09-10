@@ -12,11 +12,14 @@ python scripts/02_cluster_analysis.py        # K-Means taxonomy derivation
 python scripts/04_build_index.py             # build FAISS index (8 000 threads)
 python scripts/05_label_sample.py            # create 110-tweet eval set
 
-# 3a. Evaluate with NVIDIA NIM (free key from https://build.nvidia.com)
+# 3a. Evaluate with NVIDIA NIM on the golden set (Headline result)
 $env:NVIDIA_API_KEY = 'nvapi-...'
+python scripts/06_evaluate.py --golden
+
+# 3b. Evaluate on auto-labeled set (faster, but label-leakage caveat applies)
 python scripts/06_evaluate.py
 
-# 3b. Dry-run / mock mode (no API key needed)
+# 3c. Dry-run / mock mode (no API key needed)
 python scripts/06_evaluate.py --mock
 ```
 
@@ -26,17 +29,21 @@ python scripts/06_evaluate.py --mock
 hiver/
 ├── src/
 │   ├── taxonomy.py     # Intent labels, definitions, few-shot examples
-│   ├── classifier.py   # Claude Haiku 4.5 few-shot intent classifier
+│   ├── classifier.py   # nvidia/nemotron-3-super-120b-a12b few-shot intent classifier
 │   └── retrieval.py    # sentence-transformer + FAISS retrieval layer
 ├── scripts/
+│   ├── 00_download_data.py
 │   ├── 01_download_and_explore.py
 │   ├── 02_cluster_analysis.py
 │   ├── 03_subcluster_and_inspect.py
 │   ├── 04_build_index.py
 │   ├── 05_label_sample.py
-│   └── 06_evaluate.py
+│   ├── 06_evaluate.py
+│   └── 07_retry_failed.py to 16_eval_report.py
 ├── data/               (generated — not committed)
 ├── results/            (generated — not committed)
+├── frontend/           (React dashboard)
+├── legacy/             (Archived Streamlit dashboard)
 └── requirements.txt
 ```
 
@@ -76,26 +83,40 @@ results = idx.query(
 # results[0].similarity     → 0.733
 ```
 
-## Evaluation Results (mock mode — keyword heuristic baseline)
+## Active Paths Reference
 
-| Metric | Value |
-|---|---|
-| Accuracy | **90.9%** |
-| Macro F1 | **0.908** |
-| Majority-class baseline | 9.1% |
-| Avg confidence | 0.747 |
+| Path | Status | Purpose |
+|---|---|---|
+| `scripts/` | **Active** — all evaluation entry points | Pipeline scripts 00–16 |
+| `src/` | **Active** — imported at runtime by scripts | classifier, retrieval, drafter, escalation, taxonomy |
+| `data/` | **Generated/committed** | Raw inputs + golden set (see .gitignore for what's excluded) |
+| `results/` | **Generated** | All canonical metric outputs |
+| `frontend/` | **Active** | React dashboard reads `public/data/*.json` |
+| `legacy/` | **Archived** | Streamlit dashboard (superseded); not in any import path |
 
-**Hardest classes** (keyword heuristic):
-- `delivery_issue` recall = 0.40 (6/10 fell into `general_complaint`)
-- `order_status_inquiry` recall = 0.60 (4/10 fell into `general_complaint`)
+## Final Metrics
 
-These are the classes where Claude Haiku's semantic understanding is expected to significantly outperform keyword matching, since "my package never arrived" (delivery issue) vs "where is my package" (status inquiry) are semantically close but keyword-distant.
+See [`PROJECT_STATE.md`](./PROJECT_STATE.md) for the full authoritative snapshot.
+Quick reference (golden-set–based where applicable):
+
+| Metric | Value | Source |
+|---|---|---|
+| Full system accuracy (golden set, n=189) | **38.6%** | scripts/06_evaluate.py --golden |
+| Full system accuracy (auto-label set, n=110) | **64.6%** (Secondary/biased) | scripts/06_evaluate.py |
+| Keyword baseline accuracy (golden set, n=189) | **52.9%** | scripts/15_baselines.py |
+| Retrieval hit@3 | **0.619** | scripts/13_automated_metrics.py |
+| Escalation F1 | **0.058** (P=0.50, R=0.031) | scripts/13_automated_metrics.py |
+| LLM judge overall/5 (n=30) | **4.41** | scripts/14_llm_judge.py |
+| Banking77 cross-domain accuracy | **40.0%** (vs 38.6% in-domain) | scripts/09_banking77_cross_domain.py |
+
+> NOTE: For a full breakdown of why the 64.6% auto-labeled number is misleading and why the human-labeled golden set (38.6%) is the correct primary metric, see [PROJECT_STATE.md Section 4](./PROJECT_STATE.md#4-whats-misleading-about-my-headline-number).
 
 ## Running the Real Classifier
 
 ```powershell
 $env:NVIDIA_API_KEY = 'nvapi-YOUR_KEY'   # free at https://build.nvidia.com
 python scripts/06_evaluate.py             # 110 API calls, NIM free tier
+# → results/eval_report.json + eval_report.txt
 ```
 
-Estimated NIM Nemotron performance on this taxonomy: **Accuracy ~74–85%** (see `results/eval_report.txt` for live numbers after your first run).
+Full reproduction sequence is in PROJECT_STATE.md §7.

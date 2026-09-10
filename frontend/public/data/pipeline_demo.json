@@ -6,58 +6,36 @@
       "index": 1,
       "tweet": "@AmazonHelp Can you check the status of my order? Tracking says 'out for delivery' but it's been that way for 3 days.",
       "classification": {
-        "intent": "order_status_inquiry",
-        "confidence": 0.9,
-        "reasoning": "Customer requests order status check; tracking stale.",
+        "intent": "delivery_issue",
+        "confidence": 0.93,
+        "reasoning": "Tracking stuck 'out for delivery' for 3 days indicates delivery issue.",
         "alternatives": [
           {
-            "intent": "shipping_delay_complaint",
-            "confidence": 0.3
+            "intent": "order_status_inquiry",
+            "confidence": 0.4
           }
         ],
         "error": null
       },
       "retrieval": {
-        "n_results": 3,
-        "examples": [
-          {
-            "thread_id": "1783422",
-            "customer_tweet": "@AmazonHelp The package never arrived :( past 8pm, tracking still says \"out for delivery\"",
-            "brand_reply": "@535840 I'm sorry for the frustration! Can you please tell us who the carrier is? Found here: https://t.co/q4LAMZ3tbE ^AC",
-            "intent": "order_status_inquiry",
-            "similarity": 0.84
-          },
-          {
-            "thread_id": "447153",
-            "customer_tweet": "@115830 @AmazonHelp 12 days since placing my order and no delivery, meant to be delivered last Friday, didn't arrive, tracking then said sorry will be delivered by today, today still no package. What ",
-            "brand_reply": "@220927 I'm sorry about this your parcel hasn't arrived! We want to be sure you are receiving your parcels when they are expected. Please reach out to us directly here so that we can take a look into ",
-            "intent": "order_status_inquiry",
-            "similarity": 0.775
-          },
-          {
-            "thread_id": "1038907",
-            "customer_tweet": "@AmazonHelp Was just assured it would be delivered today. Tracking shows due for delivery today, but it said that every day this week.",
-            "brand_reply": "@365811 Please give us a call: https://t.co/JzP7hlA23B in the morning and we'd be happy to review available options with you. ^EZ",
-            "intent": "order_status_inquiry",
-            "similarity": 0.764
-          }
-        ]
+        "n_results": 0,
+        "examples": []
       },
       "draft": {
-        "reply": "@User I’m sorry you’ve been seeing “out for delivery” for three days—that’s definitely frustrating. Could you please share the carrier name and your tracking number (or order ID) so I can investigate further? You can reply here or send us a DM. ^AB",
-        "reply_length": 248,
+        "reply": "I’m really sorry you’ve been seeing ‘out for delivery’ for three days—that’s definitely not the experience we want for you. I’ve pulled up your order and opened a delivery investigation with our carrier to see what’s happening and will get back to you with an update within the n…",
+        "reply_length": 280,
         "tone": "empathetic",
-        "action_taken": "directed to DM for resolution",
-        "n_grounding": 3,
+        "action_taken": "offered to check tracking",
+        "n_grounding": 0,
         "error": null
       },
       "escalation": {
         "decision": "auto_handle",
-        "reason": "Intent classified as 'order_status_inquiry' with 90% confidence. No high-urgency signals detected. Retrieved grounding examples are available to produce an accurate, on-topic automated reply.",
+        "reason": "Intent classified as 'delivery_issue' with 93% confidence. No high-urgency signals detected. Retrieved grounding examples are available to produce an accurate, on-topic automated reply.",
         "triggered_rule": "none",
         "urgency_level": "low",
         "urgency_signals": [],
-        "confidence": 0.9
+        "confidence": 0.93
       }
     },
     {
@@ -97,8 +75,8 @@
         ]
       },
       "draft": {
-        "reply": "@User I’m really sorry your Prime shipment arrived six days late, especially after this happening twice this month. I’ve located your recent order and will issue a full refund",
-        "reply_length": 175,
+        "reply": "{\n{\n  \"reply\": \"@CustomerHandle I’m really sorry your Prime 2‑day shipment arrived six days late, especially for the second time this month. I’ve opened an investigation into the delay and will issue a refund for the Prime shipping fee on this order. You should see the credit wi…",
+        "reply_length": 280,
         "tone": "empathetic",
         "action_taken": "offered refund investigation",
         "n_grounding": 3,
@@ -118,12 +96,12 @@
       "tweet": "@AmazonHelp someone hacked my account and made purchases I didn't authorise. Please help immediately, this is urgent.",
       "classification": {
         "intent": "account_access",
-        "confidence": 0.96,
+        "confidence": 0.93,
         "reasoning": "Customer reports account hacked and unauthorized purchases.",
         "alternatives": [
           {
             "intent": "refund_request",
-            "confidence": 0.3
+            "confidence": 0.4
           }
         ],
         "error": null
@@ -155,10 +133,10 @@
         ]
       },
       "draft": {
-        "reply": "@User I’m so sorry to hear that your account was compromised and unauthorized purchases were made. Let’s get this sorted right away: please visit https://www.amazon.com/gp/help/contact-us, select ‘Account & Login’ → ‘Account security’, and follow the steps to secure your account…",
+        "reply": "@User I’m so sorry to hear that your account was compromised and unauthorized purchases were made. Please visit https://www.amazon.com/gp/help/contact-us right away to secure your account, report the fraudulent activity, and start the refund process. We’ll work with you to resol…",
         "reply_length": 280,
         "tone": "empathetic",
-        "action_taken": "directed to account recovery",
+        "action_taken": "offered refund investigation",
         "n_grounding": 3,
         "error": null
       },
@@ -170,7 +148,7 @@
         "urgency_signals": [
           "security keywords: hacked"
         ],
-        "confidence": 0.96
+        "confidence": 0.93
       }
     },
     {
@@ -178,7 +156,7 @@
       "tweet": "@AmazonHelp I've been waiting 3 weeks for my refund. If I don't hear back today I'm contacting my attorney and filing a chargeback.",
       "classification": {
         "intent": "refund_request",
-        "confidence": 0.95,
+        "confidence": 0.96,
         "reasoning": "Customer waiting for refund, threatens chargeback.",
         "alternatives": [],
         "error": null
@@ -210,8 +188,8 @@
         ]
       },
       "draft": {
-        "reply": "@CustomerHandle I’m truly sorry you’ve been waiting three weeks for your refund and that this has caused you so much stress. Please send us a direct message with your order number so we can look into this immediately and work to resolve it for you today.",
-        "reply_length": 254,
+        "reply": "@CustomerHandle I’m truly sorry for the three‑week wait and I understand how frustrating this must be. To help you right away, could you please DM me your order number (or the email on your account) so I can pull up the refund details and expedite it? You can also check the curr…",
+        "reply_length": 280,
         "tone": "empathetic",
         "action_taken": "directed to DM for resolution",
         "n_grounding": 3,
@@ -225,7 +203,7 @@
         "urgency_signals": [
           "legal/media mention: chargeback, attorney"
         ],
-        "confidence": 0.95
+        "confidence": 0.96
       }
     },
     {
@@ -234,7 +212,7 @@
       "classification": {
         "intent": "refund_request",
         "confidence": 0.96,
-        "reasoning": "Customer awaiting refund after return.",
+        "reasoning": "Customer reports missing refund after returning item.",
         "alternatives": [
           {
             "intent": "return_or_exchange",
@@ -270,10 +248,10 @@
         ]
       },
       "draft": {
-        "reply": "Hi there, I’m sorry the refund hasn’t appeared yet. Refunds normally take about 5‑7 business days after we receive the returned item. To check the exact status of order #302-9384-1234, could you please send me a direct message with the order number and the email address linked t…",
+        "reply": "@Customer I’m sorry the refund hasn’t appeared yet. I’ve checked order #302-9384-1234 and see the return was received. Refunds usually post within 3‑5 business days after we process the return. I’ve escalated this to our payments team for a status check and will follow up with y…",
         "reply_length": 280,
         "tone": "empathetic",
-        "action_taken": "directed to DM for resolution",
+        "action_taken": "offered refund investigation",
         "n_grounding": 3,
         "error": null
       },
@@ -291,8 +269,8 @@
       "tweet": "@AmazonHelp I've called customer service 4 times and still no resolution. Still waiting for someone to actually fix my account issue.",
       "classification": {
         "intent": "account_access",
-        "confidence": 0.8,
-        "reasoning": "Customer reports unresolved account issue needing fix.",
+        "confidence": 0.88,
+        "reasoning": "Customer reports unresolved account issue after multiple service calls.",
         "alternatives": [
           {
             "intent": "general_complaint_or_feedback",
@@ -314,8 +292,8 @@
         ]
       },
       "draft": {
-        "reply": "@UserHandle I’m really sorry you’ve had to call multiple times without a fix—let’s get this sorted. Please DM us your account email (no password) so a specialist can investigate and reset access for you. ^JT",
-        "reply_length": 207,
+        "reply": "@UserHandle I’m really sorry you’ve had to contact us multiple times without a resolution. To get this fixed quickly, please send us a DM with the email address linked to your account (no password) so a specialist can investigate and restore your access. You can also start a sec…",
+        "reply_length": 280,
         "tone": "empathetic",
         "action_taken": "directed to DM for resolution",
         "n_grounding": 1,
@@ -329,7 +307,7 @@
         "urgency_signals": [
           "repeated-contact language: 'still no resolution'"
         ],
-        "confidence": 0.8
+        "confidence": 0.88
       }
     },
     {
@@ -337,8 +315,8 @@
       "tweet": "@AmazonHelp This is absolutely disgusting. Worst customer service ever. Incompetent, pathetic, appalling service. I am furious and done with Amazon.",
       "classification": {
         "intent": "general_complaint_or_feedback",
-        "confidence": 0.9,
-        "reasoning": "Customer expresses general dissatisfaction.",
+        "confidence": 0.92,
+        "reasoning": "Customer expresses general dissatisfaction without specific request.",
         "alternatives": [],
         "error": null
       },
@@ -369,8 +347,8 @@
         ]
       },
       "draft": {
-        "reply": "@UserHandle I’m really sorry you’ve had such a frustrating experience. To help fix this, could you please DM us your order number or a brief description of what happened so we can investigate and make things right?",
-        "reply_length": 214,
+        "reply": "@UserHandle I’m truly sorry you’ve had such a frustrating experience. To investigate what happened, could you please send us a direct message with your order number or a brief description of the issue? We’ll look into it right away and work to make things right.",
+        "reply_length": 262,
         "tone": "empathetic",
         "action_taken": "directed to DM for resolution",
         "n_grounding": 3,
@@ -384,7 +362,7 @@
         "urgency_signals": [
           "high-negativity density: 6 signals"
         ],
-        "confidence": 0.9
+        "confidence": 0.92
       }
     },
     {
@@ -392,14 +370,9 @@
       "tweet": "@AmazonHelp my Kindle Paperwhite won't turn on after the latest software update. Already tried the restart button for 40 seconds.",
       "classification": {
         "intent": "device_and_digital_support",
-        "confidence": 0.96,
-        "reasoning": "Customer reports Kindle device not turning on after software update.",
-        "alternatives": [
-          {
-            "intent": "product_issue",
-            "confidence": 0.3
-          }
-        ],
+        "confidence": 0.95,
+        "reasoning": "Customer reports device malfunction after software update.",
+        "alternatives": [],
         "error": null
       },
       "retrieval": {
@@ -429,20 +402,20 @@
         ]
       },
       "draft": {
-        "reply": "{\n{\n  \"reply\": \"@User I’m sorry your Kindle Paperwhite won’t turn on after the update. Try plugging it into the charger for at least 15 minutes, then hold the power button for 40 seconds while it’s still connected. If it remains unresponsive, please DM us your order details or r…",
+        "reply": "@User I’m sorry to hear your Kindle Paperwhite won’t turn on after the update. Let’s try a deeper reset: plug it into the original charger and leave it charging for at least 30 minutes, then hold the power button for 40 seconds again. If it still doesn’t respond, please reach ou…",
         "reply_length": 280,
         "tone": "empathetic",
-        "action_taken": "directed to DM for resolution",
+        "action_taken": "offered device troubleshooting",
         "n_grounding": 3,
         "error": null
       },
       "escalation": {
         "decision": "auto_handle",
-        "reason": "Intent classified as 'device_and_digital_support' with 96% confidence. No high-urgency signals detected. Retrieved grounding examples are available to produce an accurate, on-topic automated reply.",
+        "reason": "Intent classified as 'device_and_digital_support' with 95% confidence. No high-urgency signals detected. Retrieved grounding examples are available to produce an accurate, on-topic automated reply.",
         "triggered_rule": "none",
         "urgency_level": "low",
         "urgency_signals": [],
-        "confidence": 0.96
+        "confidence": 0.95
       }
     }
   ]

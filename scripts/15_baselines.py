@@ -42,14 +42,15 @@ DATA_DIR    = os.path.join(ROOT, "data")
 RESULTS_DIR = os.path.join(ROOT, "results")
 GOLDEN_CSV  = os.path.join(DATA_DIR, "golden_labeled.csv")
 FALLBACK    = os.path.join(DATA_DIR, "labelled_eval.jsonl")
-EVAL_JSON   = os.path.join(RESULTS_DIR, "eval_report.json")
+EVAL_JSON        = os.path.join(RESULTS_DIR, "eval_report.json")
+GOLDEN_EVAL_JSON = os.path.join(RESULTS_DIR, "golden_eval_report.json")
 JUDGE_JSON  = os.path.join(RESULTS_DIR, "judge_scores.json")
 OUT_JSON    = os.path.join(RESULTS_DIR, "baseline_comparison.json")
 OUT_TXT     = os.path.join(RESULTS_DIR, "baseline_comparison.txt")
 
 NIM_BASE_URL  = "https://integrate.api.nvidia.com/v1"
 MODEL_ID      = "nvidia/nemotron-3-super-120b-a12b"
-MAX_EVAL      = 110  # cap to match existing eval set size
+MAX_EVAL      = 189  # full golden set size
 
 # ── Keyword patterns (same as 05_label_sample.py / 12_sample_golden_set.py) ─
 
@@ -263,20 +264,32 @@ def load_eval_data(n: int):
 # ── Full system numbers (from existing result files) ───────────────────────
 
 def load_full_system_numbers() -> dict:
+    """
+    Load full-system classifier numbers.
+    Priority: golden_eval_report.json (human-labeled, unbiased) >
+              eval_report.json (auto-labeled, label-leakage caveat).
+    """
     result = {
         "intent_accuracy": None, "intent_macro_f1": None,
         "intent_weighted_f1": None, "note": "",
     }
-    if os.path.exists(EVAL_JSON):
-        with open(EVAL_JSON, encoding="utf-8") as f:
-            ev = json.load(f)
-        result.update({
-            "intent_accuracy":    ev.get("accuracy"),
-            "intent_macro_f1":    ev.get("macro_f1"),
-            "intent_weighted_f1": ev.get("weighted_f1"),
-            "n_samples":          ev.get("n_samples", ev.get("n_samples")),
-            "note":               "from results/eval_report.json (Phase 2 eval)",
-        })
+    # Prefer the golden-set run (human labels, apples-to-apples with B1 and B2)
+    for path, label in [
+        (GOLDEN_EVAL_JSON, "results/golden_eval_report.json (golden set, human labels)"),
+        (EVAL_JSON,        "results/eval_report.json (auto-labeled set — label-leakage caveat)"),
+    ]:
+        if os.path.exists(path):
+            with open(path, encoding="utf-8") as f:
+                ev = json.load(f)
+            result.update({
+                "intent_accuracy":    ev.get("accuracy"),
+                "intent_macro_f1":    ev.get("macro_f1"),
+                "intent_weighted_f1": ev.get("weighted_f1"),
+                "n_samples":          ev.get("n_samples"),
+                "eval_source":        ev.get("eval_source", "unknown"),
+                "note":               label,
+            })
+            break
     # Judge scores
     if os.path.exists(JUDGE_JSON):
         with open(JUDGE_JSON, encoding="utf-8") as f:

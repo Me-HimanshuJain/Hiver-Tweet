@@ -1,7 +1,7 @@
 ========================================================================
 HIVER SDE INTERN TAKE-HOME — EVALUATION SUMMARY
 ========================================================================
-Generated: 2026-09-10 00:44
+Generated: 2026-09-10 15:21
 
 Task  : Intent classifier + retrieval + reply drafter + escalation
 Data  : AmazonHelp Twitter (3,000 tweets, 8,000 resolved threads)
@@ -11,11 +11,11 @@ EXECUTIVE SUMMARY TABLE
 ────────────────────────────────────────────────────────────────────────
   Metric                                  B1 Keyword  B2 ZeroShot   Full Sys
   ──────────────────────────────────────  ──────────  ───────────  ─────────
-  Intent accuracy                              0.527       0.436       0.545
-  Intent macro F1                              0.616       0.371       0.563
+  Intent accuracy                              0.527       0.455       0.645
+  Intent macro F1                              0.616       0.342       0.637
   Retrieval hit@3                                   —            —       0.619
   Escalation F1                                     —            —       0.058
-  Reply judge score (1-5)                           —            —            —
+  Reply judge score (1-5)                           —            —       4.286
 
   Intent eval on 110 examples (10 per intent × 11 intents).
 
@@ -24,32 +24,32 @@ EXECUTIVE SUMMARY TABLE
 ────────────────────────────────────────────────────────────────────────
   Model          : nvidia/nemotron-3-super-120b-a12b
   Eval samples   : 110
-  Accuracy       : 0.545
+  Accuracy       : 0.645
   Majority base  : 0.091
-  Macro F1       : 0.563
-  API errors     : 27
-  Uncertain preds: 28
+  Macro F1       : 0.637
+  API errors     : 0
+  Uncertain preds: 1
 
   Intent                                           P       R      F1     N
   ──────────────────────────────────────────  ──────  ──────  ──────  ────
-  account_access                               0.889   0.800   0.842    10
-  delivery_issue                               0.714   1.000   0.833    10
-  device_and_digital_support                   0.875   0.700   0.778    10
-  general_complaint_or_feedback                0.152   0.500   0.233    10
-  order_cancellation                           1.000   0.600   0.750    10
-  order_status_inquiry                         0.500   0.200   0.286    10
-  prime_membership                             0.500   0.300   0.375    10
-  product_issue                                0.714   0.500   0.588    10
-  refund_request                               0.750   0.300   0.429    10
-  return_or_exchange                           1.000   0.300   0.462    10
-  shipping_delay_complaint                     0.500   0.800   0.615    10
+  account_access                               0.900   0.900   0.900    10
+  delivery_issue                               0.588   1.000   0.741    10
+  device_and_digital_support                   0.667   0.800   0.727    10
+  general_complaint_or_feedback                0.500   0.400   0.444    10
+  order_cancellation                           1.000   0.700   0.824    10
+  order_status_inquiry                         0.400   0.200   0.267    10
+  prime_membership                             0.556   0.500   0.526    10
+  product_issue                                0.500   0.500   0.500    10
+  refund_request                               0.857   0.600   0.706    10
+  return_or_exchange                           1.000   0.600   0.750    10
+  shipping_delay_complaint                     0.474   0.900   0.621    10
 
   Worst confusion pairs:
-    refund_request → general_complaint_or_feedback  (n=7)
-    product_issue → general_complaint_or_feedback  (n=5)
-    return_or_exchange → general_complaint_or_feedback  (n=5)
-    order_status_inquiry → shipping_delay_complaint  (n=4)
-    prime_membership → general_complaint_or_feedback  (n=4)
+    order_status_inquiry → shipping_delay_complaint  (n=5)
+    order_status_inquiry → delivery_issue  (n=3)
+    prime_membership → shipping_delay_complaint  (n=3)
+    return_or_exchange → product_issue  (n=3)
+    general_complaint_or_feedback → delivery_issue  (n=2)
 
 ────────────────────────────────────────────────────────────────────────
 2. RETRIEVAL QUALITY  (FAISS, all-MiniLM-L6-v2, intent-filtered)
@@ -71,16 +71,38 @@ EXECUTIVE SUMMARY TABLE
   F1          : 0.058
   TP/FP/FN/TN : 3/3/95/88
 
-  [Judge section — run 14_llm_judge.py first]
+────────────────────────────────────────────────────────────────────────
+4. REPLY QUALITY  (LLM-as-judge)
+────────────────────────────────────────────────────────────────────────
+  Judge model : nvidia/nemotron-3-super-120b-a12b
+  Gen model   : nvidia/nemotron-3-super-120b-a12b
+  N evaluated : 30
+
+  Dimension           Mean   Median      ≥4
+  ────────────────  ──────  ───────  ──────
+  relevance           4.57     5.00   85.7%
+  empathy             4.86     5.00  100.0%
+  actionability       4.14     5.00   71.4%
+  conciseness         4.43     5.00   85.7%
+  overall             4.29     5.00   71.4%
+
+  Judge–human agreement:
+  Dimension            N  Pearson r     MAE      ±1
+  ────────────────  ────  ─────────  ──────  ──────
+  relevance            7      -0.37     1.0   0.571
+  empathy              7       0.51   1.571   0.429
+  actionability        7      0.405   1.429   0.429
+  conciseness          7      0.377     1.0   0.857
+  overall              7      0.089   1.429   0.571
 
 ────────────────────────────────────────────────────────────────────────
 5. BASELINE COMPARISON
 ────────────────────────────────────────────────────────────────────────
   Metric                          B1 Keyword  B2 ZS-NIM  Full Sys
   ──────────────────────────────  ───────  ─────────  ────────
-  Intent accuracy                   0.527    0.436    0.545
-  Intent macro F1                   0.616    0.371    0.563
-  Reply mean chars                126.400  265.600     —   
+  Intent accuracy                   0.527    0.455    0.645
+  Intent macro F1                   0.616    0.342    0.637
+  Reply mean chars                126.400  260.000     —   
 
   Δ (full − keyword): intent accuracy gain from few-shot + retrieval
   Δ (full − zeroshot): gain from adding few-shot examples
@@ -88,22 +110,22 @@ EXECUTIVE SUMMARY TABLE
 ────────────────────────────────────────────────────────────────────────
 6. CROSS-DOMAIN GENERALIZATION  (Banking77 supplementary)
 ────────────────────────────────────────────────────────────────────────
-  Queries evaluated  : 120
-  Cross-domain acc   : 0.442  (vs N/A in-domain)
-  Cross-domain macro F1 : 0.229
-  Hard-pair accuracy    : 0.200
-  Avg confidence        : 0.849
+  Queries evaluated  : 130
+  Cross-domain acc   : 0.400  (vs N/A in-domain)
+  Cross-domain macro F1 : 0.200
+  Hard-pair accuracy    : 0.240
+  Avg confidence        : 0.854
 
   Per-class F1 gap (in-domain − cross-domain, positive = degradation):
-    account_access                              ↓0.028  
-    order_status_inquiry                        ↓0.183  ███
-    refund_request                              ↑0.083  █
-    shipping_delay_complaint                    ↑0.600  ████████████
+    account_access                              ↑0.010  
+    order_status_inquiry                        ↓0.161  ███
+    refund_request                              ↑0.146  ██
+    shipping_delay_complaint                    ↑0.509  ██████████
 
 ────────────────────────────────────────────────────────────────────────
 7. WHAT'S MISLEADING ABOUT MY HEADLINE NUMBER
 ────────────────────────────────────────────────────────────────────────
-Headline: 54.5% accuracy / 0.563 macro F1 on the intent classifier.
+Headline: 64.5% accuracy / 0.637 macro F1 on the intent classifier.
   Here is why those numbers require careful interpretation:
 
   1. AUTO-LABELED EVAL SET — The 110-example eval set was created by the
@@ -123,14 +145,14 @@ Headline: 54.5% accuracy / 0.563 macro F1 on the intent classifier.
      to all 11 classes, so the 0.233 F1 on general_complaint (the biggest
      class) has only 1/11 impact on the headline.  In terms of customer
      volume, that single class matters 5× more than most others.
-     → Weighted F1 is a better production proxy: 0.563.
+     → Weighted F1 is a better production proxy: 0.637.
 
-  4. CROSS-DOMAIN COLLAPSE — On Banking77, accuracy drops from 54.5% to
-     0.442 — a significant gap.
+  4. CROSS-DOMAIN COLLAPSE — On Banking77, accuracy drops from 64.5% to
+     0.400 — a significant gap.
      This reveals keyword reliance: intents whose keywords appear consistently
      in Twitter language (account_access) generalise well; intents with
      Twitter-specific phrasing (shipping_delay_complaint) collapse.
-     → Hard-pair accuracy: 0.200.
+     → Hard-pair accuracy: 0.240.
      This is the most honest signal of true semantic generalisation.
 
   5. CONFIDENCE MISCALIBRATION — The model reports 0.9+ confidence on many

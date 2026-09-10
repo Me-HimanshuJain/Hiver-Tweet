@@ -1,0 +1,203 @@
+{
+  "mode": "nvidia/nemotron-3-super-120b-a12b",
+  "eval_source": "golden",
+  "n_samples": 189,
+  "elapsed_seconds": 751.69,
+  "accuracy": 0.3862,
+  "majority_baseline_accuracy": 0.5397,
+  "macro_f1": 0.4459,
+  "weighted_f1": 0.3566,
+  "n_uncertain": 5,
+  "n_errors": 0,
+  "avg_confidence": 0.898,
+  "median_confidence": 0.93,
+  "per_class_metrics": {
+    "account_access": {
+      "precision": 0.562,
+      "recall": 0.9,
+      "f1": 0.692,
+      "support": 10
+    },
+    "delivery_issue": {
+      "precision": 0.2,
+      "recall": 0.833,
+      "f1": 0.323,
+      "support": 6
+    },
+    "device_and_digital_support": {
+      "precision": 0.294,
+      "recall": 0.714,
+      "f1": 0.417,
+      "support": 7
+    },
+    "general_complaint_or_feedback": {
+      "precision": 0.64,
+      "recall": 0.157,
+      "f1": 0.252,
+      "support": 102
+    },
+    "order_cancellation": {
+      "precision": 0.625,
+      "recall": 0.714,
+      "f1": 0.667,
+      "support": 7
+    },
+    "order_status_inquiry": {
+      "precision": 0.75,
+      "recall": 0.231,
+      "f1": 0.353,
+      "support": 13
+    },
+    "prime_membership": {
+      "precision": 0.312,
+      "recall": 0.556,
+      "f1": 0.4,
+      "support": 9
+    },
+    "product_issue": {
+      "precision": 0.3,
+      "recall": 0.6,
+      "f1": 0.4,
+      "support": 10
+    },
+    "refund_request": {
+      "precision": 0.526,
+      "recall": 0.769,
+      "f1": 0.625,
+      "support": 13
+    },
+    "return_or_exchange": {
+      "precision": 0.417,
+      "recall": 0.714,
+      "f1": 0.526,
+      "support": 7
+    },
+    "shipping_delay_complaint": {
+      "precision": 0.148,
+      "recall": 0.8,
+      "f1": 0.25,
+      "support": 5
+    }
+  },
+  "confidence_calibration": [
+    {
+      "quartile": 1,
+      "conf_range": [
+        0.3,
+        0.9
+      ],
+      "n": 69,
+      "mean_confidence": 0.818,
+      "accuracy": 0.435
+    },
+    {
+      "quartile": 2,
+      "conf_range": [
+        0.9,
+        0.93
+      ],
+      "n": 56,
+      "mean_confidence": 0.912,
+      "accuracy": 0.357
+    },
+    {
+      "quartile": 3,
+      "conf_range": [
+        0.93,
+        0.95
+      ],
+      "n": 79,
+      "mean_confidence": 0.945,
+      "accuracy": 0.342
+    },
+    {
+      "quartile": 4,
+      "conf_range": [
+        0.95,
+        0.96
+      ],
+      "n": 73,
+      "mean_confidence": 0.953,
+      "accuracy": 0.356
+    }
+  ],
+  "worst_confusions": [
+    {
+      "true": "general_complaint_or_feedback",
+      "predicted": "shipping_delay_complaint",
+      "count": 17
+    },
+    {
+      "true": "general_complaint_or_feedback",
+      "predicted": "delivery_issue",
+      "count": 14
+    },
+    {
+      "true": "general_complaint_or_feedback",
+      "predicted": "product_issue",
+      "count": 12
+    },
+    {
+      "true": "general_complaint_or_feedback",
+      "predicted": "device_and_digital_support",
+      "count": 10
+    },
+    {
+      "true": "general_complaint_or_feedback",
+      "predicted": "prime_membership",
+      "count": 9
+    },
+    {
+      "true": "general_complaint_or_feedback",
+      "predicted": "account_access",
+      "count": 7
+    },
+    {
+      "true": "general_complaint_or_feedback",
+      "predicted": "refund_request",
+      "count": 7
+    },
+    {
+      "true": "general_complaint_or_feedback",
+      "predicted": "return_or_exchange",
+      "count": 6
+    },
+    {
+      "true": "product_issue",
+      "predicted": "general_complaint_or_feedback",
+      "count": 4
+    },
+    {
+      "true": "general_complaint_or_feedback",
+      "predicted": "order_cancellation",
+      "count": 3
+    }
+  ],
+  "uncertain_examples": [
+    {
+      "tweet": "@115850 @135789 @146956 @2517 @115821 @115858 @AppleSupport @AmazonHelp when will i get my Apple watch",
+      "confidence": 0.3,
+      "true_label": "order_status_inquiry"
+    },
+    {
+      "tweet": "@TwitterSupport @115821 @AmazonHelp \nThe artwork for my new Paperback edition isn't showing like my Kindle is. Can you h",
+      "confidence": 0.4,
+      "true_label": "device_and_digital_support"
+    },
+    {
+      "tweet": "@AmazonHelp quando vão disponibilizar no Brasil o app Alexa echo?? Comprei fora do Brasil e muito estranha não poder usa",
+      "confidence": 0.45,
+      "true_label": "general_complaint_or_feedback"
+    },
+    {
+      "tweet": "@AmazonHelp my delivery never came &amp; im locked out my account &amp; it took the money off my card .",
+      "confidence": 0.45,
+      "true_label": "account_access"
+    },
+    {
+      "tweet": "@294083 @AmazonHelp ಉಚಿತ ಕನ್ನಡ ಪುಸ್ತಕಗಳಿಗಾಗಿ ಇಲ್ಲಿ ಕ್ಲಿಕ್ ಮಾಡಿ https://t.co/eyq09EllqM",
+      "confidence": 0.45,
+      "true_label": "general_complaint_or_feedback"
+    }
+  ]
+}

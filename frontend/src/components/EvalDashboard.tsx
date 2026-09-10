@@ -25,29 +25,52 @@ export const EvalDashboard = () => {
   useEffect(() => {
     Promise.all([
       fetch('/data/eval_report.json').then(r => r.json()),
-      fetch('/data/baseline_comparison.json').then(r => r.json())
-    ]).then(([evalData, baselineData]) => {
+      fetch('/data/baseline_comparison.json').then(r => r.json()),
+      fetch('/data/judge_scores.json').then(r => r.json()).catch(() => ({})),
+      fetch('/data/banking77_cross_domain_report.json').then(r => r.json()).catch(() => ({}))
+    ]).then(([evalData, baselineData, judgeData, b77Data]) => {
+      
+      const formatPercent = (v: any) => v !== undefined && v !== null ? (v * 100).toFixed(1) : "N/A";
+
+      // Build failure breakdown from worst confusions
+      const confusions = evalData.worst_confusions || [];
+      const breakdown = confusions.slice(0, 3).map((c: any) => ({
+        name: `${c.true.split('_').join(' ')} → ${c.predicted.split('_').join(' ')}`,
+        percentage: c.count, // raw count for now
+        color: "bg-primary-fixed-dim"
+      }));
+
+      // Build cross domain from b77
+      const b77Intents = b77Data.per_class_metrics || {};
+      const domains = Object.entries(b77Intents)
+        .slice(0, 4)
+        .map(([intent, metrics]: [string, any]) => ({
+          name: intent.split('_').join(' '),
+          score: formatPercent(metrics.f1_gap !== undefined ? (metrics.f1_cross_domain) : null),
+          color: "text-primary"
+        }));
+
+      // Judge agreement
+      const agreementData = judgeData.agreement?.overall?.pearson_r;
+      const agreementStr = agreementData !== undefined ? (agreementData * 100).toFixed(1) : "N/A";
+
       setMetrics((prev: any) => ({
         ...prev,
         intent: {
-          accuracy: (evalData.accuracy * 100).toFixed(1),
-          delta: "+0.4%", // static mockup or calculate delta
-          f1_micro: evalData.weighted_f1.toFixed(2), // mapping weighted to micro for UI
-          f1_macro: evalData.macro_f1.toFixed(2),
+          accuracy: formatPercent(evalData.accuracy),
+          delta: "N/A", 
+          f1_micro: evalData.weighted_f1?.toFixed(2) || "N/A", 
+          f1_macro: evalData.macro_f1?.toFixed(2) || "N/A",
         },
         judge: {
-          agreement: "98.6" // Since we don't have this in eval_report.json, fallback to mock value
+          agreement: agreementStr
         },
         baselineComparison: {
-          v4_2: { intent: ((evalData.accuracy || 0) * 100).toFixed(1), entity: 94.7, policy: 99.4 },
-          v4_1: { intent: ((baselineData.baseline_1?.intent_accuracy || 0) * 100).toFixed(1), entity: 92.9, policy: 98.8 }
+          v4_2: { intent: formatPercent(evalData.accuracy), entity: "N/A", policy: "N/A" },
+          v4_1: { intent: formatPercent(baselineData.baseline_1?.intent_accuracy), entity: "N/A", policy: "N/A" }
         },
-        crossDomain: [
-          { name: "Fintech", score: ((evalData.accuracy || 0) * 100).toFixed(1), color: "text-primary" },
-          { name: "Health", score: 97.8, color: "text-primary" },
-          { name: "SaaS", score: 99.5, color: "text-secondary-fixed" },
-          { name: "Retail", score: 98.4, color: "text-primary" },
-        ]
+        failureBreakdown: breakdown.length > 0 ? breakdown : prev.failureBreakdown,
+        crossDomain: domains.length > 0 ? domains : prev.crossDomain
       }));
     }).catch(e => console.error(e));
   }, []);

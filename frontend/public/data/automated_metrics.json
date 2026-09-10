@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-09-10 00:10",
+  "timestamp": "2026-09-10 18:29",
   "source": "golden_labeled.csv (189 examples)",
   "intent": {
     "accuracy": 0.5608,
@@ -92,17 +92,17 @@
   },
   "banking77_cross_domain": {
     "description": "Cross-domain generalization: Amazon-Twitter classifier on Banking77 queries. 13 Banking77 intents mapped to 7 Amazon taxonomy labels. 10 queries per Banking77 intent = 130 total queries.",
-    "n_queries": 120,
-    "overall_accuracy": 0.4417,
-    "macro_f1": 0.2285,
-    "weighted_f1": 0.4147,
-    "avg_confidence": 0.849,
-    "hard_pair_accuracy": 0.2,
+    "n_queries": 130,
+    "overall_accuracy": 0.4,
+    "macro_f1": 0.1997,
+    "weighted_f1": 0.3735,
+    "avg_confidence": 0.854,
+    "hard_pair_accuracy": 0.24,
     "per_class_f1_gaps": {
-      "account_access": 0.028,
-      "order_status_inquiry": 0.183,
-      "refund_request": -0.083,
-      "shipping_delay_complaint": -0.6
+      "account_access": -0.01,
+      "order_status_inquiry": 0.161,
+      "refund_request": -0.146,
+      "shipping_delay_complaint": -0.509
     }
   }
 }

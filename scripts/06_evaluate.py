@@ -42,9 +42,8 @@ from sklearn.metrics import (
 # ── Paths ─────────────────────────────────────────────────────────────────
 DATA_DIR    = os.path.join(ROOT, "data")
 RESULTS_DIR = os.path.join(ROOT, "results")
-EVAL_PATH   = os.path.join(DATA_DIR, "labelled_eval.jsonl")
-REPORT_JSON = os.path.join(RESULTS_DIR, "eval_report.json")
-REPORT_TXT  = os.path.join(RESULTS_DIR, "eval_report.txt")
+EVAL_PATH_DEFAULT = os.path.join(DATA_DIR, "labelled_eval.jsonl")
+GOLDEN_CSV        = os.path.join(DATA_DIR, "golden_labeled.csv")
 
 os.makedirs(RESULTS_DIR, exist_ok=True)
 
@@ -54,25 +53,55 @@ parser.add_argument(
     "--mock", action="store_true",
     help="Use keyword heuristic predictions (no API calls needed)."
 )
+parser.add_argument(
+    "--golden", action="store_true",
+    help="Evaluate against data/golden_labeled.csv (human-labeled) instead of labelled_eval.jsonl."
+)
+parser.add_argument(
+    "--output-prefix", type=str, default="eval",
+    help="Prefix for output files (e.g., 'eval' -> eval_report.json)."
+)
 args = parser.parse_args()
 
+# Resolve paths based on CLI flags
+if args.golden:
+    if not os.path.exists(GOLDEN_CSV):
+        print(f"Golden set not found: {GOLDEN_CSV}")
+        print("Run scripts/12_sample_golden_set.py and fill in human labels first.")
+        sys.exit(1)
+    REPORT_JSON = os.path.join(RESULTS_DIR, f"{args.output_prefix}_report.json")
+    REPORT_TXT  = os.path.join(RESULTS_DIR, f"{args.output_prefix}_report.txt")
+    EVAL_SOURCE = "golden"
+else:
+    EVAL_PATH = EVAL_PATH_DEFAULT
+    if not os.path.exists(EVAL_PATH):
+        print(f"Eval set not found: {EVAL_PATH}")
+        print("Run scripts/05_label_sample.py first.")
+        sys.exit(1)
+    REPORT_JSON = os.path.join(RESULTS_DIR, f"{args.output_prefix}_report.json")
+    REPORT_TXT  = os.path.join(RESULTS_DIR, f"{args.output_prefix}_report.txt")
+    EVAL_SOURCE = "auto-labeled"
+
 # ── Load eval set ─────────────────────────────────────────────────────────
-if not os.path.exists(EVAL_PATH):
-    print(f"Eval set not found: {EVAL_PATH}")
-    print("Run scripts/05_label_sample.py first.")
-    sys.exit(1)
+if args.golden:
+    import pandas as pd
+    df = pd.read_csv(GOLDEN_CSV)
+    df = df[df["human_label"].notna() & (df["human_label"].str.strip() != "")]
+    tweets     = df["tweet"].tolist()
+    true_labels = df["human_label"].str.strip().tolist()
+    records    = [{"tweet": t, "label": l} for t, l in zip(tweets, true_labels)]
+    print(f"Loaded {len(records)} golden-labeled tweets from golden_labeled.csv")
+else:
+    records = []
+    with open(EVAL_PATH, "r", encoding="utf-8") as f:
+        for line in f:
+            line = line.strip()
+            if line:
+                records.append(json.loads(line))
+    tweets     = [r["tweet"]  for r in records]
+    true_labels = [r["label"] for r in records]
+    print(f"Loaded {len(records)} labelled tweets from labelled_eval.jsonl")
 
-records = []
-with open(EVAL_PATH, "r", encoding="utf-8") as f:
-    for line in f:
-        line = line.strip()
-        if line:
-            records.append(json.loads(line))
-
-tweets     = [r["tweet"]  for r in records]
-true_labels = [r["label"] for r in records]
-
-print(f"Loaded {len(records)} labelled tweets")
 print(f"Intent distribution:")
 for intent, n in sorted(Counter(true_labels).items(), key=lambda x: -x[1]):
     print(f"  {intent:40s} {n}")
@@ -226,6 +255,7 @@ uncertain_ex = [
 # ── Assemble report ────────────────────────────────────────────────────────
 report = {
     "mode": mode_label,
+    "eval_source": EVAL_SOURCE,
     "n_samples": len(records),
     "elapsed_seconds": round(elapsed, 2),
     "accuracy": round(acc, 4),
@@ -264,7 +294,7 @@ lines = [
     "INTENT CLASSIFIER — EVALUATION REPORT",
     "=" * W,
     f"Mode             : {mode_label}",
-    f"Eval set size    : {report['n_samples']}  (10 per intent × 11 intents)",
+    f"Eval set         : {EVAL_SOURCE} ({report['n_samples']} samples)",
     f"",
     f"Accuracy         : {report['accuracy']:.1%}",
     f"Majority baseline: {report['majority_baseline_accuracy']:.1%}",

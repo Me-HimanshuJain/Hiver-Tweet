@@ -2,7 +2,7 @@
 AUTOMATED EVALUATION METRICS
 ========================================================================
 Eval set : golden_labeled.csv (189 examples)
-Run time : 2026-09-10 00:10
+Run time : 2026-09-10 21:24
 
 ────────────────────────────────────────────────────────────────────────
 INTENT CLASSIFICATION (keyword baseline — see also results/eval_report.json)
@@ -44,17 +44,17 @@ ESCALATION PRECISION / RECALL / F1
 ────────────────────────────────────────────────────────────────────────
 BANKING77 CROSS-DOMAIN GENERALIZATION  (supplementary)
 ────────────────────────────────────────────────────────────────────────
-  Queries        : 120
-  Accuracy       : 0.442  (vs 0.561 in-domain)
-  Macro F1       : 0.229
-  Avg confidence : 0.849
-  Hard-pair acc  : 0.200
+  Queries        : 130
+  Accuracy       : 0.400  (vs 0.561 in-domain)
+  Macro F1       : 0.200
+  Avg confidence : 0.854
+  Hard-pair acc  : 0.240
 
   Per-class F1 gap (in-domain minus cross-domain):
-    account_access                              Δ=+0.028  
-    order_status_inquiry                        Δ=+0.183  ███
-    refund_request                              Δ=-0.083  █
-    shipping_delay_complaint                    Δ=-0.600  ████████████
+    account_access                              Δ=-0.010  
+    order_status_inquiry                        Δ=+0.161  ███
+    refund_request                              Δ=-0.146  ██
+    shipping_delay_complaint                    Δ=-0.509  ██████████
 
   Interpretation: shipping_delay_complaint collapses cross-domain
   (keyword reliance), while account_access is genuinely semantic.
